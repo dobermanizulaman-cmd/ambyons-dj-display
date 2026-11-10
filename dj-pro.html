@@ -1,1 +1,634 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AmbYonS UnderGrounD — DJ PRO</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #05060b;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --cyan: #00eaff;
+  --magenta: #e500ff;
+  --red: #ff244d;
+  --panel: #0b0e19;
+}
+
+.board {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3%;
+  padding: 2%;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 40%,
+      #15142b 0%, #080912 55%, #020307 100%);
+}
+
+.board::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .25;
+  pointer-events: none;
+  background-image:
+    linear-gradient(30deg,
+      #1c2440 12%, transparent 12.5%,
+      transparent 87%, #1c2440 87.5%),
+    linear-gradient(150deg,
+      #1c2440 12%, transparent 12.5%,
+      transparent 87%, #1c2440 87.5%);
+  background-size: 36px 62px;
+}
+
+.header,
+.middle,
+.bottom {
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  height: 13%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--cyan);
+  border-radius: 10px;
+  background: linear-gradient(180deg,
+    #161827, #070812);
+  box-shadow:
+    0 0 15px #00eaff55,
+    inset 0 0 18px #00eaff22;
+}
+
+.brand {
+  font-size: clamp(17px, 3.6vw, 62px);
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-align: center;
+  color: #f2f7ff;
+  text-shadow:
+    0 0 8px var(--cyan),
+    0 0 20px #00eaff88;
+}
+
+.middle {
+  display: grid;
+  grid-template-columns: 24% 52% 24%;
+  gap: 1%;
+  flex: 1;
+  min-height: 0;
+}
+
+.vu {
+  position: relative;
+  min-width: 0;
+  border: 2px solid var(--magenta);
+  border-radius: 12px;
+  background: linear-gradient(155deg,
+    #181b2b, #080a11 65%);
+  box-shadow:
+    0 0 14px #e500ff55,
+    inset 0 0 22px #e500ff15;
+  overflow: hidden;
+}
+
+.vu-title {
+  text-align: center;
+  color: var(--cyan);
+  font-weight: bold;
+  font-size: clamp(14px, 2.2vw, 36px);
+  padding-top: 8%;
+  text-shadow: 0 0 10px var(--cyan);
+}
+
+.gauge {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 27%;
+  height: 47%;
+  border-radius: 12px;
+  border: 2px solid #353b55;
+  background:
+    radial-gradient(ellipse at center,
+      #283044, #11131f 70%);
+  overflow: hidden;
+}
+
+.gauge-scale {
+  position: absolute;
+  width: 100%;
+  top: 12%;
+  display: flex;
+  justify-content: space-around;
+  font-size: clamp(8px, 1.2vw, 20px);
+  font-weight: bold;
+  color: #e5ebf5;
+}
+
+.gauge-scale span:last-child {
+  color: var(--red);
+}
+
+.arc {
+  position: absolute;
+  left: 10%;
+  top: 25%;
+  width: 80%;
+  height: 65%;
+  border-top: 7px solid #00dca8;
+  border-radius: 50% 50% 0 0;
+  box-shadow: 0 -3px 10px #00ffbb44;
+}
+
+.needle {
+  position: absolute;
+  bottom: 5%;
+  left: calc(50% - 2px);
+  width: 4px;
+  height: 69%;
+  border-radius: 4px;
+  background: linear-gradient(
+    to top, #ff2456, #ff9a9a);
+  transform-origin: bottom center;
+  transform: rotate(-45deg);
+  box-shadow: 0 0 10px var(--red);
+}
+
+.pivot {
+  position: absolute;
+  bottom: 2%;
+  left: calc(50% - 10px);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #e1e6f2;
+  border: 4px solid #4a4d63;
+}
+
+.vu-footer {
+  position: absolute;
+  bottom: 7%;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(10px, 1.5vw, 24px);
+  letter-spacing: .2em;
+  color: #aab7ce;
+}
+
+.center {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3%;
+}
+
+.dj-panel {
+  height: 43%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--cyan);
+  border-radius: 12px;
+  background:
+    radial-gradient(ellipse,
+      #1c1530, #080a15 75%);
+  box-shadow:
+    0 0 16px #00eaff55,
+    inset 0 0 25px #e500ff22;
+}
+
+.on-air {
+  font-size: clamp(14px, 2.5vw, 40px);
+  font-weight: 900;
+  letter-spacing: .3em;
+  color: #ff365b;
+  text-shadow:
+    0 0 12px #ff244d,
+    0 0 30px #ff244d88;
+  animation: glow 1.5s infinite alternate;
+}
+
+.dj-name {
+  max-width: 96%;
+  margin-top: 3%;
+  font-size: clamp(18px, 4vw, 72px);
+  font-weight: 900;
+  text-align: center;
+  overflow-wrap: anywhere;
+  color: #ffffff;
+  text-shadow:
+    0 0 8px var(--cyan),
+    0 0 25px #00eaff88;
+}
+
+.spectrum {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--magenta);
+  border-radius: 12px;
+  padding: 2%;
+  background:
+    linear-gradient(#0d1120cc, #05060ccc),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 21px,
+      #00eaff22 22px 23px);
+  box-shadow:
+    0 0 15px #e500ff55,
+    inset 0 0 18px #e500ff15;
+}
+
+.spectrum-title {
+  text-align: center;
+  color: #e8e9ff;
+  font-weight: 900;
+  letter-spacing: .2em;
+  font-size: clamp(11px, 1.5vw, 24px);
+}
+
+.bars {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1%;
+  padding: 3% 1% 1%;
+}
+
+.bar {
+  flex: 1;
+  height: 20%;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(
+    to top,
+    #00f5b5 0%,
+    #00eaff 35%,
+    #e500ff 70%,
+    #ff2853 100%);
+  box-shadow: 0 0 7px #00eaff77;
+  transition: height 90ms ease;
+}
+
+.bottom {
+  height: 19%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2%;
+}
+
+.peak {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10%;
+  padding: 2% 5%;
+  border: 2px solid var(--cyan);
+  border-radius: 10px;
+  background: linear-gradient(
+    160deg, #141727, #080a11);
+  box-shadow: 0 0 12px #00eaff44;
+}
+
+.peak-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 900;
+  color: #f0f4ff;
+  font-size: clamp(11px, 1.7vw, 28px);
+}
+
+.peak-led {
+  width: clamp(9px, 1.6vw, 25px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #3c0813;
+  border: 2px solid #7a2035;
+}
+
+.peak-led.active {
+  background: #ff284e;
+  box-shadow:
+    0 0 12px #ff284e,
+    0 0 22px #ff284e;
+}
+
+.peak-bars {
+  display: flex;
+  gap: 1%;
+  height: 32%;
+}
+
+.segment {
+  flex: 1;
+  border-radius: 2px;
+  background: #18212a;
+  border: 1px solid #243342;
+}
+
+.segment.lit.green {
+  background: #00ef8d;
+  box-shadow: 0 0 8px #00ef8d;
+}
+
+.segment.lit.yellow {
+  background: #ffe33a;
+  box-shadow: 0 0 8px #ffe33a;
+}
+
+.segment.lit.red {
+  background: #ff3156;
+  box-shadow: 0 0 8px #ff3156;
+}
+
+.offline .on-air {
+  color: #718095;
+  text-shadow: none;
+  animation: none;
+}
+
+.offline .dj-name {
+  color: #d5dbe5;
+  text-shadow: 0 0 12px #53627a;
+}
+
+@keyframes glow {
+  from { opacity: .75; }
+  to { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="board" id="board">
+
+  <header class="header">
+    <div class="brand">
+      AmbYonS ProDŽect UnderGrounD
+    </div>
+  </header>
+
+  <main class="middle">
+
+    <section class="vu">
+      <div class="vu-title">VU LEFT</div>
+      <div class="gauge">
+        <div class="gauge-scale">
+          <span>-20</span>
+          <span>-10</span>
+          <span>-5</span>
+          <span>0</span>
+          <span>+3</span>
+        </div>
+        <div class="arc"></div>
+        <div class="needle" id="needleL"></div>
+        <div class="pivot"></div>
+      </div>
+      <div class="vu-footer">CHANNEL L</div>
+    </section>
+
+    <section class="center">
+
+      <div class="dj-panel" id="djPanel">
+        <div class="on-air" id="airLabel">
+          ON AIR
+        </div>
+        <div class="dj-name" id="djName">
+          DJ OFFLINE
+        </div>
+      </div>
+
+      <div class="spectrum">
+        <div class="spectrum-title">
+          SPECTRUM ANALYZER
+        </div>
+        <div class="bars" id="spectrumBars"></div>
+      </div>
+
+    </section>
+
+    <section class="vu">
+      <div class="vu-title">VU RIGHT</div>
+      <div class="gauge">
+        <div class="gauge-scale">
+          <span>-20</span>
+          <span>-10</span>
+          <span>-5</span>
+          <span>0</span>
+          <span>+3</span>
+        </div>
+        <div class="arc"></div>
+        <div class="needle" id="needleR"></div>
+        <div class="pivot"></div>
+      </div>
+      <div class="vu-footer">CHANNEL R</div>
+    </section>
+
+  </main>
+
+  <footer class="bottom">
+
+    <div class="peak">
+      <div class="peak-heading">
+        <span>PEAK L</span>
+        <span class="peak-led" id="ledL"></span>
+      </div>
+      <div class="peak-bars" id="peakL"></div>
+    </div>
+
+    <div class="peak">
+      <div class="peak-heading">
+        <span>PEAK R</span>
+        <span class="peak-led" id="ledR"></span>
+      </div>
+      <div class="peak-bars" id="peakR"></div>
+    </div>
+
+  </footer>
+
+</div>
+
+<script>
+"use strict";
+
+// Existing BOARD uses ?dj=NAME.
+// No DJ parameter means OFFLINE.
+
+const params = new URLSearchParams(
+  window.location.search
+);
+
+const dj = (params.get("dj") || "").trim();
+const online = dj.length > 0;
+
+const board = document.getElementById("board");
+const djName = document.getElementById("djName");
+const airLabel = document.getElementById("airLabel");
+
+if (online) {
+  djName.textContent = dj;
+  airLabel.textContent = "ON AIR";
+} else {
+  djName.textContent = "DJ OFFLINE";
+  airLabel.textContent = "STANDBY";
+  board.classList.add("offline");
+}
+
+// Build spectrum bars.
+const spectrum = document.getElementById(
+  "spectrumBars"
+);
+
+const spectrumBars = [];
+
+for (let i = 0; i < 34; i++) {
+  const bar = document.createElement("div");
+  bar.className = "bar";
+  spectrum.appendChild(bar);
+  spectrumBars.push(bar);
+}
+
+// Build peak meters.
+function createPeakMeter(id) {
+  const container = document.getElementById(id);
+  const segments = [];
+
+  for (let i = 0; i < 22; i++) {
+    const segment = document.createElement("div");
+
+    segment.className = "segment";
+
+    if (i < 14) {
+      segment.classList.add("green");
+    } else if (i < 19) {
+      segment.classList.add("yellow");
+    } else {
+      segment.classList.add("red");
+    }
+
+    container.appendChild(segment);
+    segments.push(segment);
+  }
+
+  return segments;
+}
+
+const peakL = createPeakMeter("peakL");
+const peakR = createPeakMeter("peakR");
+
+let leftLevel = 0;
+let rightLevel = 0;
+let tick = 0;
+
+function smoothLevel(current, target) {
+  return current * 0.65 + target * 0.35;
+}
+
+function updatePeak(segments, level, ledId) {
+  const active = Math.floor(
+    level * segments.length
+  );
+
+  segments.forEach((segment, index) => {
+    segment.classList.toggle(
+      "lit", index < active
+    );
+  });
+
+  document.getElementById(ledId)
+    .classList.toggle("active", level > 0.88);
+}
+
+function animate() {
+  tick += 0.09;
+
+  if (online) {
+    const targetL =
+      0.28 + Math.random() * 0.69;
+
+    const targetR =
+      0.28 + Math.random() * 0.69;
+
+    leftLevel = smoothLevel(
+      leftLevel, targetL
+    );
+
+    rightLevel = smoothLevel(
+      rightLevel, targetR
+    );
+  } else {
+    leftLevel *= 0.85;
+    rightLevel *= 0.85;
+  }
+
+  // Analog needle movement.
+  document.getElementById("needleL")
+    .style.transform =
+      `rotate(${-48 + leftLevel * 96}deg)`;
+
+  document.getElementById("needleR")
+    .style.transform =
+      `rotate(${-48 + rightLevel * 96}deg)`;
+
+  // Stereo peak indicators.
+  updatePeak(peakL, leftLevel, "ledL");
+  updatePeak(peakR, rightLevel, "ledR");
+
+  // Decorative spectrum animation.
+  spectrumBars.forEach((bar, i) => {
+    let level;
+
+    if (online) {
+      const wave =
+        Math.abs(Math.sin(tick + i * 0.24));
+
+      const bass =
+        Math.max(0.18, 1 - i / 44);
+
+      level =
+        10 + (wave * 48 + Math.random() * 35)
+        * bass;
+    } else {
+      level = 3 + Math.random() * 4;
+    }
+
+    bar.style.height =
+      Math.min(96, level) + "%";
+  });
+}
+
+animate();
+setInterval(animate, 110);
+</script>
+
+</body>
+</html>
+
