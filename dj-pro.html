@@ -7,9 +7,7 @@
 <title>AmbYonS DJ DISPLAY</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html, body {
     margin: 0;
@@ -37,7 +35,6 @@ body {
 }
 
 /* ON AIR - BEZ IZMENA */
-
 #air {
     position: absolute;
     left: 35%;
@@ -82,7 +79,6 @@ body {
 }
 
 /* DJ IME - BEZ IZMENA */
-
 #dj-name {
     position: absolute;
     left: 30%;
@@ -132,7 +128,6 @@ body {
 }
 
 /* VU - BEZ IZMENA */
-
 #vu-overlay {
     position: absolute;
     inset: 0;
@@ -172,7 +167,6 @@ body {
 }
 
 /* PEAK - BEZ IZMENA */
-
 .peak-meter {
     position: absolute;
     top: 81.2%;
@@ -315,8 +309,7 @@ body {
         inset 0 0 6px rgba(0,0,0,.45);
 }
 
-/* SPECTRUM - ISTA POZICIJA I ANIMACIJA */
-
+/* SPECTRUM - BEZ IZMENA */
 #spectrum {
     position: absolute;
     left: 28.5%;
@@ -352,52 +345,7 @@ body {
     transition: height .14s linear;
 }
 
-/* STAKLO SPECTRUM-A - PRLJAVSTINA */
-
-#spectrum::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-
-    background:
-        radial-gradient(
-            ellipse 35% 60% at 10% 8%,
-            rgba(123,111,89,.20),
-            transparent 100%
-        ),
-        radial-gradient(
-            ellipse 28% 50% at 90% 92%,
-            rgba(111,95,72,.22),
-            transparent 100%
-        ),
-        radial-gradient(
-            ellipse 23% 45% at 53% 18%,
-            rgba(104,95,78,.13),
-            transparent 100%
-        ),
-        radial-gradient(
-            ellipse 17% 40% at 28% 75%,
-            rgba(116,99,76,.11),
-            transparent 100%
-        ),
-        linear-gradient(
-            to bottom,
-            rgba(70,60,46,.23) 0%,
-            rgba(35,30,23,.08) 22%,
-            transparent 45%,
-            transparent 72%,
-            rgba(55,44,31,.17) 100%
-        );
-
-    box-shadow:
-        inset 0 0 12px rgba(0,0,0,.45),
-        inset 0 0 4px rgba(143,119,83,.20);
-}
-
-/* STAKLO SPECTRUM-A - PUKOTINE IZ UGLOVA */
-
+/* NOVO STAKLO - SAMO PREKO SPECTRUM-A */
 #spectrum-glass {
     position: absolute;
     inset: 0;
@@ -405,7 +353,6 @@ body {
     height: 100%;
     z-index: 4;
     pointer-events: none;
-    overflow: hidden;
 }
 </style>
 </head>
@@ -420,7 +367,6 @@ body {
          viewBox="0 0 1000 333.333"
          preserveAspectRatio="none"
          aria-hidden="true">
-
         <g id="vu-left">
             <line class="vu-needle-shadow"
                   x1="151.2" y1="174"
@@ -464,74 +410,192 @@ body {
              preserveAspectRatio="none"
              aria-hidden="true">
 
-            <!-- LEVI GORNJI UGAO -->
-            <g fill="none"
+            <defs>
+                <!-- NEPRAVILNA PRLJAVSTINA NA STAKLU -->
+                <filter id="glass-dirt"
+                        x="0" y="0"
+                        width="100%" height="100%">
+                    <feTurbulence
+                        type="fractalNoise"
+                        baseFrequency=".035 .11"
+                        numOctaves="4"
+                        seed="17"
+                        stitchTiles="stitch"
+                        result="noise"/>
+                    <feColorMatrix
+                        in="noise"
+                        type="matrix"
+                        values="
+                            0 0 0 0 .43
+                            0 0 0 0 .38
+                            0 0 0 0 .29
+                            0 0 0 .55 -.19"/>
+                </filter>
+
+                <!-- SITNA ZRNCA PRASINE -->
+                <filter id="glass-dust"
+                        x="0" y="0"
+                        width="100%" height="100%">
+                    <feTurbulence
+                        type="fractalNoise"
+                        baseFrequency=".42 .57"
+                        numOctaves="3"
+                        seed="9"
+                        result="dust"/>
+                    <feColorMatrix
+                        in="dust"
+                        type="matrix"
+                        values="
+                            0 0 0 0 .68
+                            0 0 0 0 .61
+                            0 0 0 0 .48
+                            0 0 0 1.5 -.70"/>
+                </filter>
+
+                <!-- BLAGO NEPRAVILNE IVICE PUKOTINA -->
+                <filter id="glass-crack"
+                        x="-5%" y="-20%"
+                        width="110%" height="140%">
+                    <feTurbulence
+                        type="fractalNoise"
+                        baseFrequency=".12 .19"
+                        numOctaves="2"
+                        seed="5"
+                        result="distortion"/>
+                    <feDisplacementMap
+                        in="SourceGraphic"
+                        in2="distortion"
+                        scale="2.8"
+                        xChannelSelector="R"
+                        yChannelSelector="G"/>
+                </filter>
+
+                <linearGradient id="glass-shade"
+                                x1="0" y1="0"
+                                x2="0" y2="1">
+                    <stop offset="0"
+                          stop-color="#a39882"
+                          stop-opacity=".15"/>
+                    <stop offset=".28"
+                          stop-color="#6e6655"
+                          stop-opacity=".06"/>
+                    <stop offset=".65"
+                          stop-color="#5b5140"
+                          stop-opacity=".02"/>
+                    <stop offset="1"
+                          stop-color="#a08c6a"
+                          stop-opacity=".14"/>
+                </linearGradient>
+
+                <radialGradient id="glass-smudge">
+                    <stop offset="0"
+                          stop-color="#b6a68b"
+                          stop-opacity=".23"/>
+                    <stop offset=".42"
+                          stop-color="#867b68"
+                          stop-opacity=".11"/>
+                    <stop offset="1"
+                          stop-color="#625745"
+                          stop-opacity="0"/>
+                </radialGradient>
+
+                <radialGradient id="glass-edge">
+                    <stop offset=".65"
+                          stop-color="#000"
+                          stop-opacity="0"/>
+                    <stop offset="1"
+                          stop-color="#0b0906"
+                          stop-opacity=".48"/>
+                </radialGradient>
+            </defs>
+
+            <!-- STAKLO -->
+            <rect width="430"
+                  height="92"
+                  fill="url(#glass-shade)"/>
+
+            <!-- NEPRAVILNE MRLJE -->
+            <rect width="430"
+                  height="92"
+                  filter="url(#glass-dirt)"
+                  opacity=".38"/>
+
+            <ellipse cx="38" cy="18"
+                     rx="75" ry="32"
+                     fill="url(#glass-smudge)"/>
+
+            <ellipse cx="164" cy="75"
+                     rx="67" ry="23"
+                     fill="url(#glass-smudge)"
+                     opacity=".55"/>
+
+            <ellipse cx="333" cy="16"
+                     rx="89" ry="31"
+                     fill="url(#glass-smudge)"
+                     opacity=".7"/>
+
+            <ellipse cx="403" cy="83"
+                     rx="65" ry="39"
+                     fill="url(#glass-smudge)"/>
+
+            <!-- PRAŠINA -->
+            <rect width="430"
+                  height="92"
+                  filter="url(#glass-dust)"
+                  opacity=".22"/>
+
+            <!-- ZAPRLJANE IVICE -->
+            <rect width="430"
+                  height="92"
+                  fill="url(#glass-edge)"/>
+
+            <!-- PUKOTINE UZ UGLOVE I IVICE -->
+            <g filter="url(#glass-crack)"
+               fill="none"
                stroke-linecap="round"
                stroke-linejoin="round">
 
-                <path
-                    d="M0 0 L14 12 L20 21 L31 26 L42 39"
-                    stroke="#a9a49a"
-                    stroke-width=".55"
-                    opacity=".52"/>
+                <g stroke="#171611"
+                   stroke-width="1.15"
+                   opacity=".55">
+                    <path d="M0 0 C9 5 12 12 19 16
+                             L27 28 37 34 44 46"/>
+                    <path d="M19 16 L29 11 39 13 49 8"/>
+                    <path d="M27 28 L18 39 13 54"/>
 
-                <path
-                    d="M20 21 L11 34 L8 49"
-                    stroke="#8e8a81"
-                    stroke-width=".35"
-                    opacity=".37"/>
+                    <path d="M430 0 L419 8 411 17
+                             400 21 394 34 383 43"/>
+                    <path d="M411 17 L414 29 424 39"/>
+                    <path d="M400 21 L385 16 375 19"/>
 
-                <path
-                    d="M31 26 L47 18 L60 16"
-                    stroke="#b4ada1"
-                    stroke-width=".32"
-                    opacity=".31"/>
+                    <path d="M0 92 L13 82 18 70 30 61"/>
+                    <path d="M18 70 L10 60 8 49"/>
 
-                <!-- DESNI GORNJI UGAO -->
-                <path
-                    d="M430 0 L416 11 L408 24 L396 29 L384 44"
-                    stroke="#a9a49a"
-                    stroke-width=".55"
-                    opacity=".52"/>
+                    <path d="M430 92 L418 83 410 71
+                             399 65"/>
+                    <path d="M410 71 L420 60 422 51"/>
+                </g>
 
-                <path
-                    d="M408 24 L420 39 L425 52"
-                    stroke="#8e8a81"
-                    stroke-width=".35"
-                    opacity=".37"/>
+                <g stroke="#a69e8e"
+                   stroke-width=".38"
+                   opacity=".48">
+                    <path d="M0 0 C9 5 12 12 19 16
+                             L27 28 37 34 44 46"/>
+                    <path d="M19 16 L29 11 39 13 49 8"/>
+                    <path d="M27 28 L18 39 13 54"/>
 
-                <path
-                    d="M396 29 L382 19 L367 16"
-                    stroke="#b4ada1"
-                    stroke-width=".32"
-                    opacity=".31"/>
+                    <path d="M430 0 L419 8 411 17
+                             400 21 394 34 383 43"/>
+                    <path d="M411 17 L414 29 424 39"/>
+                    <path d="M400 21 L385 16 375 19"/>
 
-                <!-- LEVI DONJI UGAO -->
-                <path
-                    d="M0 92 L16 81 L24 68 L38 63"
-                    stroke="#aaa397"
-                    stroke-width=".45"
-                    opacity=".42"/>
+                    <path d="M0 92 L13 82 18 70 30 61"/>
+                    <path d="M18 70 L10 60 8 49"/>
 
-                <path
-                    d="M24 68 L18 53 L10 46"
-                    stroke="#9d978b"
-                    stroke-width=".30"
-                    opacity=".30"/>
-
-                <!-- DESNI DONJI UGAO -->
-                <path
-                    d="M430 92 L415 80 L405 69 L391 64"
-                    stroke="#aaa397"
-                    stroke-width=".45"
-                    opacity=".42"/>
-
-                <path
-                    d="M405 69 L412 53 L422 47"
-                    stroke="#9d978b"
-                    stroke-width=".30"
-                    opacity=".30"/>
-
+                    <path d="M430 92 L418 83 410 71
+                             399 65"/>
+                    <path d="M410 71 L420 60 422 51"/>
+                </g>
             </g>
 
         </svg>
@@ -569,10 +633,7 @@ body {
         ? "ON AIR"
         : "OFF AIR";
 
-    airElement.classList.toggle(
-        "off",
-        !isOnAir
-    );
+    airElement.classList.toggle("off", !isOnAir);
 
     function fitText(element, ratio) {
         let size = display.clientWidth * ratio;
