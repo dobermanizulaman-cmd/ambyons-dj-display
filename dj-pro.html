@@ -170,11 +170,11 @@ body {
   stroke-width: .7;
 }
 
-/* PEAK — NEPROMENJENO */
+/* PEAK — SPUŠTEN ZA 5% */
 
 .peak-meter {
   position: absolute;
-  top: 81.2%;
+  top: 86.2%;
   height: 9.2%;
   display: flex;
   align-items: stretch;
@@ -314,9 +314,7 @@ body {
     inset 0 0 6px rgba(0, 0, 0, .45);
 }
 
-/* ========================================
-   SPECTRUM — SITNA LED MREŽA KAO NA SLICI
-   ======================================== */
+/* SPECTRUM — NEPROMENJENO */
 
 #spectrum {
   position: absolute;
@@ -335,8 +333,6 @@ body {
   background: #050705;
 }
 
-/* Svaka vertikalna kolona */
-
 .spectrum-column {
   flex: 1 1 0;
   min-width: 0;
@@ -347,8 +343,6 @@ body {
   gap: 2px;
 }
 
-/* Svaka pojedinačna LED kockica */
-
 .spectrum-led {
   flex: 1 1 0;
   min-height: 0;
@@ -358,42 +352,30 @@ body {
   opacity: .55;
 }
 
-/* Ugašene kockice ostaju vidljive kao tamna mreža */
-
 .spectrum-led.off {
   background: #0d120e;
   opacity: .48;
 }
-
-/* Zelena zona */
 
 .spectrum-led.on.green {
   background: #19e51d;
   opacity: 1;
 }
 
-/* Prelaz ka žutoj */
-
 .spectrum-led.on.lime {
   background: #9eea12;
   opacity: 1;
 }
-
-/* Žuta zona */
 
 .spectrum-led.on.yellow {
   background: #f1e316;
   opacity: 1;
 }
 
-/* Narandžasta zona */
-
 .spectrum-led.on.orange {
   background: #ff9810;
   opacity: 1;
 }
-
-/* Crveni vrhovi */
 
 .spectrum-led.on.red {
   background: #ed2916;
@@ -538,7 +520,7 @@ body {
   const peakLeft = createPeakMeter("peak-left");
   const peakRight = createPeakMeter("peak-right");
 
-  /* SPECTRUM — LED KOCKICE */
+  /* SPECTRUM */
 
   const spectrum = document.getElementById("spectrum");
 
