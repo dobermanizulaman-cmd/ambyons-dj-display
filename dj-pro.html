@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AmbYonS DJ DISPLAY</title>
 
+<!-- NOVI FONT SAMO ZA DJ IME -->
+<link
+  href="https://fonts.googleapis.com/css2?family=Teko:wght@700&display=swap"
+  rel="stylesheet"
+>
+
 <style>
 * {
   box-sizing: border-box;
@@ -34,7 +40,7 @@ body {
   font-family: Impact, "Arial Black", Arial, sans-serif;
 }
 
-/* ON AIR / OFF AIR */
+/* ON AIR / OFF AIR — NEPROMENJENO */
 
 #air {
   position: absolute;
@@ -80,7 +86,7 @@ body {
   opacity: .65;
 }
 
-/* DJ NAME */
+/* DJ NAME — POZICIJA NEPROMENJENA */
 
 #dj-name {
   position: absolute;
@@ -98,36 +104,125 @@ body {
   line-height: 1;
 }
 
+/*
+  DJ IME — NOVI IZGLED
+
+  Teko ExtraBold
+  Pohabani, izgrebani čelik
+  Tamniji donji deo
+  Prljave metalne fleke
+  Bakarne ivice
+
+  Menja se samo izgled slova.
+*/
+
 #dj-name-text {
   display: inline-block;
 
-  color: #c6bcab;
+  font-family: "Teko", Impact, "Arial Black", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1;
+  white-space: nowrap;
+
+  color: #91877b;
 
   background-image:
+
+    /* Sitne tamne ogrebotine */
     repeating-linear-gradient(
       108deg,
       transparent 0px,
-      transparent 16px,
-      rgba(91, 53, 32, .16) 17px,
-      transparent 18px
+      transparent 5px,
+      rgba(32, 23, 18, .22) 5.5px,
+      transparent 6.2px,
+      transparent 13px,
+      rgba(49, 36, 27, .19) 13.5px,
+      transparent 14.3px,
+      transparent 23px
     ),
+
+    /* Grublje ogrebotine */
+    repeating-linear-gradient(
+      163deg,
+      transparent 0px,
+      transparent 17px,
+      rgba(25, 23, 21, .20) 18px,
+      transparent 19px,
+      transparent 31px,
+      rgba(220, 203, 174, .13) 32px,
+      transparent 33px
+    ),
+
+    /* Nepravilne tamne fleke */
+    radial-gradient(
+      ellipse 13% 28% at 9% 29%,
+      rgba(52, 37, 27, .45),
+      transparent 100%
+    ),
+
+    radial-gradient(
+      ellipse 18% 35% at 27% 77%,
+      rgba(45, 31, 23, .42),
+      transparent 100%
+    ),
+
+    radial-gradient(
+      ellipse 12% 30% at 48% 37%,
+      rgba(67, 43, 28, .30),
+      transparent 100%
+    ),
+
+    radial-gradient(
+      ellipse 17% 31% at 72% 69%,
+      rgba(47, 31, 22, .38),
+      transparent 100%
+    ),
+
+    radial-gradient(
+      ellipse 15% 33% at 93% 24%,
+      rgba(56, 40, 29, .35),
+      transparent 100%
+    ),
+
+    /* Tragovi starog bakra i rđe */
+    repeating-linear-gradient(
+      24deg,
+      transparent 0px,
+      transparent 29px,
+      rgba(123, 73, 43, .12) 30px,
+      transparent 32px,
+      transparent 47px
+    ),
+
+    /* Osnovni pohabani čelik */
     linear-gradient(
       180deg,
-      #eee7d9 0%,
-      #a8a092 16%,
-      #d9d0c0 32%,
-      #8f8477 48%,
-      #c8b8a3 65%,
-      #9b7960 82%,
-      #c9bca8 100%
+      #c5b7a3 0%,
+      #a69a89 11%,
+      #d1c6b5 23%,
+      #918779 35%,
+      #ada79d 43%,
+      #77716a 54%,
+      #625b54 65%,
+      #918477 76%,
+      #514942 89%,
+      #82766a 100%
     );
 
   -webkit-background-clip: text;
   background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: .4px #624a3a;
 
-  filter: drop-shadow(2px 3px 1px #120b08);
+  -webkit-text-fill-color: transparent;
+
+  /* Tamno-bakarni rub slova */
+  -webkit-text-stroke: .75px #75513a;
+
+  /* Dubina i tamna senka */
+  filter:
+    drop-shadow(1px 1px 0px #c08b60)
+    drop-shadow(2px 2px 0px #38251d)
+    drop-shadow(3px 4px 2px #090706);
 }
 
 /* VU NEEDLES — NEPROMENJENO */
@@ -170,7 +265,7 @@ body {
   stroke-width: .7;
 }
 
-/* PEAK — SAMO MALO SUŽEN PO ŠIRINI */
+/* PEAK — ZAKLJUČANE VREDNOSTI */
 
 .peak-meter {
   position: absolute;
@@ -489,7 +584,7 @@ body {
   window.addEventListener("resize", resizeText);
   resizeText();
 
-  /* PEAK */
+  /* PEAK — NEPROMENJENO */
 
   function createPeakMeter(elementId) {
     const container = document.getElementById(elementId);
@@ -519,7 +614,7 @@ body {
   const peakLeft = createPeakMeter("peak-left");
   const peakRight = createPeakMeter("peak-right");
 
-  /* SPECTRUM */
+  /* SPECTRUM — NEPROMENJENO */
 
   const spectrum = document.getElementById("spectrum");
 
@@ -559,7 +654,7 @@ body {
     spectrumColumns.push(leds);
   }
 
-  /* VU */
+  /* VU — NEPROMENJENO */
 
   const vuLeft = document.getElementById("vu-left");
   const vuRight = document.getElementById("vu-right");
@@ -589,7 +684,7 @@ body {
     });
   }
 
-  /* ANIMACIJA */
+  /* ANIMACIJA — NEPROMENJENO */
 
   function animate() {
     phase += .20;
