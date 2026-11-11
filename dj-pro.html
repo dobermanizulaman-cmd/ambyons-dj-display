@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AmbYonS DJ DISPLAY</title>
+
 <style>
 * {
     box-sizing: border-box;
@@ -12,7 +13,6 @@
 
 html, body {
     margin: 0;
-    padding: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -24,6 +24,8 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+/* SLIKA - ISTE PROPORCIJE */
 
 #display {
     position: relative;
@@ -62,7 +64,7 @@ body {
     text-shadow: 2px 3px 3px #100808;
 }
 
-/* DJ NAME */
+/* DJ IME */
 
 #dj-name {
     position: absolute;
@@ -84,7 +86,7 @@ body {
         4px 4px 0 #100b09;
 }
 
-/* VU */
+/* VU KAZALJKE */
 
 #vu-overlay {
     position: absolute;
@@ -109,13 +111,13 @@ body {
 
 /*
    PEAK L / PEAK R
-   PROSIRENI PREMA OTVORIMA NA SLICI
+   FINO PORAVNANJE IVICA
 */
 
 .peak-meter {
     position: absolute;
-    top: 80%;
-    height: 10.7%;
+    top: 79%;
+    height: 12.8%;
     display: flex;
     align-items: stretch;
     gap: 0.25%;
@@ -125,14 +127,18 @@ body {
     border-radius: 2px;
 }
 
+/* LEVI PEAK */
+
 #peak-left {
-    left: 1.85%;
-    width: 21.7%;
+    left: 1.7%;
+    width: 22.1%;
 }
 
+/* DESNI PEAK */
+
 #peak-right {
-    left: 76.4%;
-    width: 21.4%;
+    left: 76.25%;
+    width: 21.8%;
 }
 
 .peak-segment {
@@ -194,6 +200,7 @@ body {
 }
 </style>
 </head>
+
 <body>
 
 <div id="display">
@@ -239,6 +246,7 @@ body {
                 r="5">
             </circle>
         </g>
+
     </svg>
 
     <div id="peak-left" class="peak-meter"></div>
@@ -289,7 +297,7 @@ body {
         !isOnAir
     );
 
-    /* TEXT SIZE */
+    /* VELICINA TEKSTA */
 
     function fitText(element, ratio) {
         let size = display.clientWidth * ratio;
@@ -319,7 +327,7 @@ body {
 
     resizeText();
 
-    /* PEAK METERS */
+    /* PEAK METRI */
 
     function createPeakMeter(elementId) {
         const container = document.getElementById(
@@ -381,7 +389,7 @@ body {
         spectrumBars.push(bar);
     }
 
-    /* VU NEEDLES */
+    /* VU KAZALJKE */
 
     const vuLeft = document.getElementById(
         "vu-left"
@@ -395,7 +403,7 @@ body {
     let rightLevel = 0;
     let phase = 0;
 
-    /* SIMULATED LEVELS */
+    /* DEKORATIVNA ANIMACIJA */
 
     function updateLevel(current) {
         if (!isOnAir) {
@@ -425,13 +433,15 @@ body {
         });
     }
 
-    /* ANIMATION */
+    /* GLAVNA ANIMACIJA */
 
     function animate() {
         phase += 0.20;
 
         leftLevel = updateLevel(leftLevel);
         rightLevel = updateLevel(rightLevel);
+
+        /* VU KAZALJKE */
 
         const leftAngle =
             -45 + leftLevel * 90;
@@ -453,6 +463,8 @@ body {
                 " 850 174)"
         );
 
+        /* PEAK L / R */
+
         updatePeak(
             peakLeft,
             leftLevel
@@ -462,6 +474,8 @@ body {
             peakRight,
             rightLevel
         );
+
+        /* SPECTRUM */
 
         spectrumBars.forEach(function (
             bar,
@@ -515,5 +529,6 @@ body {
 
 })();
 </script>
+
 </body>
 </html>
