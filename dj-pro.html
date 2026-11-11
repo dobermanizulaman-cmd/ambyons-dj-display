@@ -84,7 +84,7 @@ body {
         4px 4px 0 #100b09;
 }
 
-/* VU KAZALJKE */
+/* VU KAZALJKE - NE MENJAMO */
 
 #vu-overlay {
     position: absolute;
@@ -109,154 +109,178 @@ body {
 
 /*
    PEAK L / PEAK R
-   UKLOPLJENI U OCISCENE PROZORE
+
+   Položaj prema poslednjoj celoj slici.
+   Staklo i LED su u ISTOM okviru.
+   Nema zasebnih nacrtanih cik-cak linija.
 */
 
 .peak-meter {
     position: absolute;
-    top: 79.6%;
-    height: 11.5%;
+    top: 83.1%;
+    height: 10.7%;
     display: flex;
     align-items: stretch;
-    gap: 0.25%;
-    padding: 0.22%;
+    gap: 0.28%;
+    padding: 0.16%;
     overflow: hidden;
-    background: #080a08;
-    border: 1px solid #080806;
-    border-radius: 2px;
-    box-shadow:
-        inset 0 2px 4px #000,
-        inset 0 -2px 4px #000;
-}
 
-/* LEVI PEAK */
+    background: #070907;
+    border: 0;
+    border-radius: 2px;
+
+    box-shadow:
+        inset 0 2px 5px rgba(0,0,0,0.9),
+        inset 0 -2px 4px rgba(0,0,0,0.85);
+}
 
 #peak-left {
-    left: 2.6%;
-    width: 19.9%;
+    left: 2.85%;
+    width: 19.35%;
 }
-
-/* DESNI PEAK */
 
 #peak-right {
-    left: 77%;
-    width: 19.8%;
+    left: 77.55%;
+    width: 19.25%;
 }
 
+/* LED SEGMENTI */
+
 .peak-segment {
+    position: relative;
     flex: 1;
     min-width: 0;
     height: 100%;
-    border: 1px solid #10120d;
-    background: #101510;
+
+    border-left: 1px solid #080b08;
+    border-right: 1px solid #080b08;
+
+    background: #111812;
+
     box-shadow:
-        inset 1px 0 2px rgba(0,0,0,0.5),
-        inset 0 2px 3px rgba(0,0,0,0.4);
+        inset 0 3px 5px rgba(0,0,0,0.65),
+        inset 0 -3px 5px rgba(0,0,0,0.55);
 }
 
 .peak-segment.active.green {
     background: linear-gradient(
-        180deg,
-        #426c2b 0%,
-        #4ba93b 30%,
-        #23872a 65%,
-        #163d18 100%
+        to bottom,
+        #244d23 0%,
+        #368f31 20%,
+        #44b63c 48%,
+        #237b27 78%,
+        #153c1a 100%
     );
-    box-shadow:
-        inset 0 3px 5px rgba(0,0,0,0.35),
-        0 0 3px rgba(42,150,38,0.3);
 }
 
 .peak-segment.active.yellow {
     background: linear-gradient(
-        180deg,
-        #786329 0%,
-        #c1a52f 30%,
-        #a17b24 70%,
-        #4b3818 100%
+        to bottom,
+        #59461c 0%,
+        #a8892a 20%,
+        #d0b33e 48%,
+        #947224 78%,
+        #483719 100%
     );
-    box-shadow:
-        inset 0 3px 5px rgba(0,0,0,0.35),
-        0 0 3px rgba(194,153,36,0.3);
 }
 
 .peak-segment.active.red {
     background: linear-gradient(
-        180deg,
-        #6a3026 0%,
-        #b83d2b 30%,
-        #882b20 70%,
-        #401c17 100%
+        to bottom,
+        #54231c 0%,
+        #9c3326 20%,
+        #c74732 48%,
+        #87291f 78%,
+        #3d1a17 100%
     );
-    box-shadow:
-        inset 0 3px 5px rgba(0,0,0,0.35),
-        0 0 3px rgba(170,49,33,0.3);
 }
 
-/* PRLJAVO STAKLO */
+/*
+   ZAPRLJANO STAKLO
+
+   Slojevi prašine, masnih tragova,
+   nejednakog zatamnjenja i odsjaja.
+*/
 
 .peak-meter::after {
     content: "";
     position: absolute;
     inset: 0;
+    z-index: 3;
     pointer-events: none;
-    z-index: 2;
+
     background:
         radial-gradient(
-            ellipse at 24% 42%,
-            rgba(75,53,29,0.25),
-            transparent 35%
+            ellipse 24% 85% at 17% 22%,
+            rgba(139,112,75,0.26),
+            transparent 100%
         ),
         radial-gradient(
-            ellipse at 75% 70%,
-            rgba(98,72,38,0.22),
-            transparent 30%
+            ellipse 18% 110% at 73% 85%,
+            rgba(86,61,35,0.30),
+            transparent 100%
+        ),
+        radial-gradient(
+            ellipse 30% 65% at 45% 40%,
+            rgba(13,10,8,0.24),
+            transparent 100%
         ),
         repeating-linear-gradient(
-            112deg,
-            transparent 0 13px,
-            rgba(25,19,12,0.16) 14px,
-            transparent 16px,
-            transparent 29px
+            117deg,
+            transparent 0 21px,
+            rgba(125,112,87,0.055) 22px,
+            transparent 24px,
+            transparent 43px
         ),
         linear-gradient(
-            180deg,
-            rgba(72,55,34,0.28),
-            transparent 38%,
-            rgba(25,17,12,0.16) 65%,
-            rgba(0,0,0,0.38)
+            to bottom,
+            rgba(20,14,10,0.50),
+            rgba(70,55,38,0.12) 27%,
+            rgba(0,0,0,0.02) 48%,
+            rgba(21,17,13,0.20) 70%,
+            rgba(0,0,0,0.62)
         );
 }
 
-/* PUKOTINE */
+/*
+   STAKLENA OSTECENJA
 
-.peak-cracks {
+   Nepravilne tanke grane i sitne
+   naprsline. Bez velikih cik-cak linija.
+*/
+
+.glass-damage {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    z-index: 3;
+    z-index: 4;
     pointer-events: none;
-    opacity: 0.65;
+    opacity: 0.52;
 }
 
-.peak-cracks path {
+.glass-damage .hairline {
     fill: none;
-    stroke: rgba(184,169,142,0.58);
-    stroke-width: 0.7;
+    stroke: rgba(209,192,160,0.58);
+    stroke-width: 0.48;
+    stroke-linejoin: round;
     stroke-linecap: round;
 }
 
-.peak-cracks .dark {
-    stroke: rgba(19,14,10,0.8);
-    stroke-width: 1.1;
+.glass-damage .shadowline {
+    fill: none;
+    stroke: rgba(5,5,4,0.80);
+    stroke-width: 0.8;
+    stroke-linejoin: round;
 }
 
-/*
-   SPECTRUM
-   JEDAN RED ANIMIRANIH STUBICA.
-   CRNA PODLOGA POKRIVA STATICKI SPECTRUM.
-*/
+.glass-damage .chip {
+    fill: rgba(160,143,112,0.16);
+    stroke: rgba(201,185,156,0.38);
+    stroke-width: 0.5;
+}
+
+/* SPECTRUM - ISTI POLOŽAJ */
 
 #spectrum {
     position: absolute;
@@ -300,9 +324,10 @@ body {
 <div id="display">
 
     <div id="air" class="off">OFF AIR</div>
+
     <div id="dj-name">DJ OFFLINE</div>
 
-    <!-- VU KAZALJKE -->
+    <!-- VU -->
 
     <svg
         id="vu-overlay"
@@ -343,34 +368,103 @@ body {
         </g>
     </svg>
 
-    <!-- PEAK L -->
+    <!-- PEAK LEFT -->
 
     <div id="peak-left" class="peak-meter">
-        <svg class="peak-cracks"
-             viewBox="0 0 300 50"
-             preserveAspectRatio="none">
-            <path d="M16 0 L28 12 L24 23 L38 32 L35 50"/>
-            <path d="M24 23 L13 29 L7 40"/>
-            <path class="dark"
-                  d="M202 0 L195 13 L210 24 L204 37 L218 50"/>
-            <path d="M210 24 L226 19 L235 9"/>
-            <path d="M108 50 L115 35 L109 21 L120 8"/>
+
+        <svg
+            class="glass-damage"
+            viewBox="0 0 400 70"
+            preserveAspectRatio="none"
+            aria-hidden="true">
+
+            <path class="chip"
+                d="M0 0 L19 0 L13 9 L24 17 L8 14 L0 24 Z"/>
+
+            <path class="hairline"
+                d="M9 0 L19 14 L32 21 L41 33
+                   L59 38 L71 51 L86 55"/>
+
+            <path class="hairline"
+                d="M32 21 L35 10 L49 3"/>
+
+            <path class="hairline"
+                d="M41 33 L34 46 L38 63"/>
+
+            <path class="hairline"
+                d="M59 38 L70 29 L89 27"/>
+
+            <path class="shadowline"
+                d="M10 1 L20 15 L33 22 L42 34"/>
+
+            <path class="hairline"
+                d="M400 0 L385 11 L376 18
+                   L365 34 L348 41"/>
+
+            <path class="hairline"
+                d="M376 18 L365 10 L353 7"/>
+
+            <path class="hairline"
+                d="M365 34 L379 43 L386 58"/>
+
+            <path class="hairline"
+                d="M348 41 L337 54 L319 61"/>
+
+            <path class="chip"
+                d="M400 58 L389 64 L380 70 L400 70 Z"/>
+
         </svg>
+
     </div>
 
-    <!-- PEAK R -->
+    <!-- PEAK RIGHT -->
 
     <div id="peak-right" class="peak-meter">
-        <svg class="peak-cracks"
-             viewBox="0 0 300 50"
-             preserveAspectRatio="none">
-            <path d="M280 0 L268 12 L275 23 L260 35 L266 50"/>
-            <path d="M275 23 L289 30 L295 42"/>
-            <path class="dark"
-                  d="M75 0 L85 15 L78 28 L92 40 L87 50"/>
-            <path d="M78 28 L61 22 L55 11"/>
-            <path d="M180 50 L172 35 L181 20 L170 5"/>
+
+        <svg
+            class="glass-damage"
+            viewBox="0 0 400 70"
+            preserveAspectRatio="none"
+            aria-hidden="true">
+
+            <path class="chip"
+                d="M400 0 L381 0 L388 12
+                   L375 18 L393 25 L400 30 Z"/>
+
+            <path class="hairline"
+                d="M390 0 L379 15 L365 23
+                   L355 38 L337 44 L326 57"/>
+
+            <path class="hairline"
+                d="M365 23 L362 8 L349 2"/>
+
+            <path class="hairline"
+                d="M355 38 L367 51 L363 68"/>
+
+            <path class="hairline"
+                d="M337 44 L322 34 L305 31"/>
+
+            <path class="shadowline"
+                d="M391 1 L380 16 L366 24 L356 39"/>
+
+            <path class="hairline"
+                d="M0 0 L16 10 L25 20
+                   L39 34 L55 40"/>
+
+            <path class="hairline"
+                d="M25 20 L35 10 L47 6"/>
+
+            <path class="hairline"
+                d="M39 34 L25 47 L18 62"/>
+
+            <path class="hairline"
+                d="M55 40 L69 53 L82 60"/>
+
+            <path class="chip"
+                d="M0 60 L11 64 L19 70 L0 70 Z"/>
+
         </svg>
+
     </div>
 
     <!-- SPECTRUM -->
@@ -383,7 +477,7 @@ body {
 (function () {
     "use strict";
 
-    /* DJ IME IZ URL-A */
+    /* DJ STATUS */
 
     const params = new URLSearchParams(
         window.location.search
@@ -450,7 +544,7 @@ body {
 
     resizeText();
 
-    /* PEAK METRI */
+    /* PEAK LED */
 
     function createPeakMeter(elementId) {
         const container = document.getElementById(
@@ -512,7 +606,7 @@ body {
         spectrumBars.push(bar);
     }
 
-    /* VU KAZALJKE */
+    /* VU */
 
     const vuLeft = document.getElementById(
         "vu-left"
@@ -556,13 +650,13 @@ body {
         });
     }
 
-    /* GLAVNA ANIMACIJA */
-
     function animate() {
         phase += 0.20;
 
         leftLevel = updateLevel(leftLevel);
         rightLevel = updateLevel(rightLevel);
+
+        /* VU KAZALJKE */
 
         const leftAngle =
             -45 + leftLevel * 90;
@@ -584,6 +678,8 @@ body {
                 " 850 174)"
         );
 
+        /* PEAK */
+
         updatePeak(
             peakLeft,
             leftLevel
@@ -593,6 +689,8 @@ body {
             peakRight,
             rightLevel
         );
+
+        /* SPECTRUM */
 
         spectrumBars.forEach(function (
             bar,
