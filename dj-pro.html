@@ -4,629 +4,810 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AmbYonS UnderGrounD — DJ PRO</title>
+<title>AmbYonS ProDŽect UnderGrounD — DJ PRO</title>
 
 <style>
-* {
-  box-sizing: border-box;
+:root {
+  --rust: #873c1d;
+  --red: #cf1714;
+  --amber: #c39a45;
+  --iron: #292725;
+  --pale: #ded1b4;
 }
+
+* { box-sizing: border-box; }
 
 html, body {
   margin: 0;
   width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #05060b;
-  color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100%;
+  background: #050505;
+  color: var(--pale);
+  font-family: Impact, 'Arial Narrow', Arial, sans-serif;
 }
 
-:root {
-  --cyan: #00eaff;
-  --magenta: #e500ff;
-  --red: #ff244d;
-  --panel: #0b0e19;
-}
-
-.board {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  gap: 1.3%;
-  padding: 2%;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 50% 40%,
-      #15142b 0%, #080912 55%, #020307 100%);
-}
-
-.board::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  opacity: .25;
-  pointer-events: none;
-  background-image:
-    linear-gradient(30deg,
-      #1c2440 12%, transparent 12.5%,
-      transparent 87%, #1c2440 87.5%),
-    linear-gradient(150deg,
-      #1c2440 12%, transparent 12.5%,
-      transparent 87%, #1c2440 87.5%);
-  background-size: 36px 62px;
-}
-
-.header,
-.middle,
-.bottom {
-  position: relative;
-  z-index: 1;
-}
-
-.header {
-  height: 13%;
-  min-height: 0;
+body {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--cyan);
-  border-radius: 10px;
-  background: linear-gradient(180deg,
-    #161827, #070812);
+  padding: 12px;
+  overflow-x: hidden;
+}
+
+.console {
+  width: min(1500px, 100%);
+  aspect-ratio: 2.18 / 1;
+  min-height: 420px;
+  position: relative;
+  padding: 2.3% 2.7% 2.4%;
+  border: 12px ridge #49423b;
+  border-radius: 24px;
+  background:
+    repeating-linear-gradient(
+      117deg,
+      transparent 0 21px,
+      #d56d1a12 23px 26px,
+      transparent 28px 55px
+    ),
+    radial-gradient(
+      ellipse at 12% 15%,
+      #a54c1e85,
+      transparent 25%
+    ),
+    radial-gradient(
+      ellipse at 94% 80%,
+      #ac4d1480,
+      transparent 24%
+    ),
+    linear-gradient(
+      130deg,
+      #342c25,
+      #0c0c0d 34%,
+      #24201d 65%,
+      #0d0b0b
+    );
   box-shadow:
-    0 0 15px #00eaff55,
-    inset 0 0 18px #00eaff22;
+    inset 0 0 0 3px #120e0c,
+    inset 0 0 35px #000,
+    0 10px 40px #000;
 }
 
-.brand {
-  font-size: clamp(17px, 3.6vw, 62px);
-  font-weight: 900;
-  letter-spacing: .12em;
+.console:before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  pointer-events: none;
+  border: 2px solid #7e5237;
+  border-radius: 13px;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 6px,
+      #f1aa3e06 7px 8px
+    ),
+    radial-gradient(
+      circle at 25% 35%,
+      #db79300b,
+      transparent 40%
+    );
+  mix-blend-mode: screen;
+}
+
+.bolt {
+  position: absolute;
+  z-index: 4;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      #b3a18a,
+      #40352b 42%,
+      #0a0908 73%
+    );
+  border: 2px solid #15100e;
+  box-shadow: 0 1px 3px #000;
+}
+
+.bolt:after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  top: 6px;
+  height: 2px;
+  background: #100e0d;
+  transform: rotate(-30deg);
+}
+
+.b1 { top: 1%; left: 1%; }
+.b2 { top: 1%; right: 1%; }
+.b3 { bottom: 1%; left: 1%; }
+.b4 { bottom: 1%; right: 1%; }
+
+.top {
+  height: 13%;
+  display: flex;
+  align-items: center;
+  gap: 2%;
+  margin-bottom: 1.2%;
+}
+
+.hazard {
+  flex: 1;
+  height: 55%;
+  border: 3px ridge #53402b;
+  background:
+    repeating-linear-gradient(
+      130deg,
+      #bc8318 0 17px,
+      #1b1713 17px 34px
+    );
+  opacity: .85;
+  box-shadow: inset 0 0 10px #000;
+}
+
+.onair {
+  min-width: 25%;
   text-align: center;
-  color: #f2f7ff;
-  text-shadow:
-    0 0 8px var(--cyan),
-    0 0 20px #00eaff88;
+  letter-spacing: .11em;
+  font-size: clamp(19px, 3.4vw, 52px);
+  line-height: 1.15;
+  padding: .4% 3%;
+  border: 5px ridge #6c6155;
+  background: linear-gradient(#4e0f0d, #1d0808);
+  color: #e5d5c2;
+  text-shadow: 2px 3px 1px #390b09;
+  box-shadow: inset 0 0 10px #000;
+  transform: skew(-3deg);
 }
 
-.middle {
+.onair.off {
+  color: #9a958e;
+  background: linear-gradient(#2b2b2b, #101010);
+}
+
+.panel {
+  height: 74%;
   display: grid;
-  grid-template-columns: 24% 52% 24%;
-  gap: 1%;
+  grid-template-columns: 25% 1fr 25%;
+  gap: 1.5%;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 3%;
+  min-width: 0;
+}
+
+.meter {
   flex: 1;
   min-height: 0;
-}
-
-.vu {
   position: relative;
-  min-width: 0;
-  border: 2px solid var(--magenta);
-  border-radius: 12px;
-  background: linear-gradient(155deg,
-    #181b2b, #080a11 65%);
-  box-shadow:
-    0 0 14px #e500ff55,
-    inset 0 0 22px #e500ff15;
   overflow: hidden;
-}
-
-.vu-title {
-  text-align: center;
-  color: var(--cyan);
-  font-weight: bold;
-  font-size: clamp(14px, 2.2vw, 36px);
-  padding-top: 8%;
-  text-shadow: 0 0 10px var(--cyan);
-}
-
-.gauge {
-  position: absolute;
-  left: 8%;
-  right: 8%;
-  top: 27%;
-  height: 47%;
-  border-radius: 12px;
-  border: 2px solid #353b55;
+  border: 7px ridge #625449;
+  border-radius: 15px;
   background:
-    radial-gradient(ellipse at center,
-      #283044, #11131f 70%);
-  overflow: hidden;
+    linear-gradient(
+      165deg,
+      #e0c28a,
+      #9e804b 60%,
+      #5d452a
+    );
+  box-shadow:
+    inset 0 0 22px #302013,
+    0 3px 9px #000;
 }
 
-.gauge-scale {
+.meter:after {
+  content: "";
   position: absolute;
-  width: 100%;
-  top: 12%;
-  display: flex;
-  justify-content: space-around;
-  font-size: clamp(8px, 1.2vw, 20px);
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      130deg,
+      transparent 0 31px,
+      #2c1c101c 32px 34px,
+      transparent 35px 60px
+    ),
+    radial-gradient(
+      circle at 20% 40%,
+      #4b28122b,
+      transparent 55%
+    );
+  pointer-events: none;
+}
+
+.scale {
+  position: absolute;
+  left: 5%;
+  top: 8%;
+  width: 90%;
+  height: 69%;
+  overflow: visible;
+}
+
+.scale path {
+  fill: none;
+  stroke: #1b1511;
+  stroke-width: 2.5;
+}
+
+.scale .tick {
+  stroke: #241912;
+  stroke-width: 2;
+}
+
+.scale text {
+  fill: #251b15;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
   font-weight: bold;
-  color: #e5ebf5;
 }
 
-.gauge-scale span:last-child {
-  color: var(--red);
-}
-
-.arc {
-  position: absolute;
-  left: 10%;
-  top: 25%;
-  width: 80%;
-  height: 65%;
-  border-top: 7px solid #00dca8;
-  border-radius: 50% 50% 0 0;
-  box-shadow: 0 -3px 10px #00ffbb44;
-}
+.scale .danger { fill: #b10d0d; }
 
 .needle {
   position: absolute;
-  bottom: 5%;
-  left: calc(50% - 2px);
-  width: 4px;
-  height: 69%;
-  border-radius: 4px;
-  background: linear-gradient(
-    to top, #ff2456, #ff9a9a);
-  transform-origin: bottom center;
-  transform: rotate(-45deg);
-  box-shadow: 0 0 10px var(--red);
+  left: 50%;
+  bottom: 11%;
+  width: 3px;
+  height: 61%;
+  background: linear-gradient(#ff4840, #a90808);
+  transform-origin: 50% 100%;
+  transform: rotate(-38deg);
+  box-shadow: 0 0 4px #ef1515;
+  z-index: 2;
+  transition: transform .14s ease-out;
 }
 
 .pivot {
   position: absolute;
-  bottom: 2%;
-  left: calc(50% - 10px);
-  width: 20px;
-  height: 20px;
+  bottom: 8%;
+  left: calc(50% - 9px);
+  width: 18px;
+  height: 18px;
+  border: 4px solid #382e24;
+  background: #aaa091;
   border-radius: 50%;
-  background: #e1e6f2;
-  border: 4px solid #4a4d63;
+  z-index: 3;
 }
 
-.vu-footer {
+.vu-mark {
   position: absolute;
-  bottom: 7%;
-  width: 100%;
+  left: 0;
+  right: 0;
+  bottom: 23%;
   text-align: center;
-  font-size: clamp(10px, 1.5vw, 24px);
-  letter-spacing: .2em;
-  color: #aab7ce;
+  font-size: clamp(18px, 2.4vw, 39px);
+  color: #281b12;
+  text-shadow: 1px 1px #e0c39b;
+}
+
+.peak {
+  height: 28%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 0;
+  padding: 2% 5%;
+  border: 6px ridge #51463d;
+  border-radius: 8px;
+  background: linear-gradient(#201c1a, #090a09);
+  box-shadow: inset 0 0 15px #000;
+}
+
+.peak-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: clamp(12px, 1.6vw, 25px);
+  letter-spacing: .08em;
+  color: #d6c9b7;
+}
+
+.peak-light {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #4b0d0d;
+  border: 1px solid #a41c1c;
+}
+
+.peak-light.hot {
+  background: #ff2515;
+  box-shadow: 0 0 13px #ff1717;
+}
+
+.peak-bars {
+  display: flex;
+  gap: 2px;
+  height: 35%;
+  align-items: stretch;
+}
+
+.segment {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #171c14;
+  background: #202521;
+  box-shadow: inset 0 0 2px #000;
+}
+
+.segment.active.green {
+  background: #00e34e;
+  box-shadow: 0 0 5px #00d84a;
+}
+
+.segment.active.yellow {
+  background: #f7d11c;
+  box-shadow: 0 0 5px #e9c417;
+}
+
+.segment.active.red {
+  background: #f12019;
+  box-shadow: 0 0 5px #e11c12;
 }
 
 .center {
-  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 3%;
+  min-width: 0;
 }
 
-.dj-panel {
-  height: 43%;
-  min-height: 0;
+.nameplate {
+  height: 40%;
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  border: 2px solid var(--cyan);
-  border-radius: 12px;
+  align-items: center;
+  overflow: hidden;
+  border: 7px ridge #4c4138;
+  border-radius: 6px;
   background:
-    radial-gradient(ellipse,
-      #1c1530, #080a15 75%);
-  box-shadow:
-    0 0 16px #00eaff55,
-    inset 0 0 25px #e500ff22;
+    radial-gradient(
+      ellipse at center,
+      #261312,
+      #0a0a0a 72%
+    );
+  box-shadow: inset 0 0 18px #000;
 }
 
-.on-air {
-  font-size: clamp(14px, 2.5vw, 40px);
-  font-weight: 900;
-  letter-spacing: .3em;
-  color: #ff365b;
-  text-shadow:
-    0 0 12px #ff244d,
-    0 0 30px #ff244d88;
-  animation: glow 1.5s infinite alternate;
+.nameplate:before {
+  content: "Ⓐ";
+  position: absolute;
+  font: 900 clamp(85px, 16vw, 230px) Arial, sans-serif;
+  color: #85110f66;
+  transform: rotate(-13deg);
 }
 
-.dj-name {
+.nameplate:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      170deg,
+      transparent 0 12px,
+      #c0a68b09 13px 15px,
+      transparent 16px 30px
+    );
+}
+
+.djname {
+  z-index: 1;
   max-width: 96%;
-  margin-top: 3%;
-  font-size: clamp(18px, 4vw, 72px);
-  font-weight: 900;
+  font-size: clamp(20px, 4vw, 67px);
+  letter-spacing: .035em;
+  line-height: 1.1;
+  color: #ddd4c7;
   text-align: center;
+  text-shadow: 2px 3px 0 #4a302a;
   overflow-wrap: anywhere;
-  color: #ffffff;
-  text-shadow:
-    0 0 8px var(--cyan),
-    0 0 25px #00eaff88;
+  font-style: italic;
+}
+
+.status {
+  z-index: 1;
+  color: #ad241a;
+  letter-spacing: .24em;
+  font: 700 clamp(9px, 1.15vw, 18px) Arial, sans-serif;
+  margin-top: 1%;
+}
+
+.spectrum-panel {
+  height: 57%;
+  display: flex;
+  flex-direction: column;
+  gap: 3%;
+  padding: 2% 3% 2%;
+  border: 7px ridge #4c4138;
+  border-radius: 5px;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      #101110 0 14px,
+      #1b1c18 15px 16px
+    );
+  box-shadow: inset 0 0 25px #000;
+}
+
+.spectrum-title {
+  text-align: center;
+  font-size: clamp(10px, 1.2vw, 19px);
+  letter-spacing: .17em;
+  color: #b7a58a;
 }
 
 .spectrum {
   flex: 1;
   min-height: 0;
   display: flex;
-  flex-direction: column;
-  border: 2px solid var(--magenta);
-  border-radius: 12px;
-  padding: 2%;
-  background:
-    linear-gradient(#0d1120cc, #05060ccc),
-    repeating-linear-gradient(
-      0deg,
-      transparent 0 21px,
-      #00eaff22 22px 23px);
-  box-shadow:
-    0 0 15px #e500ff55,
-    inset 0 0 18px #e500ff15;
-}
-
-.spectrum-title {
-  text-align: center;
-  color: #e8e9ff;
-  font-weight: 900;
-  letter-spacing: .2em;
-  font-size: clamp(11px, 1.5vw, 24px);
-}
-
-.bars {
-  flex: 1;
-  min-height: 0;
-  display: flex;
   align-items: flex-end;
-  justify-content: space-between;
-  gap: 1%;
-  padding: 3% 1% 1%;
+  gap: 1.3%;
+  overflow: hidden;
 }
 
 .bar {
   flex: 1;
-  height: 20%;
-  border-radius: 3px 3px 0 0;
-  background: linear-gradient(
-    to top,
-    #00f5b5 0%,
-    #00eaff 35%,
-    #e500ff 70%,
-    #ff2853 100%);
-  box-shadow: 0 0 7px #00eaff77;
-  transition: height 90ms ease;
+  min-width: 0;
+  height: 15%;
+  background:
+    repeating-linear-gradient(
+      to top,
+      transparent 0 2px,
+      #070707 3px 5px
+    ),
+    linear-gradient(
+      to top,
+      #09cc3b 0%,
+      #8ddd13 35%,
+      #f3d91a 60%,
+      #ff7a10 78%,
+      #ec1717 100%
+    );
+  box-shadow: 0 0 3px #8a6a16;
+  transition: height .12s linear;
 }
 
-.bottom {
-  height: 19%;
-  min-height: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2%;
-}
-
-.peak {
+.footer {
+  height: 9%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10%;
-  padding: 2% 5%;
-  border: 2px solid var(--cyan);
-  border-radius: 10px;
-  background: linear-gradient(
-    160deg, #141727, #080a11);
-  box-shadow: 0 0 12px #00eaff44;
-}
-
-.peak-heading {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  font-weight: 900;
-  color: #f0f4ff;
-  font-size: clamp(11px, 1.7vw, 28px);
+  justify-content: center;
+  gap: 2%;
+  margin-top: 1.1%;
+  color: #a08b6e;
+  font-size: clamp(8px, 1.15vw, 17px);
+  letter-spacing: .15em;
 }
 
-.peak-led {
-  width: clamp(9px, 1.6vw, 25px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: #3c0813;
-  border: 2px solid #7a2035;
+.footer .stripe {
+  width: 24%;
+  height: 55%;
+  border: 2px ridge #65543d;
+  background:
+    repeating-linear-gradient(
+      130deg,
+      #c18c1e 0 12px,
+      #171411 12px 24px
+    );
 }
 
-.peak-led.active {
-  background: #ff284e;
-  box-shadow:
-    0 0 12px #ff284e,
-    0 0 22px #ff284e;
+@media (max-width: 700px) {
+  body { padding: 3px; }
+
+  .console {
+    border-width: 6px;
+    border-radius: 10px;
+    padding: 3% 2%;
+    min-height: 270px;
+  }
+
+  .meter {
+    border-width: 3px;
+    border-radius: 6px;
+  }
+
+  .peak { border-width: 3px; }
+
+  .nameplate,
+  .spectrum-panel { border-width: 3px; }
+
+  .onair { border-width: 3px; }
+
+  .peak-light {
+    width: 9px;
+    height: 9px;
+  }
+
+  .peak-bars { gap: 1px; }
+  .needle { width: 2px; }
+
+  .pivot {
+    width: 10px;
+    height: 10px;
+    left: calc(50% - 5px);
+    border-width: 2px;
+  }
+
+  .scale text { font-size: 12px; }
+  .bolt { width: 9px; height: 9px; }
+
+  .bolt:after {
+    top: 2px;
+    left: 1px;
+    right: 1px;
+  }
+
+  .spectrum-title { font-size: 9px; }
 }
 
-.peak-bars {
-  display: flex;
-  gap: 1%;
-  height: 32%;
-}
-
-.segment {
-  flex: 1;
-  border-radius: 2px;
-  background: #18212a;
-  border: 1px solid #243342;
-}
-
-.segment.lit.green {
-  background: #00ef8d;
-  box-shadow: 0 0 8px #00ef8d;
-}
-
-.segment.lit.yellow {
-  background: #ffe33a;
-  box-shadow: 0 0 8px #ffe33a;
-}
-
-.segment.lit.red {
-  background: #ff3156;
-  box-shadow: 0 0 8px #ff3156;
-}
-
-.offline .on-air {
-  color: #718095;
-  text-shadow: none;
-  animation: none;
-}
-
-.offline .dj-name {
-  color: #d5dbe5;
-  text-shadow: 0 0 12px #53627a;
-}
-
-@keyframes glow {
-  from { opacity: .75; }
-  to { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .needle, .bar { transition: none; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="board" id="board">
+<main class="console"
+      aria-label="AmbYonS DJ Pro industrial display">
 
-  <header class="header">
-    <div class="brand">
-      AmbYonS ProDŽect UnderGrounD
-    </div>
+  <span class="bolt b1"></span>
+  <span class="bolt b2"></span>
+  <span class="bolt b3"></span>
+  <span class="bolt b4"></span>
+
+  <header class="top">
+    <div class="hazard"></div>
+    <div id="onair" class="onair">ON AIR</div>
+    <div class="hazard"></div>
   </header>
 
-  <main class="middle">
+  <section class="panel">
 
-    <section class="vu">
-      <div class="vu-title">VU LEFT</div>
-      <div class="gauge">
-        <div class="gauge-scale">
-          <span>-20</span>
-          <span>-10</span>
-          <span>-5</span>
-          <span>0</span>
-          <span>+3</span>
-        </div>
-        <div class="arc"></div>
-        <div class="needle" id="needleL"></div>
+    <!-- LEFT VU METER -->
+    <div class="side">
+
+      <div class="meter">
+        <svg class="scale"
+             viewBox="0 0 300 165"
+             aria-hidden="true">
+
+          <path d="M 20 137 Q 150 -64 280 137"/>
+
+          <g class="tick">
+            <path d="
+              M20 137l-10 4
+              M47 98l-10 -7
+              M80 64l-6 -10
+              M114 45l-3 -11
+              M150 39v-12
+              M186 45l3 -11
+              M220 64l6 -10
+              M253 98l10 -7
+              M280 137l10 4
+            "/>
+          </g>
+
+          <text x="4" y="160">-20</text>
+          <text x="31" y="82">-10</text>
+          <text x="91" y="35">-5</text>
+          <text x="147" y="18">0</text>
+          <text class="danger" x="211" y="35">+3</text>
+          <text class="danger" x="270" y="82">+6</text>
+        </svg>
+
+        <div id="needleL" class="needle"></div>
         <div class="pivot"></div>
+        <div class="vu-mark">VU</div>
       </div>
-      <div class="vu-footer">CHANNEL L</div>
-    </section>
 
-    <section class="center">
-
-      <div class="dj-panel" id="djPanel">
-        <div class="on-air" id="airLabel">
-          ON AIR
+      <div class="peak">
+        <div class="peak-head">
+          PEAK L
+          <span id="lightL" class="peak-light"></span>
         </div>
-        <div class="dj-name" id="djName">
+        <div id="peakL" class="peak-bars"></div>
+      </div>
+
+    </div>
+
+    <!-- CENTER -->
+    <div class="center">
+
+      <div class="nameplate">
+        <div id="djName" class="djname">
           DJ OFFLINE
         </div>
+        <div id="status" class="status">
+          NO DJ ONLINE
+        </div>
       </div>
 
-      <div class="spectrum">
+      <div class="spectrum-panel">
         <div class="spectrum-title">
-          SPECTRUM ANALYZER
+          ACID · HARD TECHNO · SCHRANZ
         </div>
-        <div class="bars" id="spectrumBars"></div>
+        <div id="spectrum"
+             class="spectrum"
+             aria-hidden="true"></div>
       </div>
 
-    </section>
+    </div>
 
-    <section class="vu">
-      <div class="vu-title">VU RIGHT</div>
-      <div class="gauge">
-        <div class="gauge-scale">
-          <span>-20</span>
-          <span>-10</span>
-          <span>-5</span>
-          <span>0</span>
-          <span>+3</span>
-        </div>
-        <div class="arc"></div>
-        <div class="needle" id="needleR"></div>
+    <!-- RIGHT VU METER -->
+    <div class="side">
+
+      <div class="meter">
+        <svg class="scale"
+             viewBox="0 0 300 165"
+             aria-hidden="true">
+
+          <path d="M 20 137 Q 150 -64 280 137"/>
+
+          <g class="tick">
+            <path d="
+              M20 137l-10 4
+              M47 98l-10 -7
+              M80 64l-6 -10
+              M114 45l-3 -11
+              M150 39v-12
+              M186 45l3 -11
+              M220 64l6 -10
+              M253 98l10 -7
+              M280 137l10 4
+            "/>
+          </g>
+
+          <text x="4" y="160">-20</text>
+          <text x="31" y="82">-10</text>
+          <text x="91" y="35">-5</text>
+          <text x="147" y="18">0</text>
+          <text class="danger" x="211" y="35">+3</text>
+          <text class="danger" x="270" y="82">+6</text>
+        </svg>
+
+        <div id="needleR" class="needle"></div>
         <div class="pivot"></div>
+        <div class="vu-mark">VU</div>
       </div>
-      <div class="vu-footer">CHANNEL R</div>
-    </section>
 
-  </main>
-
-  <footer class="bottom">
-
-    <div class="peak">
-      <div class="peak-heading">
-        <span>PEAK L</span>
-        <span class="peak-led" id="ledL"></span>
+      <div class="peak">
+        <div class="peak-head">
+          PEAK R
+          <span id="lightR" class="peak-light"></span>
+        </div>
+        <div id="peakR" class="peak-bars"></div>
       </div>
-      <div class="peak-bars" id="peakL"></div>
+
     </div>
 
-    <div class="peak">
-      <div class="peak-heading">
-        <span>PEAK R</span>
-        <span class="peak-led" id="ledR"></span>
-      </div>
-      <div class="peak-bars" id="peakR"></div>
-    </div>
+  </section>
 
+  <footer class="footer">
+    <span class="stripe"></span>
+    AMB YONS · UNDERGROUND BROADCAST
+    <span class="stripe"></span>
   </footer>
 
-</div>
+</main>
 
 <script>
-"use strict";
+(function () {
+  'use strict';
 
-// Existing BOARD uses ?dj=NAME.
-// No DJ parameter means OFFLINE.
+  // DJ name is supplied by the Second Life BOARD URL.
+  // Example: dj-pro.html?dj=DJ%20ZULAMAN
 
-const params = new URLSearchParams(
-  window.location.search
-);
+  const params = new URLSearchParams(location.search);
+  const dj = (params.get('dj') || '').trim().slice(0, 80);
+  const active = dj.length > 0;
 
-const dj = (params.get("dj") || "").trim();
-const online = dj.length > 0;
+  document.getElementById('djName').textContent =
+    active ? dj : 'DJ OFFLINE';
 
-const board = document.getElementById("board");
-const djName = document.getElementById("djName");
-const airLabel = document.getElementById("airLabel");
+  document.getElementById('status').textContent =
+    active
+      ? 'LIVE UNDERGROUND TRANSMISSION'
+      : 'NO DJ ONLINE';
 
-if (online) {
-  djName.textContent = dj;
-  airLabel.textContent = "ON AIR";
-} else {
-  djName.textContent = "DJ OFFLINE";
-  airLabel.textContent = "STANDBY";
-  board.classList.add("offline");
-}
+  document.getElementById('onair').textContent =
+    active ? 'ON AIR' : 'OFF AIR';
 
-// Build spectrum bars.
-const spectrum = document.getElementById(
-  "spectrumBars"
-);
+  document.getElementById('onair')
+    .classList.toggle('off', !active);
 
-const spectrumBars = [];
+  const count = 22;
 
-for (let i = 0; i < 34; i++) {
-  const bar = document.createElement("div");
-  bar.className = "bar";
-  spectrum.appendChild(bar);
-  spectrumBars.push(bar);
-}
+  function createSegments(id) {
+    const root = document.getElementById(id);
 
-// Build peak meters.
-function createPeakMeter(id) {
-  const container = document.getElementById(id);
-  const segments = [];
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('span');
 
-  for (let i = 0; i < 22; i++) {
-    const segment = document.createElement("div");
+      el.className = 'segment ' +
+        (i < 14 ? 'green' : i < 18 ? 'yellow' : 'red');
 
-    segment.className = "segment";
-
-    if (i < 14) {
-      segment.classList.add("green");
-    } else if (i < 19) {
-      segment.classList.add("yellow");
-    } else {
-      segment.classList.add("red");
+      root.appendChild(el);
     }
 
-    container.appendChild(segment);
-    segments.push(segment);
+    return [...root.children];
   }
 
-  return segments;
-}
+  const l = createSegments('peakL');
+  const r = createSegments('peakR');
 
-const peakL = createPeakMeter("peakL");
-const peakR = createPeakMeter("peakR");
+  const spectrum = document.getElementById('spectrum');
+  const bars = [];
 
-let leftLevel = 0;
-let rightLevel = 0;
-let tick = 0;
+  for (let i = 0; i < 28; i++) {
+    const b = document.createElement('div');
+    b.className = 'bar';
 
-function smoothLevel(current, target) {
-  return current * 0.65 + target * 0.35;
-}
-
-function updatePeak(segments, level, ledId) {
-  const active = Math.floor(
-    level * segments.length
-  );
-
-  segments.forEach((segment, index) => {
-    segment.classList.toggle(
-      "lit", index < active
-    );
-  });
-
-  document.getElementById(ledId)
-    .classList.toggle("active", level > 0.88);
-}
-
-function animate() {
-  tick += 0.09;
-
-  if (online) {
-    const targetL =
-      0.28 + Math.random() * 0.69;
-
-    const targetR =
-      0.28 + Math.random() * 0.69;
-
-    leftLevel = smoothLevel(
-      leftLevel, targetL
-    );
-
-    rightLevel = smoothLevel(
-      rightLevel, targetR
-    );
-  } else {
-    leftLevel *= 0.85;
-    rightLevel *= 0.85;
+    spectrum.appendChild(b);
+    bars.push(b);
   }
 
-  // Analog needle movement.
-  document.getElementById("needleL")
-    .style.transform =
-      `rotate(${-48 + leftLevel * 96}deg)`;
+  let tick = 0;
 
-  document.getElementById("needleR")
-    .style.transform =
-      `rotate(${-48 + rightLevel * 96}deg)`;
+  function draw() {
+    tick += .21;
 
-  // Stereo peak indicators.
-  updatePeak(peakL, leftLevel, "ledL");
-  updatePeak(peakR, rightLevel, "ledR");
+    // Decorative animation, not actual stream audio.
+    const base = active ? 1 : .48;
 
-  // Decorative spectrum animation.
-  spectrumBars.forEach((bar, i) => {
-    let level;
+    const vL = base * (.35 + .62 * Math.random());
+    const vR = base * (.35 + .62 * Math.random());
 
-    if (online) {
-      const wave =
-        Math.abs(Math.sin(tick + i * 0.24));
+    document.getElementById('needleL').style.transform =
+      'rotate(' + (-46 + vL * 86) + 'deg)';
 
-      const bass =
-        Math.max(0.18, 1 - i / 44);
+    document.getElementById('needleR').style.transform =
+      'rotate(' + (-46 + vR * 86) + 'deg)';
 
-      level =
-        10 + (wave * 48 + Math.random() * 35)
-        * bass;
-    } else {
-      level = 3 + Math.random() * 4;
+    for (const [segments, v, light] of [
+      [l, vL, 'lightL'],
+      [r, vR, 'lightR']
+    ]) {
+      const n = Math.round(v * count);
+
+      segments.forEach((s, i) =>
+        s.classList.toggle('active', i < n)
+      );
+
+      document.getElementById(light)
+        .classList.toggle('hot', n >= 19);
     }
 
-    bar.style.height =
-      Math.min(96, level) + "%";
-  });
-}
+    bars.forEach((b, i) => {
+      const wave = (
+        Math.sin(i * .43 + tick) +
+        Math.sin(i * .19 - tick * .67) +
+        2
+      ) / 4;
 
-animate();
-setInterval(animate, 110);
+      const h =
+        8 + base * (
+          18 +
+          68 * wave * Math.random() +
+          22 * wave
+        );
+
+      b.style.height = Math.min(98, h) + '%';
+    });
+  }
+
+  draw();
+  setInterval(draw, 170);
+
+})();
 </script>
 
 </body>
