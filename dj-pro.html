@@ -109,41 +109,38 @@ body {
 
 /*
    PEAK L / PEAK R
-   STVARNO SMANJENI:
-   - UZI
-   - NIZI
-   - CENTRIRANI U OTVORIMA
+   UKLOPLJENI U OCISCENE PROZORE
 */
 
 .peak-meter {
     position: absolute;
-    top: 81.15%;
-    height: 8.1%;
+    top: 79.6%;
+    height: 11.5%;
     display: flex;
     align-items: stretch;
-    gap: 0.35%;
-    padding: 0.2%;
+    gap: 0.25%;
+    padding: 0.22%;
     overflow: hidden;
-    background: #090b09;
-    border: 1px solid rgba(0,0,0,0.85);
+    background: #080a08;
+    border: 1px solid #080806;
     border-radius: 2px;
     box-shadow:
         inset 0 2px 4px #000,
         inset 0 -2px 4px #000;
 }
 
-/* LEVI - UVUCEN OD OBE IVICE */
+/* LEVI PEAK */
 
 #peak-left {
-    left: 2.75%;
-    width: 19.55%;
+    left: 2.6%;
+    width: 19.9%;
 }
 
-/* DESNI - UVUCEN OD OBE IVICE */
+/* DESNI PEAK */
 
 #peak-right {
-    left: 77.25%;
-    width: 19.35%;
+    left: 77%;
+    width: 19.8%;
 }
 
 .peak-segment {
@@ -196,12 +193,7 @@ body {
         0 0 3px rgba(170,49,33,0.3);
 }
 
-/*
-   ZAMAZANO STAKLO:
-   - MASNE MRLJE
-   - PRASINA
-   - TAMNE OGREBOTINE
-*/
+/* PRLJAVO STAKLO */
 
 .peak-meter::after {
     content: "";
@@ -236,11 +228,7 @@ body {
         );
 }
 
-/*
-   NAPUKLO STAKLO.
-   PUKOTINE SU IZNAD LED DIODA,
-   BEZ DODATNIH LAMPICA.
-*/
+/* PUKOTINE */
 
 .peak-cracks {
     position: absolute;
@@ -264,18 +252,24 @@ body {
     stroke-width: 1.1;
 }
 
-/* SPECTRUM - NE MENJA SE */
+/*
+   SPECTRUM
+   JEDAN RED ANIMIRANIH STUBICA.
+   CRNA PODLOGA POKRIVA STATICKI SPECTRUM.
+*/
 
 #spectrum {
     position: absolute;
-    left: 29%;
-    top: 67.2%;
-    width: 42%;
-    height: 27%;
+    left: 28.5%;
+    top: 67%;
+    width: 43%;
+    height: 27.5%;
     display: flex;
     align-items: flex-end;
     gap: 0.45%;
     overflow: hidden;
+    background: #070908;
+    padding: 0.2%;
 }
 
 .spectrum-bar {
@@ -306,7 +300,6 @@ body {
 <div id="display">
 
     <div id="air" class="off">OFF AIR</div>
-
     <div id="dj-name">DJ OFFLINE</div>
 
     <!-- VU KAZALJKE -->
@@ -348,7 +341,6 @@ body {
                 r="5">
             </circle>
         </g>
-
     </svg>
 
     <!-- PEAK L -->
@@ -572,8 +564,6 @@ body {
         leftLevel = updateLevel(leftLevel);
         rightLevel = updateLevel(rightLevel);
 
-        /* VU KAZALJKE */
-
         const leftAngle =
             -45 + leftLevel * 90;
 
@@ -594,8 +584,6 @@ body {
                 " 850 174)"
         );
 
-        /* PEAK L / R */
-
         updatePeak(
             peakLeft,
             leftLevel
@@ -605,8 +593,6 @@ body {
             peakRight,
             rightLevel
         );
-
-        /* SPECTRUM */
 
         spectrumBars.forEach(function (
             bar,
@@ -655,7 +641,6 @@ body {
     }
 
     animate();
-
     setInterval(animate, 170);
 
 })();
