@@ -36,7 +36,7 @@ body {
     font-family: Impact, "Arial Black", Arial, sans-serif;
 }
 
-/* ON AIR / OFF AIR - STARI IZGREBANI METAL */
+/* ON AIR / OFF AIR - BEZ IZMENA */
 
 #air {
     position: absolute;
@@ -85,7 +85,7 @@ body {
     filter: drop-shadow(1px 2px 2px #100808);
 }
 
-/* DJ IME - STARI CELIK, RDJA, OGREBOTINE */
+/* DJ IME - BEZ IZMENA */
 
 #dj-name {
     position: absolute;
@@ -330,7 +330,7 @@ body {
         inset 0 0 6px rgba(0,0,0,.45);
 }
 
-/* SPECTRUM - BEZ IZMENA */
+/* SPECTRUM - ISTA POZICIJA I ANIMACIJA */
 
 #spectrum {
     position: absolute;
@@ -368,6 +368,79 @@ body {
 
     transition: height .14s linear;
 }
+
+/* JEDINA NOVA IZMENA:
+   ZAMAZANO I IZGREBANO STAKLO PREKO SPECTRUM-A */
+
+#spectrum::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            ellipse 28% 55% at 13% 19%,
+            rgba(143, 129, 105, .19),
+            transparent 95%
+        ),
+        radial-gradient(
+            ellipse 34% 65% at 83% 78%,
+            rgba(109, 91, 72, .20),
+            transparent 95%
+        ),
+        radial-gradient(
+            ellipse 22% 45% at 48% 35%,
+            rgba(164, 149, 123, .12),
+            transparent 95%
+        ),
+        repeating-linear-gradient(
+            106deg,
+            transparent 0 21px,
+            rgba(201, 190, 167, .075) 21.4px,
+            transparent 22.2px,
+            transparent 47px
+        ),
+        repeating-linear-gradient(
+            172deg,
+            transparent 0 36px,
+            rgba(174, 159, 132, .06) 36.5px,
+            transparent 37.5px,
+            transparent 69px
+        ),
+        linear-gradient(
+            to bottom,
+            rgba(73, 61, 47, .22),
+            transparent 28%,
+            rgba(47, 39, 31, .09) 61%,
+            rgba(16, 13, 10, .32)
+        );
+}
+
+#spectrum::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            ellipse 42% 9% at 30% 12%,
+            rgba(198, 185, 157, .09),
+            transparent
+        ),
+        radial-gradient(
+            ellipse 35% 8% at 71% 82%,
+            rgba(198, 185, 157, .07),
+            transparent
+        );
+
+    box-shadow:
+        inset 0 0 5px rgba(139, 119, 89, .22),
+        inset 0 0 12px rgba(0, 0, 0, .38);
+}
 </style>
 </head>
 
@@ -384,7 +457,6 @@ body {
         preserveAspectRatio="none"
         aria-hidden="true">
 
-        <!-- LEVA VU KAZALJKA -->
         <g id="vu-left">
             <line class="vu-needle-shadow"
                 x1="151.2" y1="174"
@@ -401,7 +473,6 @@ body {
                 cx="150" cy="174" r="2.4"/>
         </g>
 
-        <!-- DESNA VU KAZALJKA -->
         <g id="vu-right">
             <line class="vu-needle-shadow"
                 x1="851.2" y1="174"
