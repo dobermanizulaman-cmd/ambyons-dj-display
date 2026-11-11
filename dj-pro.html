@@ -25,8 +25,6 @@ body {
     align-items: center;
 }
 
-/* POSTOJECA SLIKA */
-
 #display {
     position: relative;
     width: min(100vw, 300vh);
@@ -111,109 +109,159 @@ body {
 
 /*
    PEAK L / PEAK R
-   MALO UZI I NIZI
-   PRIGUSENE, PRLJAVE BOJE
+   STVARNO SMANJENI:
+   - UZI
+   - NIZI
+   - CENTRIRANI U OTVORIMA
 */
 
 .peak-meter {
     position: absolute;
-    top: 80.3%;
-    height: 10.2%;
+    top: 81.15%;
+    height: 8.1%;
     display: flex;
     align-items: stretch;
-    gap: 0.25%;
-    padding: 0.22%;
+    gap: 0.35%;
+    padding: 0.2%;
     overflow: hidden;
     background: #090b09;
+    border: 1px solid rgba(0,0,0,0.85);
     border-radius: 2px;
+    box-shadow:
+        inset 0 2px 4px #000,
+        inset 0 -2px 4px #000;
 }
 
-/* LEVI PEAK */
+/* LEVI - UVUCEN OD OBE IVICE */
 
 #peak-left {
-    left: 2.15%;
-    width: 20.8%;
+    left: 2.75%;
+    width: 19.55%;
 }
 
-/* DESNI PEAK */
+/* DESNI - UVUCEN OD OBE IVICE */
 
 #peak-right {
-    left: 76.75%;
-    width: 20.5%;
+    left: 77.25%;
+    width: 19.35%;
 }
 
 .peak-segment {
     flex: 1;
     min-width: 0;
     height: 100%;
-    border: 1px solid #10130d;
-    background: #121812;
+    border: 1px solid #10120d;
+    background: #101510;
     box-shadow:
-        inset 1px 0 2px rgba(0,0,0,0.45),
-        inset 0 2px 3px rgba(0,0,0,0.3);
+        inset 1px 0 2px rgba(0,0,0,0.5),
+        inset 0 2px 3px rgba(0,0,0,0.4);
 }
 
 .peak-segment.active.green {
     background: linear-gradient(
         180deg,
-        #437e25 0%,
-        #36b52d 30%,
-        #1b8c25 75%,
-        #22521d 100%
+        #426c2b 0%,
+        #4ba93b 30%,
+        #23872a 65%,
+        #163d18 100%
     );
     box-shadow:
-        inset 0 3px 4px rgba(0,0,0,0.3),
-        0 0 3px rgba(49,157,36,0.35);
+        inset 0 3px 5px rgba(0,0,0,0.35),
+        0 0 3px rgba(42,150,38,0.3);
 }
 
 .peak-segment.active.yellow {
     background: linear-gradient(
         180deg,
-        #927524 0%,
-        #c4a32b 30%,
-        #ad8422 75%,
-        #5e4317 100%
+        #786329 0%,
+        #c1a52f 30%,
+        #a17b24 70%,
+        #4b3818 100%
     );
     box-shadow:
-        inset 0 3px 4px rgba(0,0,0,0.3),
-        0 0 3px rgba(197,153,33,0.35);
+        inset 0 3px 5px rgba(0,0,0,0.35),
+        0 0 3px rgba(194,153,36,0.3);
 }
 
 .peak-segment.active.red {
     background: linear-gradient(
         180deg,
-        #783020 0%,
-        #c63c27 30%,
-        #8f251c 75%,
-        #4b1c17 100%
+        #6a3026 0%,
+        #b83d2b 30%,
+        #882b20 70%,
+        #401c17 100%
     );
     box-shadow:
-        inset 0 3px 4px rgba(0,0,0,0.3),
-        0 0 3px rgba(186,45,30,0.35);
+        inset 0 3px 5px rgba(0,0,0,0.35),
+        0 0 3px rgba(170,49,33,0.3);
 }
 
-/* PRLJAVO STAKLO PREKO LED DIODA */
+/*
+   ZAMAZANO STAKLO:
+   - MASNE MRLJE
+   - PRASINA
+   - TAMNE OGREBOTINE
+*/
 
 .peak-meter::after {
     content: "";
     position: absolute;
     inset: 0;
     pointer-events: none;
+    z-index: 2;
     background:
+        radial-gradient(
+            ellipse at 24% 42%,
+            rgba(75,53,29,0.25),
+            transparent 35%
+        ),
+        radial-gradient(
+            ellipse at 75% 70%,
+            rgba(98,72,38,0.22),
+            transparent 30%
+        ),
         repeating-linear-gradient(
-            110deg,
-            transparent 0px,
-            transparent 17px,
-            rgba(67,42,20,0.10) 18px,
-            transparent 20px
+            112deg,
+            transparent 0 13px,
+            rgba(25,19,12,0.16) 14px,
+            transparent 16px,
+            transparent 29px
         ),
         linear-gradient(
             180deg,
-            rgba(44,29,16,0.20),
+            rgba(72,55,34,0.28),
             transparent 38%,
-            rgba(25,18,11,0.14) 78%,
-            rgba(0,0,0,0.28)
+            rgba(25,17,12,0.16) 65%,
+            rgba(0,0,0,0.38)
         );
+}
+
+/*
+   NAPUKLO STAKLO.
+   PUKOTINE SU IZNAD LED DIODA,
+   BEZ DODATNIH LAMPICA.
+*/
+
+.peak-cracks {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0.65;
+}
+
+.peak-cracks path {
+    fill: none;
+    stroke: rgba(184,169,142,0.58);
+    stroke-width: 0.7;
+    stroke-linecap: round;
+}
+
+.peak-cracks .dark {
+    stroke: rgba(19,14,10,0.8);
+    stroke-width: 1.1;
 }
 
 /* SPECTRUM - NE MENJA SE */
@@ -258,7 +306,10 @@ body {
 <div id="display">
 
     <div id="air" class="off">OFF AIR</div>
+
     <div id="dj-name">DJ OFFLINE</div>
+
+    <!-- VU KAZALJKE -->
 
     <svg
         id="vu-overlay"
@@ -300,8 +351,37 @@ body {
 
     </svg>
 
-    <div id="peak-left" class="peak-meter"></div>
-    <div id="peak-right" class="peak-meter"></div>
+    <!-- PEAK L -->
+
+    <div id="peak-left" class="peak-meter">
+        <svg class="peak-cracks"
+             viewBox="0 0 300 50"
+             preserveAspectRatio="none">
+            <path d="M16 0 L28 12 L24 23 L38 32 L35 50"/>
+            <path d="M24 23 L13 29 L7 40"/>
+            <path class="dark"
+                  d="M202 0 L195 13 L210 24 L204 37 L218 50"/>
+            <path d="M210 24 L226 19 L235 9"/>
+            <path d="M108 50 L115 35 L109 21 L120 8"/>
+        </svg>
+    </div>
+
+    <!-- PEAK R -->
+
+    <div id="peak-right" class="peak-meter">
+        <svg class="peak-cracks"
+             viewBox="0 0 300 50"
+             preserveAspectRatio="none">
+            <path d="M280 0 L268 12 L275 23 L260 35 L266 50"/>
+            <path d="M275 23 L289 30 L295 42"/>
+            <path class="dark"
+                  d="M75 0 L85 15 L78 28 L92 40 L87 50"/>
+            <path d="M78 28 L61 22 L55 11"/>
+            <path d="M180 50 L172 35 L181 20 L170 5"/>
+        </svg>
+    </div>
+
+    <!-- SPECTRUM -->
 
     <div id="spectrum"></div>
 
@@ -311,7 +391,7 @@ body {
 (function () {
     "use strict";
 
-    /* DJ LOGIN / LOGOUT */
+    /* DJ IME IZ URL-A */
 
     const params = new URLSearchParams(
         window.location.search
