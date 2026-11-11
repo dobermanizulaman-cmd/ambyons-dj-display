@@ -109,21 +109,7 @@ body {
     stroke-width: 2;
 }
 
-/*
-   PEAK METRI
-
-   Korekcija prema poslednjem screenshotu.
-
-   Levi:
-   - pomeren nagore
-   - proširen prema desnoj ivici
-
-   Desni:
-   - pomeren ulevo
-   - pomeren nagore
-
-   Oba ostaju unutar crnih otvora.
-*/
+/* PEAK METRI */
 
 .peak-meter {
     position: absolute;
@@ -144,17 +130,17 @@ body {
         inset 0 -3px 5px rgba(0,0,0,.8);
 }
 
-/* LEVI PEAK */
+/* LEVI PEAK - 0.3% KA SPEKTRUMU */
 
 #peak-left {
-    left: 2.85%;
+    left: 3.15%;
     width: 20.15%;
 }
 
-/* DESNI PEAK */
+/* DESNI PEAK - 0.3% KA SPEKTRUMU */
 
 #peak-right {
-    left: 76.45%;
+    left: 76.15%;
     width: 20.35%;
 }
 
@@ -218,13 +204,7 @@ body {
         );
 }
 
-/*
-   STARO, ZAMAZANO STAKLO
-
-   Nema velikih nacrtanih pukotina.
-   Prljavština i sitna oštećenja su
-   ograničena na površinu PEAK prozora.
-*/
+/* ZAMAZANO STAKLO */
 
 .peak-meter::before {
     content: "";
@@ -271,7 +251,7 @@ body {
         );
 }
 
-/* NEPRAVILNO OSTECENE IVICE STAKLA */
+/* OSTECENE IVICE STAKLA */
 
 .peak-meter::after {
     content: "";
@@ -309,7 +289,7 @@ body {
         inset 0 0 9px rgba(0,0,0,.75);
 }
 
-/* SPECTRUM - OSTAVLJEN ISTI */
+/* SPECTRUM */
 
 #spectrum {
     position: absolute;
@@ -358,8 +338,6 @@ body {
 
     <div id="dj-name">DJ OFFLINE</div>
 
-    <!-- VU KAZALJKE -->
-
     <svg
         id="vu-overlay"
         viewBox="0 0 1000 333.333"
@@ -401,21 +379,8 @@ body {
         </g>
     </svg>
 
-    <!-- PEAK L -->
-
-    <div
-        id="peak-left"
-        class="peak-meter">
-    </div>
-
-    <!-- PEAK R -->
-
-    <div
-        id="peak-right"
-        class="peak-meter">
-    </div>
-
-    <!-- SPECTRUM -->
+    <div id="peak-left" class="peak-meter"></div>
+    <div id="peak-right" class="peak-meter"></div>
 
     <div id="spectrum"></div>
 
