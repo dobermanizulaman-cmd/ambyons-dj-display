@@ -36,7 +36,7 @@ body {
     font-family: Impact, "Arial Black", Arial, sans-serif;
 }
 
-/* ON AIR / OFF AIR */
+/* ON AIR / OFF AIR - BEZ IZMENA */
 
 #air {
     position: absolute;
@@ -62,7 +62,8 @@ body {
     text-shadow: 2px 3px 3px #100808;
 }
 
-/* DJ IME */
+/* DJ IME - JEDINA IZMENA:
+   PRLJAVOBELA, ISTROSENA SLOVA */
 
 #dj-name {
     position: absolute;
@@ -75,16 +76,49 @@ body {
     justify-content: center;
     overflow: hidden;
     white-space: nowrap;
-    color: #eee7df;
     font-weight: 900;
     font-style: italic;
     line-height: 1;
+
+    color: #c6b9a5;
+
+    background-image:
+        repeating-linear-gradient(
+            108deg,
+            transparent 0px,
+            transparent 11px,
+            rgba(24, 17, 14, .75) 11.5px,
+            transparent 12.5px,
+            transparent 29px
+        ),
+        repeating-linear-gradient(
+            173deg,
+            transparent 0px,
+            transparent 17px,
+            rgba(55, 39, 29, .65) 17.5px,
+            transparent 19px,
+            transparent 37px
+        ),
+        linear-gradient(
+            180deg,
+            #e3d8c6 0%,
+            #b7a894 35%,
+            #d0c0aa 57%,
+            #887969 100%
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
     text-shadow:
-        2px 2px 0 #503028,
-        4px 4px 0 #100b09;
+        1px 2px 0 rgba(48, 31, 25, .45),
+        3px 4px 2px rgba(0, 0, 0, .5);
+
+    filter: contrast(1.12);
 }
 
-/* VU KAZALJKE - TANKE, METALNE */
+/* VU KAZALJKE - BEZ IZMENA */
 
 #vu-overlay {
     position: absolute;
@@ -124,7 +158,7 @@ body {
     stroke-width: .7;
 }
 
-/* PEAK - 17 SEGMENATA */
+/* PEAK - 17 SEGMENATA - BEZ IZMENA */
 
 .peak-meter {
     position: absolute;
@@ -207,7 +241,7 @@ body {
     );
 }
 
-/* ZAMAZANO PEAK STAKLO */
+/* ZAMAZANO PEAK STAKLO - BEZ IZMENA */
 
 .peak-meter::before {
     content: "";
@@ -270,7 +304,7 @@ body {
         inset 0 0 6px rgba(0,0,0,.45);
 }
 
-/* SPECTRUM */
+/* SPECTRUM - BEZ IZMENA */
 
 #spectrum {
     position: absolute;
@@ -322,7 +356,6 @@ body {
         preserveAspectRatio="none"
         aria-hidden="true">
 
-        <!-- LEVA VU KAZALJKA -->
         <g id="vu-left">
             <line class="vu-needle-shadow"
                 x1="151.2" y1="174"
@@ -339,7 +372,6 @@ body {
                 cx="150" cy="174" r="2.4"/>
         </g>
 
-        <!-- DESNA VU KAZALJKA -->
         <g id="vu-right">
             <line class="vu-needle-shadow"
                 x1="851.2" y1="174"
@@ -529,10 +561,6 @@ body {
 
         leftLevel = updateLevel(leftLevel);
         rightLevel = updateLevel(rightLevel);
-
-        /* VU KAZALJKE:
-           tanki metalni pokazivaci,
-           rotacija oko donjeg oslonca */
 
         const leftAngle =
             -45 + leftLevel * 90;
