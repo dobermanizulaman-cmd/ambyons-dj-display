@@ -13,78 +13,84 @@
 
 html, body {
     margin: 0;
-    padding: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
     background: #000;
 }
 
-#display {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-color: #080606;
-    background-image: url("./display-bg.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
-    font-family: Impact, "Arial Black", Arial, sans-serif;
-}
-
-/* ON AIR / OFF AIR */
-
-#air {
-    position: absolute;
-    left: 36%;
-    top: 7%;
-    width: 28%;
-    height: 15%;
+body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: clamp(18px, 4.3vw, 88px);
+}
+
+/*
+   ORIGINAL IMAGE RATIO: 2112 x 704 = 3:1
+
+   Entire display scales together.
+   No stretching.
+*/
+
+#display {
+    position: relative;
+    width: min(100vw, 300vh);
+    aspect-ratio: 3 / 1;
+    flex: none;
+    overflow: hidden;
+    background: #080606 url("./display-bg.png")
+        center / 100% 100% no-repeat;
+    font-family: Impact, "Arial Black", Arial, sans-serif;
+}
+
+/* STATUS */
+
+#air {
+    position: absolute;
+    left: 35%;
+    top: 8%;
+    width: 30%;
+    height: 16%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff1e8;
+    font-size: 4.2vw;
     font-weight: 900;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
     white-space: nowrap;
-    color: #f5e8dc;
     text-shadow:
-        2px 3px 2px #350600,
-        0 0 12px #ff2416,
-        0 0 25px #b80000;
+        0 0 8px #ff2515,
+        0 0 18px #b90000,
+        2px 3px 2px #290000;
 }
 
 #air.off {
-    color: #a69a90;
-    text-shadow: 2px 3px 3px #080505;
+    color: #9b8c86;
+    text-shadow: 2px 3px 3px #100808;
 }
 
 /* DJ NAME */
 
 #dj-name {
     position: absolute;
-    left: 29%;
-    top: 34%;
-    width: 42%;
-    height: 20%;
+    left: 30%;
+    top: 37%;
+    width: 40%;
+    height: 14%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 1%;
     overflow: hidden;
     white-space: nowrap;
-    color: #e9e2d8;
-    font-size: clamp(16px, 4.5vw, 94px);
+    color: #eee7df;
     font-weight: 900;
     font-style: italic;
-    text-align: center;
+    font-size: 4.4vw;
     line-height: 1;
     text-shadow:
-        2px 2px 0 #4d3028,
-        4px 4px 0 #160d0b,
-        0 0 12px #762b1d;
+        2px 2px 0 #503028,
+        4px 4px 0 #100b09;
 }
 
 /* VU NEEDLES */
@@ -98,100 +104,116 @@ html, body {
 }
 
 .needle {
-    stroke: #ff291d;
-    stroke-width: 5;
+    stroke: #ff3020;
+    stroke-width: 4;
     stroke-linecap: round;
-    filter: drop-shadow(0 0 4px #c81910);
+    filter: drop-shadow(0 0 3px #ff2515);
 }
 
 .pivot {
-    fill: #30231d;
-    stroke: #b39b82;
-    stroke-width: 3;
+    fill: #34231c;
+    stroke: #a58a75;
+    stroke-width: 2;
 }
 
-/* PEAK METERS */
+/*
+   PEAK LED WINDOWS
+
+   Positioned inside the existing
+   lower-left and lower-right windows.
+
+   Dark backing hides static LEDs
+   already present in the PNG.
+*/
 
 .peak-meter {
     position: absolute;
-    top: 80%;
-    height: 7%;
+    top: 82.5%;
+    height: 7.1%;
     display: flex;
     align-items: stretch;
-    gap: 1%;
+    gap: 0.2%;
+    padding: 0.3%;
     overflow: hidden;
+    background: #070a07;
+    border-radius: 2px;
 }
 
 #peak-left {
-    left: 4%;
-    width: 19%;
+    left: 3.9%;
+    width: 19.2%;
 }
 
 #peak-right {
-    left: 77%;
-    width: 19%;
+    left: 76.9%;
+    width: 19.2%;
 }
 
 .peak-segment {
     flex: 1;
     min-width: 0;
-    background: #121712;
-    border: 1px solid #090909;
+    background: #111713;
+    border: 1px solid #060806;
 }
 
 .peak-segment.active.green {
-    background: #11d83b;
-    box-shadow: 0 0 5px #11d83b;
+    background: #0df03a;
+    box-shadow: 0 0 5px #11e23c;
 }
 
 .peak-segment.active.yellow {
-    background: #ffe221;
-    box-shadow: 0 0 5px #ffe221;
+    background: #ffe51c;
+    box-shadow: 0 0 5px #ffe51c;
 }
 
 .peak-segment.active.red {
-    background: #ff2818;
-    box-shadow: 0 0 6px #ff2818;
+    background: #ff2817;
+    box-shadow: 0 0 6px #ff2817;
 }
 
-/* PEAK RED LIGHTS */
+/*
+   PEAK LIGHTS
+
+   Positioned on the existing
+   red bulbs.
+*/
 
 .peak-light {
     position: absolute;
-    top: 70%;
-    width: 2%;
+    top: 72.1%;
+    width: 2.5%;
     aspect-ratio: 1;
     border-radius: 50%;
-    background: #420d09;
-    border: 1px solid #672a20;
+    background: #450d09;
+    border: 1px solid #8c241b;
 }
 
 #light-left {
-    left: 20%;
+    left: 20.2%;
 }
 
 #light-right {
-    left: 91%;
+    left: 93.3%;
 }
 
 .peak-light.active {
-    background: #ff2919;
+    background: #ff2818;
     box-shadow:
-        0 0 9px #ff2919,
-        0 0 19px #b60000;
+        0 0 9px #ff2818,
+        0 0 17px #b60000;
 }
 
-/* SPECTRUM BELOW DJ NAME */
+/* SPECTRUM */
 
 #spectrum {
     position: absolute;
     left: 29%;
-    top: 64%;
+    top: 67.2%;
     width: 42%;
     height: 27%;
     display: flex;
     align-items: flex-end;
-    gap: 0.5%;
+    gap: 0.45%;
     overflow: hidden;
 }
 
@@ -213,7 +235,6 @@ html, body {
             #ff9916 75%,
             #f52416 100%
         );
-    filter: drop-shadow(0 0 2px #437d1c);
     transition: height 0.14s linear;
 }
 
@@ -229,16 +250,14 @@ html, body {
 
 <div id="display">
 
-    <!-- ON AIR / OFF AIR -->
     <div id="air" class="off">OFF AIR</div>
 
-    <!-- DJ NAME -->
     <div id="dj-name">DJ OFFLINE</div>
 
-    <!-- VU METERS -->
+    <!-- VU NEEDLES -->
     <svg
         id="vu-overlay"
-        viewBox="0 0 1000 500"
+        viewBox="0 0 1000 333.333"
         preserveAspectRatio="none"
         aria-hidden="true">
 
@@ -246,14 +265,14 @@ html, body {
             <line
                 class="needle"
                 x1="150"
-                y1="245"
+                y1="174"
                 x2="150"
-                y2="130">
+                y2="88">
             </line>
             <circle
                 class="pivot"
                 cx="150"
-                cy="245"
+                cy="174"
                 r="5">
             </circle>
         </g>
@@ -262,25 +281,25 @@ html, body {
             <line
                 class="needle"
                 x1="850"
-                y1="245"
+                y1="174"
                 x2="850"
-                y2="130">
+                y2="88">
             </line>
             <circle
                 class="pivot"
                 cx="850"
-                cy="245"
+                cy="174"
                 r="5">
             </circle>
         </g>
 
     </svg>
 
-    <!-- PEAK LEFT -->
+    <!-- PEAK L -->
     <div id="peak-left" class="peak-meter"></div>
     <div id="light-left" class="peak-light"></div>
 
-    <!-- PEAK RIGHT -->
+    <!-- PEAK R -->
     <div id="peak-right" class="peak-meter"></div>
     <div id="light-right" class="peak-light"></div>
 
@@ -294,12 +313,10 @@ html, body {
     "use strict";
 
     /*
-       DJ NAME FROM URL
-
-       Example:
+       URL:
        dj-pro.html?dj=DJ%20ZULAMAN
 
-       Empty DJ parameter = OFF AIR
+       No DJ parameter = OFF AIR
     */
 
     const params = new URLSearchParams(
@@ -311,6 +328,10 @@ html, body {
     ).trim().slice(0, 80);
 
     const isOnAir = djName.length > 0;
+
+    const display = document.getElementById(
+        "display"
+    );
 
     const djElement = document.getElementById(
         "dj-name"
@@ -334,28 +355,48 @@ html, body {
     );
 
     /*
-       FIT LONG DJ NAMES
+       RESPONSIVE TEXT SIZING
+
+       Text sizes are based on the
+       actual display width, not
+       browser viewport width.
     */
 
-    function fitDJName() {
-        let size = 94;
+    function fitText(element, maxRatio, minSize) {
+        const width = display.clientWidth;
 
-        djElement.style.fontSize = size + "px";
+        let size = Math.max(
+            minSize,
+            width * maxRatio
+        );
+
+        element.style.fontSize = size + "px";
 
         while (
-            djElement.scrollWidth >
-            djElement.clientWidth &&
-            size > 16
+            element.scrollWidth >
+            element.clientWidth &&
+            size > minSize
         ) {
-            size -= 2;
-            djElement.style.fontSize = size + "px";
+            size -= 1;
+            element.style.fontSize =
+                size + "px";
         }
     }
 
-    fitDJName();
+    function resizeText() {
+        fitText(airElement, 0.046, 12);
+        fitText(djElement, 0.051, 12);
+    }
+
+    window.addEventListener(
+        "resize",
+        resizeText
+    );
+
+    resizeText();
 
     /*
-       CREATE PEAK LED SEGMENTS
+       CREATE PEAK SEGMENTS
     */
 
     function createPeakMeter(elementId) {
@@ -399,7 +440,7 @@ html, body {
     );
 
     /*
-       CREATE SPECTRUM BARS
+       CREATE SPECTRUM
     */
 
     const spectrum = document.getElementById(
@@ -410,7 +451,9 @@ html, body {
     const spectrumCount = 36;
 
     for (let i = 0; i < spectrumCount; i++) {
-        const bar = document.createElement("div");
+        const bar = document.createElement(
+            "div"
+        );
 
         bar.className = "spectrum-bar";
 
@@ -419,7 +462,7 @@ html, body {
     }
 
     /*
-       VU METER ELEMENTS
+       VU NEEDLES
     */
 
     const vuLeft = document.getElementById(
@@ -430,6 +473,10 @@ html, body {
         "vu-right"
     );
 
+    /*
+       PEAK LIGHTS
+    */
+
     const lightLeft = document.getElementById(
         "light-left"
     );
@@ -439,11 +486,10 @@ html, body {
     );
 
     /*
-       SMOOTH SIMULATED LEVELS
+       SIMULATED AUDIO LEVELS
 
-       These animations are visual.
-       Browser MOAP does not automatically
-       provide real parcel audio levels.
+       Visual animation only.
+       Not connected to parcel audio.
     */
 
     let leftLevel = 0;
@@ -508,14 +554,14 @@ html, body {
             "transform",
             "rotate(" +
                 leftAngle +
-                " 150 245)"
+                " 150 174)"
         );
 
         vuRight.setAttribute(
             "transform",
             "rotate(" +
                 rightAngle +
-                " 850 245)"
+                " 850 174)"
         );
 
         /*
@@ -533,7 +579,7 @@ html, body {
         );
 
         /*
-           PEAK WARNING LIGHTS
+           PEAK LIGHTS
         */
 
         lightLeft.classList.toggle(
@@ -599,7 +645,7 @@ html, body {
     }
 
     /*
-       START DISPLAY
+       START
     */
 
     animate();
