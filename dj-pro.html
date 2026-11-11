@@ -26,7 +26,7 @@ body {
     align-items: center;
 }
 
-/* SLIKA: TACAN ODNOS 3:1 */
+/* SLIKA BEZ RAZVLACENJA */
 
 #display {
     position: relative;
@@ -113,36 +113,29 @@ body {
     stroke-width: 2;
 }
 
-/*
-   PEAK L / PEAK R
-
-   JEDAN RED.
-   PREKO POSTOJECIH LED PROZORA.
-   TAMNA PODLOGA POKRIVA
-   STATICKA SVETLA SA SLIKE.
-*/
+/* PEAK L / PEAK R - KOREKCIJA */
 
 .peak-meter {
     position: absolute;
-    top: 79.2%;
-    height: 8.2%;
+    top: 83.5%;
+    height: 7.8%;
     display: flex;
     align-items: stretch;
     gap: 0.35%;
-    padding: 0.35%;
+    padding: 0.2%;
     overflow: hidden;
     background: #070907;
     border-radius: 2px;
 }
 
 #peak-left {
-    left: 3.9%;
-    width: 19.2%;
+    left: 4.1%;
+    width: 18.9%;
 }
 
 #peak-right {
-    left: 76.9%;
-    width: 19.2%;
+    left: 77.1%;
+    width: 18.9%;
 }
 
 .peak-segment {
@@ -167,7 +160,7 @@ body {
     box-shadow: 0 0 6px #ff2817;
 }
 
-/* POSTOJECE PEAK LAMPICE */
+/* PEAK LAMPICE */
 
 .peak-light {
     position: absolute;
@@ -294,7 +287,7 @@ body {
 (function () {
     "use strict";
 
-    /* DJ LOGIN / LOGOUT PREKO URL-A */
+    /* DJ IME IZ URL-A */
 
     const params = new URLSearchParams(
         window.location.search
