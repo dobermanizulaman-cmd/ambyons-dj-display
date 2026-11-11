@@ -84,7 +84,7 @@ body {
         4px 4px 0 #100b09;
 }
 
-/* VU KAZALJKE */
+/* VU KAZALJKE - TANKE, METALNE */
 
 #vu-overlay {
     position: absolute;
@@ -94,20 +94,37 @@ body {
     pointer-events: none;
 }
 
-.needle {
-    stroke: #ff3020;
-    stroke-width: 4;
+.vu-needle-shadow {
+    stroke: rgba(0, 0, 0, .65);
+    stroke-width: 3.4;
     stroke-linecap: round;
-    filter: drop-shadow(0 0 3px #ff2515);
 }
 
-.pivot {
-    fill: #34231c;
-    stroke: #a58a75;
-    stroke-width: 2;
+.vu-needle-metal {
+    stroke: #69261e;
+    stroke-width: 2.2;
+    stroke-linecap: round;
 }
 
-/* PEAK - 17 SEGMENATA, UKLOPLJENO U OTVORE */
+.vu-needle-highlight {
+    stroke: #c16b54;
+    stroke-width: .65;
+    stroke-linecap: round;
+}
+
+.vu-pivot-outer {
+    fill: #201a18;
+    stroke: #9b8271;
+    stroke-width: 1.5;
+}
+
+.vu-pivot-inner {
+    fill: #77665a;
+    stroke: #302722;
+    stroke-width: .7;
+}
+
+/* PEAK - 17 SEGMENATA */
 
 .peak-meter {
     position: absolute;
@@ -124,21 +141,15 @@ body {
     box-shadow: none;
 }
 
-/* LEVI OTVOR */
-
 #peak-left {
     left: 3.55%;
     width: 19.55%;
 }
 
-/* DESNI OTVOR */
-
 #peak-right {
     left: 76.5%;
     width: 20.05%;
 }
-
-/* LED SEGMENTI */
 
 .peak-segment {
     flex: 1 1 0;
@@ -147,7 +158,6 @@ body {
     margin-right: 2px;
     border-left: 1px solid rgba(0,0,0,.85);
     border-right: 1px solid rgba(0,0,0,.85);
-
     background: linear-gradient(
         to bottom,
         #080d09 0%,
@@ -155,7 +165,6 @@ body {
         #111913 70%,
         #060906 100%
     );
-
     box-shadow:
         inset 0 2px 4px rgba(0,0,0,.6),
         inset 0 -2px 4px rgba(0,0,0,.6);
@@ -198,7 +207,7 @@ body {
     );
 }
 
-/* ZAMAZANO STAKLO */
+/* ZAMAZANO PEAK STAKLO */
 
 .peak-meter::before {
     content: "";
@@ -206,7 +215,6 @@ body {
     inset: 0;
     z-index: 2;
     pointer-events: none;
-
     background:
         radial-gradient(
             ellipse 22% 75% at 6% 15%,
@@ -246,7 +254,6 @@ body {
     inset: 0;
     z-index: 3;
     pointer-events: none;
-
     background:
         radial-gradient(
             ellipse 18% 50% at 0% 0%,
@@ -258,7 +265,6 @@ body {
             rgba(166,143,106,.15),
             transparent
         );
-
     box-shadow:
         inset 0 0 3px rgba(166,143,106,.2),
         inset 0 0 6px rgba(0,0,0,.45);
@@ -284,7 +290,6 @@ body {
     flex: 1;
     min-width: 0;
     height: 3%;
-
     background:
         repeating-linear-gradient(
             to top,
@@ -299,7 +304,6 @@ body {
             #ff9916 75%,
             #f52416 100%
         );
-
     transition: height .14s linear;
 }
 </style>
@@ -318,28 +322,38 @@ body {
         preserveAspectRatio="none"
         aria-hidden="true">
 
+        <!-- LEVA VU KAZALJKA -->
         <g id="vu-left">
-            <line
-                class="needle"
+            <line class="vu-needle-shadow"
+                x1="151.2" y1="174"
+                x2="151.2" y2="90"/>
+            <line class="vu-needle-metal"
                 x1="150" y1="174"
-                x2="150" y2="88">
-            </line>
-            <circle
-                class="pivot"
-                cx="150" cy="174" r="5">
-            </circle>
+                x2="150" y2="90"/>
+            <line class="vu-needle-highlight"
+                x1="149.4" y1="171"
+                x2="149.4" y2="94"/>
+            <circle class="vu-pivot-outer"
+                cx="150" cy="174" r="5"/>
+            <circle class="vu-pivot-inner"
+                cx="150" cy="174" r="2.4"/>
         </g>
 
+        <!-- DESNA VU KAZALJKA -->
         <g id="vu-right">
-            <line
-                class="needle"
+            <line class="vu-needle-shadow"
+                x1="851.2" y1="174"
+                x2="851.2" y2="90"/>
+            <line class="vu-needle-metal"
                 x1="850" y1="174"
-                x2="850" y2="88">
-            </line>
-            <circle
-                class="pivot"
-                cx="850" cy="174" r="5">
-            </circle>
+                x2="850" y2="90"/>
+            <line class="vu-needle-highlight"
+                x1="849.4" y1="171"
+                x2="849.4" y2="94"/>
+            <circle class="vu-pivot-outer"
+                cx="850" cy="174" r="5"/>
+            <circle class="vu-pivot-inner"
+                cx="850" cy="174" r="2.4"/>
         </g>
 
     </svg>
@@ -516,6 +530,10 @@ body {
         leftLevel = updateLevel(leftLevel);
         rightLevel = updateLevel(rightLevel);
 
+        /* VU KAZALJKE:
+           tanki metalni pokazivaci,
+           rotacija oko donjeg oslonca */
+
         const leftAngle =
             -45 + leftLevel * 90;
 
@@ -553,7 +571,9 @@ body {
             const wave =
                 .56 +
                 .22 * Math.sin(phase + index * .43) +
-                .17 * Math.sin(phase * .71 - index * .35);
+                .17 * Math.sin(
+                    phase * .71 - index * .35
+                );
 
             const variation =
                 Math.random() * 15;
