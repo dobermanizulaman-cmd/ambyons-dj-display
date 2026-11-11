@@ -5,10 +5,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AmbYonS DJ DISPLAY</title>
+
 <style>
 * {
     box-sizing: border-box;
 }
+
 html, body {
     margin: 0;
     width: 100%;
@@ -16,11 +18,13 @@ html, body {
     overflow: hidden;
     background: #000;
 }
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 #display {
     position: relative;
     width: min(100vw, 300vh);
@@ -71,6 +75,7 @@ body {
         drop-shadow(0 0 5px #a51d13)
         drop-shadow(0 0 10px #7a160f);
 }
+
 #air.off {
     filter: drop-shadow(1px 2px 2px #100808);
 }
@@ -132,26 +137,31 @@ body {
     height: 100%;
     pointer-events: none;
 }
+
 .vu-needle-shadow {
     stroke: rgba(0,0,0,.65);
     stroke-width: 3.4;
     stroke-linecap: round;
 }
+
 .vu-needle-metal {
     stroke: #69261e;
     stroke-width: 2.2;
     stroke-linecap: round;
 }
+
 .vu-needle-highlight {
     stroke: #c16b54;
     stroke-width: .65;
     stroke-linecap: round;
 }
+
 .vu-pivot-outer {
     fill: #201a18;
     stroke: #9b8271;
     stroke-width: 1.5;
 }
+
 .vu-pivot-inner {
     fill: #77665a;
     stroke: #302722;
@@ -173,14 +183,17 @@ body {
     border-radius: 0;
     box-shadow: none;
 }
+
 #peak-left {
     left: 3.55%;
     width: 19.55%;
 }
+
 #peak-right {
     left: 76.5%;
     width: 20.05%;
 }
+
 .peak-segment {
     flex: 1 1 0;
     min-width: 0;
@@ -199,9 +212,11 @@ body {
         inset 0 2px 4px rgba(0,0,0,.6),
         inset 0 -2px 4px rgba(0,0,0,.6);
 }
+
 .peak-segment:last-child {
     margin-right: 0;
 }
+
 .peak-segment.active.green {
     background: linear-gradient(
         to bottom,
@@ -212,6 +227,7 @@ body {
         #112b15 100%
     );
 }
+
 .peak-segment.active.yellow {
     background: linear-gradient(
         to bottom,
@@ -222,6 +238,7 @@ body {
         #362b17 100%
     );
 }
+
 .peak-segment.active.red {
     background: linear-gradient(
         to bottom,
@@ -232,6 +249,7 @@ body {
         #351612 100%
     );
 }
+
 .peak-meter::before {
     content: "";
     position: absolute;
@@ -270,6 +288,7 @@ body {
             rgba(0,0,0,.38)
         );
 }
+
 .peak-meter::after {
     content: "";
     position: absolute;
@@ -292,7 +311,7 @@ body {
         inset 0 0 6px rgba(0,0,0,.45);
 }
 
-/* SPECTRUM - ISTA POZICIJA I ISTI STUBICI */
+/* SPECTRUM - POZICIJA I STUBICI BEZ IZMENA */
 #spectrum {
     position: absolute;
     left: 28.5%;
@@ -306,6 +325,7 @@ body {
     background: #070908;
     padding: .2%;
 }
+
 .spectrum-bar {
     flex: 1;
     min-width: 0;
@@ -327,8 +347,8 @@ body {
     transition: height .14s linear;
 }
 
-/* NOVO STAKLO:
-   NEPRAVILNE MASNE MRLJE I PRASINA */
+/* SAMO STAKLO PREKO SPECTRUM-A:
+   PRLJAVSTINA I ZAMAZANI TRAGOVI */
 #spectrum::before {
     content: "";
     position: absolute;
@@ -337,70 +357,46 @@ body {
     pointer-events: none;
     background:
         radial-gradient(
-            ellipse 24% 39% at 11% 22%,
-            rgba(165,150,125,.21) 0%,
-            rgba(114,100,78,.12) 38%,
-            rgba(65,54,42,.06) 72%,
+            ellipse 25% 48% at 12% 22%,
+            rgba(148,130,100,.25),
             transparent 100%
         ),
         radial-gradient(
-            ellipse 13% 47% at 30% 72%,
-            rgba(136,121,99,.12),
+            ellipse 19% 61% at 39% 78%,
+            rgba(114,98,76,.17),
             transparent 100%
         ),
         radial-gradient(
-            ellipse 31% 28% at 72% 17%,
-            rgba(161,145,117,.15),
+            ellipse 32% 38% at 70% 15%,
+            rgba(159,141,109,.20),
             transparent 100%
         ),
         radial-gradient(
-            ellipse 21% 43% at 88% 79%,
-            rgba(128,111,88,.19),
+            ellipse 23% 57% at 91% 83%,
+            rgba(131,110,81,.25),
             transparent 100%
         ),
         radial-gradient(
-            ellipse 12% 24% at 52% 52%,
-            rgba(96,83,65,.11),
+            ellipse 15% 28% at 53% 52%,
+            rgba(101,86,67,.13),
             transparent 100%
         ),
         linear-gradient(
             to bottom,
-            rgba(87,72,53,.22) 0%,
-            rgba(58,47,34,.08) 17%,
-            transparent 40%,
-            transparent 70%,
-            rgba(65,52,38,.10) 87%,
-            rgba(77,60,43,.25) 100%
+            rgba(92,75,51,.28) 0%,
+            rgba(60,49,36,.10) 19%,
+            transparent 44%,
+            transparent 69%,
+            rgba(69,54,39,.12) 85%,
+            rgba(83,63,43,.30) 100%
         );
     box-shadow:
-        inset 0 0 8px rgba(130,107,75,.23),
-        inset 0 0 3px rgba(0,0,0,.32);
+        inset 0 0 12px rgba(129,103,68,.27),
+        inset 0 0 4px rgba(0,0,0,.4);
 }
 
-/* NEKOLIKO KRATKIH OGREBOTINA.
-   SVG LINIJE SU OGRANICENE NA MALA PODRUCJA,
-   NEMA LINIJA PREKO CELOG SPEKTRA. */
-#spectrum::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    pointer-events: none;
-    background:
-        radial-gradient(
-            ellipse 23% 9% at 18% 14%,
-            rgba(204,190,161,.09),
-            transparent 100%
-        ),
-        radial-gradient(
-            ellipse 16% 8% at 82% 82%,
-            rgba(204,190,161,.08),
-            transparent 100%
-        );
-}
-
-/* KRATKE, DISKRETNE OGREBOTINE NA STAKLU */
-#spectrum-glass-scratches {
+/* IZLOMLJENO STAKLO - SAMO PREKO SPEKTRA */
+#spectrum-glass {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -436,6 +432,7 @@ body {
             <circle class="vu-pivot-inner"
                     cx="150" cy="174" r="2.4"/>
         </g>
+
         <g id="vu-right">
             <line class="vu-needle-shadow"
                   x1="851.2" y1="174"
@@ -457,31 +454,65 @@ body {
     <div id="peak-right" class="peak-meter"></div>
 
     <div id="spectrum">
-        <svg id="spectrum-glass-scratches"
+        <svg id="spectrum-glass"
              viewBox="0 0 430 92"
              preserveAspectRatio="none"
              aria-hidden="true">
+
+            <!-- RAZGRANATE PUKOTINE -->
             <g fill="none"
-               stroke="#d2c5a7"
-               stroke-linecap="round">
-                <path d="M22 19 L29 17 L35 18"
-                      stroke-width=".42"
-                      opacity=".32"/>
-                <path d="M77 62 L83 60 L89 61 L94 59"
-                      stroke-width=".35"
-                      opacity=".24"/>
-                <path d="M146 24 L153 23 L158 25"
-                      stroke-width=".4"
-                      opacity=".28"/>
-                <path d="M253 71 L261 69 L267 70"
+               stroke="#b8b0a0"
+               stroke-linecap="round"
+               stroke-linejoin="round">
+
+                <path d="M0 17 L25 23 L47 20 L69 35 L91 32 L111 44 L138 40 L158 52"
+                      stroke-width=".55"
+                      opacity=".45"/>
+                <path d="M69 35 L75 18 L91 7"
                       stroke-width=".38"
-                      opacity=".24"/>
-                <path d="M336 17 L342 19 L349 18"
+                      opacity=".36"/>
+                <path d="M111 44 L105 63 L118 77"
                       stroke-width=".35"
-                      opacity=".28"/>
-                <path d="M391 58 L398 56 L404 57"
-                      stroke-width=".42"
-                      opacity=".26"/>
+                      opacity=".33"/>
+                <path d="M47 20 L54 8 L63 0"
+                      stroke-width=".32"
+                      opacity=".30"/>
+
+                <path d="M430 13 L405 20 L382 17 L362 31 L337 29 L315 43 L291 40 L270 54"
+                      stroke-width=".55"
+                      opacity=".45"/>
+                <path d="M362 31 L355 13 L343 3"
+                      stroke-width=".38"
+                      opacity=".36"/>
+                <path d="M315 43 L322 61 L308 79"
+                      stroke-width=".35"
+                      opacity=".33"/>
+                <path d="M382 17 L376 6 L367 0"
+                      stroke-width=".32"
+                      opacity=".30"/>
+
+                <path d="M175 0 L185 17 L180 30 L197 43 L191 57 L207 72 L202 92"
+                      stroke-width=".45"
+                      opacity=".35"/>
+                <path d="M197 43 L214 37 L227 24"
+                      stroke-width=".3"
+                      opacity=".29"/>
+                <path d="M191 57 L176 68 L169 85"
+                      stroke-width=".3"
+                      opacity=".27"/>
+            </g>
+
+            <!-- PRLJAVI RUBOVI PUKOTINA -->
+            <g fill="none"
+               stroke="#4b4031"
+               stroke-linecap="round"
+               opacity=".25">
+                <path d="M1 18 L25 24 L47 21 L69 36 L91 33 L111 45 L138 41"
+                      stroke-width="1.2"/>
+                <path d="M429 14 L405 21 L382 18 L362 32 L337 30 L315 44 L291 41"
+                      stroke-width="1.2"/>
+                <path d="M176 0 L186 17 L181 30 L198 43 L192 57 L208 72 L203 92"
+                      stroke-width="1"/>
             </g>
         </svg>
     </div>
@@ -530,6 +561,7 @@ body {
         fitText(airElement, .046);
         fitText(djElement, .051);
     }
+
     window.addEventListener("resize", resizeText);
     resizeText();
 
