@@ -5,7 +5,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AmbYonS DJ DISPLAY</title>
-
 <style>
 * {
     box-sizing: border-box;
@@ -26,19 +25,14 @@ body {
     align-items: center;
 }
 
-/* ORIGINALNE PROPORCIJE SLIKE */
-
 #display {
     position: relative;
     width: min(100vw, 300vh);
     aspect-ratio: 3 / 1;
     flex: none;
     overflow: hidden;
-    background-image: url("./display-bg.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-color: #080606;
+    background: #080606 url("./display-bg.png")
+        center / 100% 100% no-repeat;
     font-family: Impact, "Arial Black", Arial, sans-serif;
 }
 
@@ -51,8 +45,8 @@ body {
     width: 30%;
     height: 16%;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     white-space: nowrap;
     color: #fff1e8;
     font-weight: 900;
@@ -68,7 +62,7 @@ body {
     text-shadow: 2px 3px 3px #100808;
 }
 
-/* DJ IME */
+/* DJ NAME */
 
 #dj-name {
     position: absolute;
@@ -90,7 +84,7 @@ body {
         4px 4px 0 #100b09;
 }
 
-/* VU KAZALJKE */
+/* VU */
 
 #vu-overlay {
     position: absolute;
@@ -115,9 +109,7 @@ body {
 
 /*
    PEAK L / PEAK R
-
-   PORAVNANJE SA OTVORIMA NA PNG.
-   BEZ DODATNIH REDOVA I KRUGOVA.
+   PROSIRENI PREMA OTVORIMA NA SLICI
 */
 
 .peak-meter {
@@ -134,13 +126,13 @@ body {
 }
 
 #peak-left {
-    left: 3.1%;
-    width: 19.9%;
+    left: 1.85%;
+    width: 21.7%;
 }
 
 #peak-right {
-    left: 76.2%;
-    width: 19.9%;
+    left: 76.4%;
+    width: 21.4%;
 }
 
 .peak-segment {
@@ -200,10 +192,8 @@ body {
         );
     transition: height 0.14s linear;
 }
-
 </style>
 </head>
-
 <body>
 
 <div id="display">
@@ -211,8 +201,6 @@ body {
     <div id="air" class="off">OFF AIR</div>
 
     <div id="dj-name">DJ OFFLINE</div>
-
-    <!-- VU KAZALJKE -->
 
     <svg
         id="vu-overlay"
@@ -251,16 +239,11 @@ body {
                 r="5">
             </circle>
         </g>
-
     </svg>
 
-    <!-- PEAK L -->
     <div id="peak-left" class="peak-meter"></div>
-
-    <!-- PEAK R -->
     <div id="peak-right" class="peak-meter"></div>
 
-    <!-- SPECTRUM -->
     <div id="spectrum"></div>
 
 </div>
@@ -269,7 +252,7 @@ body {
 (function () {
     "use strict";
 
-    /* DJ IME IZ URL-A */
+    /* DJ LOGIN / LOGOUT */
 
     const params = new URLSearchParams(
         window.location.search
@@ -306,7 +289,7 @@ body {
         !isOnAir
     );
 
-    /* VELICINA TEKSTA */
+    /* TEXT SIZE */
 
     function fitText(element, ratio) {
         let size = display.clientWidth * ratio;
@@ -336,7 +319,7 @@ body {
 
     resizeText();
 
-    /* PEAK SEGMENTI */
+    /* PEAK METERS */
 
     function createPeakMeter(elementId) {
         const container = document.getElementById(
@@ -398,7 +381,7 @@ body {
         spectrumBars.push(bar);
     }
 
-    /* VU KAZALJKE */
+    /* VU NEEDLES */
 
     const vuLeft = document.getElementById(
         "vu-left"
@@ -412,7 +395,7 @@ body {
     let rightLevel = 0;
     let phase = 0;
 
-    /* DEKORATIVNA ANIMACIJA */
+    /* SIMULATED LEVELS */
 
     function updateLevel(current) {
         if (!isOnAir) {
@@ -425,8 +408,6 @@ body {
         return current * 0.35 +
                target * 0.65;
     }
-
-    /* PEAK LED ANIMACIJA */
 
     function updatePeak(segments, level) {
         const activeCount = Math.round(
@@ -442,19 +423,15 @@ body {
                 index < activeCount
             );
         });
-
-        return activeCount;
     }
 
-    /* GLAVNA ANIMACIJA */
+    /* ANIMATION */
 
     function animate() {
         phase += 0.20;
 
         leftLevel = updateLevel(leftLevel);
         rightLevel = updateLevel(rightLevel);
-
-        /* VU KAZALJKE */
 
         const leftAngle =
             -45 + leftLevel * 90;
@@ -476,8 +453,6 @@ body {
                 " 850 174)"
         );
 
-        /* PEAK L / PEAK R */
-
         updatePeak(
             peakLeft,
             leftLevel
@@ -487,8 +462,6 @@ body {
             peakRight,
             rightLevel
         );
-
-        /* SPECTRUM */
 
         spectrumBars.forEach(function (
             bar,
@@ -542,6 +515,5 @@ body {
 
 })();
 </script>
-
 </body>
 </html>
