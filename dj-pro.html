@@ -26,7 +26,7 @@ body {
     align-items: center;
 }
 
-/* SLIKA BEZ RAZVLACENJA */
+/* POSTOJECA SLIKA - BEZ RAZVLACENJA */
 
 #display {
     position: relative;
@@ -116,14 +116,14 @@ body {
 /*
    PEAK L / PEAK R
 
-   POKRIVAJU CELO CRNO POLJE.
+   KOREKCIJA LEVE I DESNE IVICE.
    JEDAN RED LED DIODA.
    BEZ DODATNIH CRVENIH KRUGOVA.
 */
 
 .peak-meter {
     position: absolute;
-    top: 80.0%;
+    top: 80%;
     height: 10.7%;
     display: flex;
     align-items: stretch;
@@ -134,14 +134,18 @@ body {
     border-radius: 2px;
 }
 
+/* LEVI PEAK - SIRE POLJE */
+
 #peak-left {
-    left: 3.0%;
-    width: 20.0%;
+    left: 2.35%;
+    width: 20.1%;
 }
 
+/* DESNI PEAK - POMEREN ULEVO I PROSIREN */
+
 #peak-right {
-    left: 77.0%;
-    width: 20.0%;
+    left: 76.05%;
+    width: 20.95%;
 }
 
 .peak-segment {
