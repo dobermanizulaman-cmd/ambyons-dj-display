@@ -13,6 +13,7 @@
 
 html, body {
     margin: 0;
+    padding: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -21,16 +22,11 @@ html, body {
 
 body {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
-/*
-   ORIGINAL IMAGE RATIO: 2112 x 704 = 3:1
-
-   Entire display scales together.
-   No stretching.
-*/
+/* SLIKA: TACAN ODNOS 3:1 */
 
 #display {
     position: relative;
@@ -38,12 +34,15 @@ body {
     aspect-ratio: 3 / 1;
     flex: none;
     overflow: hidden;
-    background: #080606 url("./display-bg.png")
-        center / 100% 100% no-repeat;
+    background-image: url("./display-bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-color: #080606;
     font-family: Impact, "Arial Black", Arial, sans-serif;
 }
 
-/* STATUS */
+/* ON AIR / OFF AIR */
 
 #air {
     position: absolute;
@@ -54,11 +53,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    white-space: nowrap;
     color: #fff1e8;
-    font-size: 4.2vw;
     font-weight: 900;
     letter-spacing: 0.03em;
-    white-space: nowrap;
     text-shadow:
         0 0 8px #ff2515,
         0 0 18px #b90000,
@@ -70,7 +68,7 @@ body {
     text-shadow: 2px 3px 3px #100808;
 }
 
-/* DJ NAME */
+/* DJ IME */
 
 #dj-name {
     position: absolute;
@@ -86,14 +84,13 @@ body {
     color: #eee7df;
     font-weight: 900;
     font-style: italic;
-    font-size: 4.4vw;
     line-height: 1;
     text-shadow:
         2px 2px 0 #503028,
         4px 4px 0 #100b09;
 }
 
-/* VU NEEDLES */
+/* VU KAZALJKE */
 
 #vu-overlay {
     position: absolute;
@@ -117,25 +114,24 @@ body {
 }
 
 /*
-   PEAK LED WINDOWS
+   PEAK L / PEAK R
 
-   Positioned inside the existing
-   lower-left and lower-right windows.
-
-   Dark backing hides static LEDs
-   already present in the PNG.
+   JEDAN RED.
+   PREKO POSTOJECIH LED PROZORA.
+   TAMNA PODLOGA POKRIVA
+   STATICKA SVETLA SA SLIKE.
 */
 
 .peak-meter {
     position: absolute;
-    top: 82.5%;
-    height: 7.1%;
+    top: 79.2%;
+    height: 8.2%;
     display: flex;
     align-items: stretch;
-    gap: 0.2%;
-    padding: 0.3%;
+    gap: 0.35%;
+    padding: 0.35%;
     overflow: hidden;
-    background: #070a07;
+    background: #070907;
     border-radius: 2px;
 }
 
@@ -171,12 +167,7 @@ body {
     box-shadow: 0 0 6px #ff2817;
 }
 
-/*
-   PEAK LIGHTS
-
-   Positioned on the existing
-   red bulbs.
-*/
+/* POSTOJECE PEAK LAMPICE */
 
 .peak-light {
     position: absolute;
@@ -238,11 +229,6 @@ body {
     transition: height 0.14s linear;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .spectrum-bar {
-        transition: none;
-    }
-}
 </style>
 </head>
 
@@ -254,7 +240,6 @@ body {
 
     <div id="dj-name">DJ OFFLINE</div>
 
-    <!-- VU NEEDLES -->
     <svg
         id="vu-overlay"
         viewBox="0 0 1000 333.333"
@@ -295,15 +280,12 @@ body {
 
     </svg>
 
-    <!-- PEAK L -->
     <div id="peak-left" class="peak-meter"></div>
     <div id="light-left" class="peak-light"></div>
 
-    <!-- PEAK R -->
     <div id="peak-right" class="peak-meter"></div>
     <div id="light-right" class="peak-light"></div>
 
-    <!-- SPECTRUM -->
     <div id="spectrum"></div>
 
 </div>
@@ -312,12 +294,7 @@ body {
 (function () {
     "use strict";
 
-    /*
-       URL:
-       dj-pro.html?dj=DJ%20ZULAMAN
-
-       No DJ parameter = OFF AIR
-    */
+    /* DJ LOGIN / LOGOUT PREKO URL-A */
 
     const params = new URLSearchParams(
         window.location.search
@@ -354,28 +331,17 @@ body {
         !isOnAir
     );
 
-    /*
-       RESPONSIVE TEXT SIZING
+    /* VELICINA TEKSTA */
 
-       Text sizes are based on the
-       actual display width, not
-       browser viewport width.
-    */
-
-    function fitText(element, maxRatio, minSize) {
-        const width = display.clientWidth;
-
-        let size = Math.max(
-            minSize,
-            width * maxRatio
-        );
+    function fitText(element, ratio) {
+        let size = display.clientWidth * ratio;
 
         element.style.fontSize = size + "px";
 
         while (
             element.scrollWidth >
             element.clientWidth &&
-            size > minSize
+            size > 10
         ) {
             size -= 1;
             element.style.fontSize =
@@ -384,8 +350,8 @@ body {
     }
 
     function resizeText() {
-        fitText(airElement, 0.046, 12);
-        fitText(djElement, 0.051, 12);
+        fitText(airElement, 0.046);
+        fitText(djElement, 0.051);
     }
 
     window.addEventListener(
@@ -395,9 +361,7 @@ body {
 
     resizeText();
 
-    /*
-       CREATE PEAK SEGMENTS
-    */
+    /* PEAK SEGMENTI */
 
     function createPeakMeter(elementId) {
         const container = document.getElementById(
@@ -439,9 +403,7 @@ body {
         "peak-right"
     );
 
-    /*
-       CREATE SPECTRUM
-    */
+    /* SPECTRUM */
 
     const spectrum = document.getElementById(
         "spectrum"
@@ -461,9 +423,7 @@ body {
         spectrumBars.push(bar);
     }
 
-    /*
-       VU NEEDLES
-    */
+    /* VU I PEAK */
 
     const vuLeft = document.getElementById(
         "vu-left"
@@ -473,10 +433,6 @@ body {
         "vu-right"
     );
 
-    /*
-       PEAK LIGHTS
-    */
-
     const lightLeft = document.getElementById(
         "light-left"
     );
@@ -485,16 +441,11 @@ body {
         "light-right"
     );
 
-    /*
-       SIMULATED AUDIO LEVELS
-
-       Visual animation only.
-       Not connected to parcel audio.
-    */
-
     let leftLevel = 0;
     let rightLevel = 0;
     let phase = 0;
+
+    /* DEKORATIVNA ANIMACIJA */
 
     function updateLevel(current) {
         if (!isOnAir) {
@@ -507,10 +458,6 @@ body {
         return current * 0.35 +
                target * 0.65;
     }
-
-    /*
-       UPDATE PEAK LEDS
-    */
 
     function updatePeak(segments, level) {
         const activeCount = Math.round(
@@ -530,19 +477,13 @@ body {
         return activeCount;
     }
 
-    /*
-       MAIN ANIMATION
-    */
-
     function animate() {
         phase += 0.20;
 
         leftLevel = updateLevel(leftLevel);
         rightLevel = updateLevel(rightLevel);
 
-        /*
-           VU NEEDLES
-        */
+        /* VU KAZALJKE */
 
         const leftAngle =
             -45 + leftLevel * 90;
@@ -564,9 +505,7 @@ body {
                 " 850 174)"
         );
 
-        /*
-           PEAK LEDS
-        */
+        /* PEAK L / R */
 
         const leftPeakCount = updatePeak(
             peakLeft,
@@ -578,10 +517,6 @@ body {
             rightLevel
         );
 
-        /*
-           PEAK LIGHTS
-        */
-
         lightLeft.classList.toggle(
             "active",
             leftPeakCount >= 15
@@ -592,9 +527,7 @@ body {
             rightPeakCount >= 15
         );
 
-        /*
-           SPECTRUM
-        */
+        /* SPECTRUM */
 
         spectrumBars.forEach(function (
             bar,
@@ -632,9 +565,7 @@ body {
                 5,
                 Math.min(
                     97,
-                    centerShape *
-                    wave *
-                    115 +
+                    centerShape * wave * 115 +
                     variation
                 )
             );
@@ -644,16 +575,9 @@ body {
         });
     }
 
-    /*
-       START
-    */
-
     animate();
 
-    setInterval(
-        animate,
-        170
-    );
+    setInterval(animate, 170);
 
 })();
 </script>
