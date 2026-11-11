@@ -3,491 +3,612 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AmbYonS DJ DISPLAY</title>
+
 <style>
-*{box-sizing:border-box}
-html,body{
- margin:0;width:100%;height:100%;
- overflow:hidden;background:#050404;
- font-family:Impact,"Arial Narrow",Arial,sans-serif;
- color:#e4d8c8
+* {
+    box-sizing: border-box;
 }
-.screen{
- position:absolute;inset:0;
- display:grid;
- grid-template-columns:27% 46% 27%;
- padding:1.2%;gap:0;
- background:
- repeating-linear-gradient(115deg,
- transparent 0 37px,#ad68400b 38px 40px,
- transparent 41px 73px),
- radial-gradient(ellipse at center,
- #382019 0%,#120e0c 54%,#030303 100%)
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
 }
-.side{
- display:grid;
- grid-template-rows:67% 33%;
- min-height:0;padding:1.5%;gap:3%
+
+#display {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #080606;
+    background-image: url("./display-bg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    font-family: Impact, "Arial Black", Arial, sans-serif;
 }
-.center{
- display:grid;
- grid-template-rows:22% 27% 51%;
- min-width:0;min-height:0;
- padding:1.5%;gap:1%
+
+/* ON AIR / OFF AIR */
+
+#air {
+    position: absolute;
+    left: 36%;
+    top: 7%;
+    width: 28%;
+    height: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(18px, 4.3vw, 88px);
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    color: #f5e8dc;
+    text-shadow:
+        2px 3px 2px #350600,
+        0 0 12px #ff2416,
+        0 0 25px #b80000;
 }
-.rust{
- position:relative;
- border:5px ridge #74513b;
- border-radius:8px;
- box-shadow:
- inset 0 0 0 2px #21140d,
- inset 0 0 25px #050303,
- 0 0 0 2px #170c09,
- 0 4px 13px #000;
- background:
- repeating-linear-gradient(132deg,
- #35231a 0 9px,#51301e 10px 12px,
- #201713 13px 28px,#6c3820 29px 30px);
- overflow:hidden
+
+#air.off {
+    color: #a69a90;
+    text-shadow: 2px 3px 3px #080505;
 }
-.rust:after{
- content:"";position:absolute;inset:0;
- pointer-events:none;z-index:5;
- background:
- radial-gradient(circle at 12% 15%,#a866332e,transparent 20%),
- radial-gradient(circle at 90% 88%,#c37a3b25,transparent 22%),
- repeating-linear-gradient(25deg,
- transparent 0 28px,#07040416 29px 31px,
- transparent 32px 57px)
+
+/* DJ NAME */
+
+#dj-name {
+    position: absolute;
+    left: 29%;
+    top: 34%;
+    width: 42%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1%;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #e9e2d8;
+    font-size: clamp(16px, 4.5vw, 94px);
+    font-weight: 900;
+    font-style: italic;
+    text-align: center;
+    line-height: 1;
+    text-shadow:
+        2px 2px 0 #4d3028,
+        4px 4px 0 #160d0b,
+        0 0 12px #762b1d;
 }
-.bolt{
- position:absolute;z-index:8;
- width:13px;height:13px;border-radius:50%;
- background:radial-gradient(circle at 30% 25%,
- #bca58a,#594535 52%,#110c09 78%);
- border:1px solid #090706;
- box-shadow:0 1px 3px #000
+
+/* VU NEEDLES */
+
+#vu-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
 }
-.tl{top:5px;left:5px}
-.tr{top:5px;right:5px}
-.bl{bottom:5px;left:5px}
-.br{bottom:5px;right:5px}
-.vu{
- display:flex;flex-direction:column;
- padding:5%;min-height:0
+
+.needle {
+    stroke: #ff291d;
+    stroke-width: 5;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 4px #c81910);
 }
-.vu-title{
- text-align:center;font-size:clamp(12px,1.8vw,28px);
- letter-spacing:.1em;
- text-shadow:2px 2px #130a07;
- margin-bottom:3%
+
+.pivot {
+    fill: #30231d;
+    stroke: #b39b82;
+    stroke-width: 3;
 }
-.glass{
- flex:1;min-height:0;position:relative;
- border:4px solid #21130d;
- border-radius:48% 48% 9px 9px / 17% 17% 9px 9px;
- background:
- repeating-linear-gradient(133deg,
- transparent 0 37px,#3e28101a 38px 39px,
- transparent 40px 72px),
- radial-gradient(ellipse at 50% 70%,
- #e4c27e,#b38a50 65%,#614329);
- box-shadow:
- inset 0 0 25px #402414,
- inset 0 0 0 2px #b18750;
- overflow:hidden
+
+/* PEAK METERS */
+
+.peak-meter {
+    position: absolute;
+    top: 80%;
+    height: 7%;
+    display: flex;
+    align-items: stretch;
+    gap: 1%;
+    overflow: hidden;
 }
-.glass:after{
- content:"";position:absolute;inset:0;
- pointer-events:none;z-index:3;
- background:
- linear-gradient(135deg,
- transparent 0 32%,#e4d5a525 32.2%,
- transparent 32.6%),
- linear-gradient(47deg,
- transparent 0 63%,#25140850 63.2%,
- transparent 63.5%),
- radial-gradient(circle at 80% 25%,
- #fff4c01c,transparent 35%)
+
+#peak-left {
+    left: 4%;
+    width: 19%;
 }
-svg{
- width:100%;height:100%;
- position:absolute;inset:0
+
+#peak-right {
+    left: 77%;
+    width: 19%;
 }
-.arc{
- fill:none;stroke:#301c11;stroke-width:3
+
+.peak-segment {
+    flex: 1;
+    min-width: 0;
+    background: #121712;
+    border: 1px solid #090909;
 }
-.tick{
- stroke:#26150c;stroke-width:3
+
+.peak-segment.active.green {
+    background: #11d83b;
+    box-shadow: 0 0 5px #11d83b;
 }
-.num{
- fill:#28160c;font:bold 16px Arial,sans-serif
+
+.peak-segment.active.yellow {
+    background: #ffe221;
+    box-shadow: 0 0 5px #ffe221;
 }
-.rednum{fill:#b51c12}
-.vutext{
- fill:#2c1b11;
- font:bold 42px Georgia,serif;
- text-anchor:middle
+
+.peak-segment.active.red {
+    background: #ff2818;
+    box-shadow: 0 0 6px #ff2818;
 }
-.needle{
- stroke:#e52017;stroke-width:4;
- stroke-linecap:round;
- transform-origin:150px 173px;
- transform:rotate(-43deg);
- filter:drop-shadow(0 0 3px #b61912);
- transition:transform .14s linear
+
+/* PEAK RED LIGHTS */
+
+.peak-light {
+    position: absolute;
+    top: 70%;
+    width: 2%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #420d09;
+    border: 1px solid #672a20;
 }
-.hub{
- fill:#433027;stroke:#ad9075;stroke-width:4
+
+#light-left {
+    left: 20%;
 }
-.peak{
- display:flex;flex-direction:column;
- justify-content:center;
- padding:8%;gap:17%;
- min-height:0
+
+#light-right {
+    left: 91%;
 }
-.peak-label{
- display:flex;align-items:center;
- justify-content:space-between;
- font-size:clamp(12px,2vw,31px);
- letter-spacing:.08em
+
+.peak-light.active {
+    background: #ff2919;
+    box-shadow:
+        0 0 9px #ff2919,
+        0 0 19px #b60000;
 }
-.lamp{
- width:18px;height:18px;
- border-radius:50%;
- border:2px solid #6b3327;
- background:#3a0907
+
+/* SPECTRUM BELOW DJ NAME */
+
+#spectrum {
+    position: absolute;
+    left: 29%;
+    top: 64%;
+    width: 42%;
+    height: 27%;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5%;
+    overflow: hidden;
 }
-.lamp.on{
- background:#ff2818;
- box-shadow:0 0 13px #f22216
+
+.spectrum-bar {
+    flex: 1;
+    min-width: 0;
+    height: 3%;
+    background:
+        repeating-linear-gradient(
+            to top,
+            transparent 0 5px,
+            #080808 5px 8px
+        ),
+        linear-gradient(
+            to top,
+            #0ce238 0%,
+            #28e91d 33%,
+            #f4e11d 55%,
+            #ff9916 75%,
+            #f52416 100%
+        );
+    filter: drop-shadow(0 0 2px #437d1c);
+    transition: height 0.14s linear;
 }
-.leds{
- display:flex;gap:2px;
- width:100%;height:30%
-}
-.led{
- flex:1;min-width:0;
- background:#141814;
- border:1px solid #0a0b0a
-}
-.led.on.green{
- background:#12d33c;
- box-shadow:0 0 5px #0bd83a
-}
-.led.on.yellow{
- background:#f6d91b;
- box-shadow:0 0 5px #f6d91b
-}
-.led.on.red{
- background:#f12a16;
- box-shadow:0 0 6px #f12a16
-}
-.air{
- display:flex;align-items:center;
- justify-content:center;
- position:relative;
- margin:1% 9%;
- border:5px ridge #6b3c2d;
- border-radius:6px;
- background:
- repeating-linear-gradient(135deg,
- transparent 0 22px,#ff9b4d12 23px 24px,
- transparent 25px 48px),
- linear-gradient(135deg,
- #3a0a08,#a21b11 45%,#3a0b08);
- box-shadow:inset 0 0 20px #200504,
- 0 0 16px #1c0504
-}
-.air span{
- color:#f0e5d8;
- font-size:clamp(20px,4.5vw,80px);
- letter-spacing:.1em;
- text-shadow:2px 3px #380805,
- 0 0 12px #ed3c2a
-}
-.air.off{
- background:linear-gradient(#292321,#100e0d)
-}
-.air.off span{
- color:#9a8c83;text-shadow:2px 3px #080707
-}
-.identity{
- position:relative;
- display:flex;align-items:center;
- justify-content:center;
- min-width:0;overflow:hidden;
- border-top:2px solid #72241b;
- border-bottom:2px solid #72241b;
- background:
- repeating-linear-gradient(115deg,
- transparent 0 28px,#9a41200d 29px 30px,
- transparent 31px 55px),
- radial-gradient(ellipse,#321915,#090707)
-}
-.identity:before{
- content:"";position:absolute;
- width:30%;aspect-ratio:1;
- border:12px solid #8c1811;
- opacity:.42;transform:rotate(30deg)
-}
-.dj{
- position:relative;z-index:2;
- width:100%;padding:0 2%;
- text-align:center;
- font-size:clamp(19px,5vw,92px);
- font-style:italic;
- line-height:1.05;
- overflow-wrap:anywhere;
- color:#e4dcd0;
- text-shadow:
- 2px 2px #432a22,
- 4px 4px #160d0a,
- 0 0 12px #a0442c
-}
-.spectrum-area{
- display:flex;align-items:flex-end;
- min-height:0;padding:2% 1%;
- background:
- repeating-linear-gradient(0deg,
- #0b0c0a 0 9px,#1a1511 10px 11px),
- linear-gradient(#21110c,#050505)
-}
-.spectrum{
- display:flex;align-items:flex-end;
- gap:.7%;width:100%;height:100%;
- min-height:0
-}
-.bar{
- flex:1;min-width:0;height:3%;
- background:
- repeating-linear-gradient(to top,
- transparent 0 5px,#070707 6px 9px),
- linear-gradient(to top,
- #0bdd36 0%,#2cdb17 34%,
- #e8d818 55%,#f39115 73%,
- #f12113 100%);
- filter:drop-shadow(0 0 2px #a34217);
- transition:height .13s linear
-}
-@media(max-width:650px){
- .screen{padding:.5%}
- .rust{border-width:2px}
- .bolt{width:7px;height:7px}
- .vu{padding:3%}
- .glass{border-width:2px}
- .air{border-width:2px}
- .lamp{width:9px;height:9px}
- .peak{padding:4%}
- .peak-label{font-size:10px}
- .identity:before{border-width:5px}
+
+@media (prefers-reduced-motion: reduce) {
+    .spectrum-bar {
+        transition: none;
+    }
 }
 </style>
 </head>
+
 <body>
 
-<main class="screen">
+<div id="display">
 
-<section class="side">
- <div class="rust vu">
-  <i class="bolt tl"></i>
-  <i class="bolt tr"></i>
-  <i class="bolt bl"></i>
-  <i class="bolt br"></i>
-  <div class="vu-title">VU LEFT</div>
-  <div class="glass">
-   <svg viewBox="0 0 300 200"
-        preserveAspectRatio="xMidYMid meet">
-    <path class="arc"
-     d="M18 145 Q150 -48 282 145"/>
-    <g class="tick">
-     <path d="M18 145l-10 6 M43 100l-10 -8
-     M78 61l-7 -12 M113 34l-4 -12
-     M150 23v-13 M187 34l4 -12
-     M222 61l7 -12 M257 100l10 -8
-     M282 145l10 6"/>
-    </g>
-    <g class="num">
-     <text x="5" y="170">-20</text>
-     <text x="24" y="88">-10</text>
-     <text x="74" y="43">-5</text>
-     <text x="144" y="16">0</text>
-     <text class="rednum" x="190" y="32">+3</text>
-     <text class="rednum" x="260" y="89">+6</text>
-    </g>
-    <text class="vutext" x="150" y="125">VU</text>
-    <line id="needleL" class="needle"
-     x1="150" y1="173" x2="150" y2="38"/>
-    <circle class="hub" cx="150" cy="173" r="8"/>
-   </svg>
-  </div>
- </div>
+    <!-- ON AIR / OFF AIR -->
+    <div id="air" class="off">OFF AIR</div>
 
- <div class="rust peak">
-  <i class="bolt tl"></i>
-  <i class="bolt tr"></i>
-  <div class="peak-label">
-   PEAK L <span class="lamp" id="lampL"></span>
-  </div>
-  <div class="leds" id="peakL"></div>
- </div>
-</section>
+    <!-- DJ NAME -->
+    <div id="dj-name">DJ OFFLINE</div>
 
-<section class="center">
- <div class="air" id="airBox">
-  <span id="airText">OFF AIR</span>
- </div>
+    <!-- VU METERS -->
+    <svg
+        id="vu-overlay"
+        viewBox="0 0 1000 500"
+        preserveAspectRatio="none"
+        aria-hidden="true">
 
- <div class="identity">
-  <div class="dj" id="djName">DJ OFFLINE</div>
- </div>
+        <g id="vu-left">
+            <line
+                class="needle"
+                x1="150"
+                y1="245"
+                x2="150"
+                y2="130">
+            </line>
+            <circle
+                class="pivot"
+                cx="150"
+                cy="245"
+                r="5">
+            </circle>
+        </g>
 
- <div class="spectrum-area">
-  <div class="spectrum" id="spectrum"></div>
- </div>
-</section>
+        <g id="vu-right">
+            <line
+                class="needle"
+                x1="850"
+                y1="245"
+                x2="850"
+                y2="130">
+            </line>
+            <circle
+                class="pivot"
+                cx="850"
+                cy="245"
+                r="5">
+            </circle>
+        </g>
 
-<section class="side">
- <div class="rust vu">
-  <i class="bolt tl"></i>
-  <i class="bolt tr"></i>
-  <i class="bolt bl"></i>
-  <i class="bolt br"></i>
-  <div class="vu-title">VU RIGHT</div>
-  <div class="glass">
-   <svg viewBox="0 0 300 200"
-        preserveAspectRatio="xMidYMid meet">
-    <path class="arc"
-     d="M18 145 Q150 -48 282 145"/>
-    <g class="tick">
-     <path d="M18 145l-10 6 M43 100l-10 -8
-     M78 61l-7 -12 M113 34l-4 -12
-     M150 23v-13 M187 34l4 -12
-     M222 61l7 -12 M257 100l10 -8
-     M282 145l10 6"/>
-    </g>
-    <g class="num">
-     <text x="5" y="170">-20</text>
-     <text x="24" y="88">-10</text>
-     <text x="74" y="43">-5</text>
-     <text x="144" y="16">0</text>
-     <text class="rednum" x="190" y="32">+3</text>
-     <text class="rednum" x="260" y="89">+6</text>
-    </g>
-    <text class="vutext" x="150" y="125">VU</text>
-    <line id="needleR" class="needle"
-     x1="150" y1="173" x2="150" y2="38"/>
-    <circle class="hub" cx="150" cy="173" r="8"/>
-   </svg>
-  </div>
- </div>
+    </svg>
 
- <div class="rust peak">
-  <i class="bolt tl"></i>
-  <i class="bolt tr"></i>
-  <div class="peak-label">
-   PEAK R <span class="lamp" id="lampR"></span>
-  </div>
-  <div class="leds" id="peakR"></div>
- </div>
-</section>
+    <!-- PEAK LEFT -->
+    <div id="peak-left" class="peak-meter"></div>
+    <div id="light-left" class="peak-light"></div>
 
-</main>
+    <!-- PEAK RIGHT -->
+    <div id="peak-right" class="peak-meter"></div>
+    <div id="light-right" class="peak-light"></div>
+
+    <!-- SPECTRUM -->
+    <div id="spectrum"></div>
+
+</div>
 
 <script>
-(function(){
- "use strict";
+(function () {
+    "use strict";
 
- const params=new URLSearchParams(location.search);
- const dj=(params.get("dj")||"").trim().slice(0,80);
- const active=dj.length>0;
+    /*
+       DJ NAME FROM URL
 
- document.getElementById("djName").textContent=
-  active?dj:"DJ OFFLINE";
+       Example:
+       dj-pro.html?dj=DJ%20ZULAMAN
 
- document.getElementById("airText").textContent=
-  active?"ON AIR":"OFF AIR";
+       Empty DJ parameter = OFF AIR
+    */
 
- document.getElementById("airBox")
-  .classList.toggle("off",!active);
+    const params = new URLSearchParams(
+        window.location.search
+    );
 
- function makePeak(id){
-  const root=document.getElementById(id);
-  const result=[];
+    const djName = (
+        params.get("dj") || ""
+    ).trim().slice(0, 80);
 
-  for(let i=0;i<20;i++){
-   const el=document.createElement("span");
-   el.className="led "+
-    (i<12?"green":i<16?"yellow":"red");
-   root.appendChild(el);
-   result.push(el);
-  }
-  return result;
- }
+    const isOnAir = djName.length > 0;
 
- const peaks=[
-  makePeak("peakL"),
-  makePeak("peakR")
- ];
+    const djElement = document.getElementById(
+        "dj-name"
+    );
 
- const root=document.getElementById("spectrum");
- const bars=[];
+    const airElement = document.getElementById(
+        "air"
+    );
 
- for(let i=0;i<38;i++){
-  const bar=document.createElement("div");
-  bar.className="bar";
-  root.appendChild(bar);
-  bars.push(bar);
- }
+    djElement.textContent = isOnAir
+        ? djName
+        : "DJ OFFLINE";
 
- let phase=0;
+    airElement.textContent = isOnAir
+        ? "ON AIR"
+        : "OFF AIR";
 
- function animate(){
-  phase+=.18;
+    airElement.classList.toggle(
+        "off",
+        !isOnAir
+    );
 
-  for(let c=0;c<2;c++){
-   const level=active
-    ?0.27+Math.random()*0.7
-    :0;
+    /*
+       FIT LONG DJ NAMES
+    */
 
-   document.getElementById(
-    c?"needleR":"needleL"
-   ).style.transform=
-    "rotate("+(-43+level*86)+"deg)";
+    function fitDJName() {
+        let size = 94;
 
-   const lit=Math.round(level*20);
+        djElement.style.fontSize = size + "px";
 
-   peaks[c].forEach((el,i)=>{
-    el.classList.toggle("on",i<lit);
-   });
+        while (
+            djElement.scrollWidth >
+            djElement.clientWidth &&
+            size > 16
+        ) {
+            size -= 2;
+            djElement.style.fontSize = size + "px";
+        }
+    }
 
-   document.getElementById(
-    c?"lampR":"lampL"
-   ).classList.toggle("on",lit>=17);
-  }
+    fitDJName();
 
-  bars.forEach((bar,i)=>{
-   const center=
-    1-Math.abs(i-18.5)/18.5;
+    /*
+       CREATE PEAK LED SEGMENTS
+    */
 
-   const wave=
-    0.56+
-    0.22*Math.sin(phase+i*0.43)+
-    0.22*Math.sin(phase*0.73-i*0.35);
+    function createPeakMeter(elementId) {
+        const container = document.getElementById(
+            elementId
+        );
 
-   const height=active
-    ?Math.max(5,Math.min(96,
-      (0.35+center*0.65)*wave*120+
-      Math.random()*13))
-    :3;
+        const segments = [];
 
-   bar.style.height=height+"%";
-  });
- }
+        for (let i = 0; i < 18; i++) {
+            const segment = document.createElement(
+                "span"
+            );
 
- animate();
- setInterval(animate,170);
+            let color = "green";
+
+            if (i >= 10 && i < 14) {
+                color = "yellow";
+            }
+
+            if (i >= 14) {
+                color = "red";
+            }
+
+            segment.className =
+                "peak-segment " + color;
+
+            container.appendChild(segment);
+            segments.push(segment);
+        }
+
+        return segments;
+    }
+
+    const peakLeft = createPeakMeter(
+        "peak-left"
+    );
+
+    const peakRight = createPeakMeter(
+        "peak-right"
+    );
+
+    /*
+       CREATE SPECTRUM BARS
+    */
+
+    const spectrum = document.getElementById(
+        "spectrum"
+    );
+
+    const spectrumBars = [];
+    const spectrumCount = 36;
+
+    for (let i = 0; i < spectrumCount; i++) {
+        const bar = document.createElement("div");
+
+        bar.className = "spectrum-bar";
+
+        spectrum.appendChild(bar);
+        spectrumBars.push(bar);
+    }
+
+    /*
+       VU METER ELEMENTS
+    */
+
+    const vuLeft = document.getElementById(
+        "vu-left"
+    );
+
+    const vuRight = document.getElementById(
+        "vu-right"
+    );
+
+    const lightLeft = document.getElementById(
+        "light-left"
+    );
+
+    const lightRight = document.getElementById(
+        "light-right"
+    );
+
+    /*
+       SMOOTH SIMULATED LEVELS
+
+       These animations are visual.
+       Browser MOAP does not automatically
+       provide real parcel audio levels.
+    */
+
+    let leftLevel = 0;
+    let rightLevel = 0;
+    let phase = 0;
+
+    function updateLevel(current) {
+        if (!isOnAir) {
+            return 0;
+        }
+
+        const target =
+            0.25 + Math.random() * 0.70;
+
+        return current * 0.35 +
+               target * 0.65;
+    }
+
+    /*
+       UPDATE PEAK LEDS
+    */
+
+    function updatePeak(segments, level) {
+        const activeCount = Math.round(
+            level * segments.length
+        );
+
+        segments.forEach(function (
+            segment,
+            index
+        ) {
+            segment.classList.toggle(
+                "active",
+                index < activeCount
+            );
+        });
+
+        return activeCount;
+    }
+
+    /*
+       MAIN ANIMATION
+    */
+
+    function animate() {
+        phase += 0.20;
+
+        leftLevel = updateLevel(leftLevel);
+        rightLevel = updateLevel(rightLevel);
+
+        /*
+           VU NEEDLES
+        */
+
+        const leftAngle =
+            -45 + leftLevel * 90;
+
+        const rightAngle =
+            -45 + rightLevel * 90;
+
+        vuLeft.setAttribute(
+            "transform",
+            "rotate(" +
+                leftAngle +
+                " 150 245)"
+        );
+
+        vuRight.setAttribute(
+            "transform",
+            "rotate(" +
+                rightAngle +
+                " 850 245)"
+        );
+
+        /*
+           PEAK LEDS
+        */
+
+        const leftPeakCount = updatePeak(
+            peakLeft,
+            leftLevel
+        );
+
+        const rightPeakCount = updatePeak(
+            peakRight,
+            rightLevel
+        );
+
+        /*
+           PEAK WARNING LIGHTS
+        */
+
+        lightLeft.classList.toggle(
+            "active",
+            leftPeakCount >= 15
+        );
+
+        lightRight.classList.toggle(
+            "active",
+            rightPeakCount >= 15
+        );
+
+        /*
+           SPECTRUM
+        */
+
+        spectrumBars.forEach(function (
+            bar,
+            index
+        ) {
+            if (!isOnAir) {
+                bar.style.height = "3%";
+                return;
+            }
+
+            const middle =
+                (spectrumCount - 1) / 2;
+
+            const distance =
+                Math.abs(index - middle) /
+                middle;
+
+            const centerShape =
+                1 - distance * 0.62;
+
+            const wave =
+                0.56 +
+                0.22 * Math.sin(
+                    phase + index * 0.43
+                ) +
+                0.17 * Math.sin(
+                    phase * 0.71 -
+                    index * 0.35
+                );
+
+            const variation =
+                Math.random() * 15;
+
+            const height = Math.max(
+                5,
+                Math.min(
+                    97,
+                    centerShape *
+                    wave *
+                    115 +
+                    variation
+                )
+            );
+
+            bar.style.height =
+                height + "%";
+        });
+    }
+
+    /*
+       START DISPLAY
+    */
+
+    animate();
+
+    setInterval(
+        animate,
+        170
+    );
+
 })();
 </script>
 
