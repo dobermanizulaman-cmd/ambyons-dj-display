@@ -32,7 +32,7 @@ body {
     font-family: Impact, "Arial Black", Arial, sans-serif;
 }
 
-/* ON AIR - NEPROMENJENO */
+/* ON AIR - BEZ IZMENA */
 #air {
     position: absolute;
     left: 35%;
@@ -75,7 +75,7 @@ body {
     filter: drop-shadow(1px 2px 2px #100808);
 }
 
-/* DJ IME - NEPROMENJENO */
+/* DJ IME - BEZ IZMENA */
 #dj-name {
     position: absolute;
     left: 30%;
@@ -124,7 +124,7 @@ body {
     filter: drop-shadow(2px 3px 1px #120c09);
 }
 
-/* VU - NEPROMENJENO */
+/* VU - BEZ IZMENA */
 #vu-overlay {
     position: absolute;
     inset: 0;
@@ -158,7 +158,7 @@ body {
     stroke-width: .7;
 }
 
-/* PEAK - NEPROMENJENO */
+/* PEAK - BEZ IZMENA */
 .peak-meter {
     position: absolute;
     top: 81.2%;
@@ -327,8 +327,8 @@ body {
     transition: height .14s linear;
 }
 
-/* ISPRAVLJENO STAKLO SPEKTRA:
-   BEZ PRAVILNE MREZE I BEZ PUKOTINA */
+/* NOVO STAKLO:
+   NEPRAVILNE MASNE MRLJE I PRASINA */
 #spectrum::before {
     content: "";
     position: absolute;
@@ -337,40 +337,49 @@ body {
     pointer-events: none;
     background:
         radial-gradient(
-            ellipse 17% 42% at 8% 18%,
-            rgba(146,125,92,.20) 0%,
-            rgba(108,91,69,.09) 52%,
+            ellipse 24% 39% at 11% 22%,
+            rgba(165,150,125,.21) 0%,
+            rgba(114,100,78,.12) 38%,
+            rgba(65,54,42,.06) 72%,
             transparent 100%
         ),
         radial-gradient(
-            ellipse 26% 37% at 76% 88%,
-            rgba(126,106,77,.17) 0%,
-            rgba(79,67,51,.07) 58%,
+            ellipse 13% 47% at 30% 72%,
+            rgba(136,121,99,.12),
             transparent 100%
         ),
         radial-gradient(
-            ellipse 11% 67% at 93% 33%,
-            rgba(117,102,80,.11),
+            ellipse 31% 28% at 72% 17%,
+            rgba(161,145,117,.15),
             transparent 100%
         ),
         radial-gradient(
-            ellipse 22% 18% at 34% 8%,
-            rgba(165,145,110,.12),
+            ellipse 21% 43% at 88% 79%,
+            rgba(128,111,88,.19),
+            transparent 100%
+        ),
+        radial-gradient(
+            ellipse 12% 24% at 52% 52%,
+            rgba(96,83,65,.11),
             transparent 100%
         ),
         linear-gradient(
             to bottom,
-            rgba(37,30,22,.20) 0%,
-            transparent 24%,
-            transparent 76%,
-            rgba(30,24,18,.22) 100%
+            rgba(87,72,53,.22) 0%,
+            rgba(58,47,34,.08) 17%,
+            transparent 40%,
+            transparent 70%,
+            rgba(65,52,38,.10) 87%,
+            rgba(77,60,43,.25) 100%
         );
     box-shadow:
-        inset 0 0 9px rgba(103,79,52,.25),
-        inset 0 0 3px rgba(0,0,0,.40);
+        inset 0 0 8px rgba(130,107,75,.23),
+        inset 0 0 3px rgba(0,0,0,.32);
 }
 
-/* SAMO NEKOLIKO TANKIH OGREBOTINA */
+/* NEKOLIKO KRATKIH OGREBOTINA.
+   SVG LINIJE SU OGRANICENE NA MALA PODRUCJA,
+   NEMA LINIJA PREKO CELOG SPEKTRA. */
 #spectrum::after {
     content: "";
     position: absolute;
@@ -378,27 +387,27 @@ body {
     z-index: 3;
     pointer-events: none;
     background:
-        linear-gradient(
-            168deg,
-            transparent 0%,
-            transparent 45.9%,
-            rgba(196,179,148,.12) 46%,
-            transparent 46.13%,
-            transparent 100%
-        ),
-        linear-gradient(
-            23deg,
-            transparent 0%,
-            transparent 69.9%,
-            rgba(181,161,127,.10) 70%,
-            transparent 70.12%,
+        radial-gradient(
+            ellipse 23% 9% at 18% 14%,
+            rgba(204,190,161,.09),
             transparent 100%
         ),
         radial-gradient(
-            ellipse 29% 11% at 25% 9%,
-            rgba(193,177,146,.07),
+            ellipse 16% 8% at 82% 82%,
+            rgba(204,190,161,.08),
             transparent 100%
         );
+}
+
+/* KRATKE, DISKRETNE OGREBOTINE NA STAKLU */
+#spectrum-glass-scratches {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    pointer-events: none;
+    overflow: hidden;
 }
 </style>
 </head>
@@ -446,7 +455,36 @@ body {
 
     <div id="peak-left" class="peak-meter"></div>
     <div id="peak-right" class="peak-meter"></div>
-    <div id="spectrum"></div>
+
+    <div id="spectrum">
+        <svg id="spectrum-glass-scratches"
+             viewBox="0 0 430 92"
+             preserveAspectRatio="none"
+             aria-hidden="true">
+            <g fill="none"
+               stroke="#d2c5a7"
+               stroke-linecap="round">
+                <path d="M22 19 L29 17 L35 18"
+                      stroke-width=".42"
+                      opacity=".32"/>
+                <path d="M77 62 L83 60 L89 61 L94 59"
+                      stroke-width=".35"
+                      opacity=".24"/>
+                <path d="M146 24 L153 23 L158 25"
+                      stroke-width=".4"
+                      opacity=".28"/>
+                <path d="M253 71 L261 69 L267 70"
+                      stroke-width=".38"
+                      opacity=".24"/>
+                <path d="M336 17 L342 19 L349 18"
+                      stroke-width=".35"
+                      opacity=".28"/>
+                <path d="M391 58 L398 56 L404 57"
+                      stroke-width=".42"
+                      opacity=".26"/>
+            </g>
+        </svg>
+    </div>
 </div>
 
 <script>
