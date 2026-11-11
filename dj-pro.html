@@ -3,810 +3,492 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AmbYonS ProDŽect UnderGrounD — DJ PRO</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AmbYonS DJ PRO — Industrial Display</title>
 <style>
-:root {
-  --rust: #873c1d;
-  --red: #cf1714;
-  --amber: #c39a45;
-  --iron: #292725;
-  --pale: #ded1b4;
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#000;
+  color:#e7d9c6;
+  font-family:Impact,'Arial Narrow',Arial,sans-serif
 }
-
-* { box-sizing: border-box; }
-
-html, body {
-  margin: 0;
-  width: 100%;
-  min-height: 100%;
-  background: #050505;
-  color: var(--pale);
-  font-family: Impact, 'Arial Narrow', Arial, sans-serif;
+:root{
+  --red:#c82119;
+  --edge:#57473d;
+  --light:#d7c9b5
 }
-
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-  overflow-x: hidden;
+.display{
+  position:absolute;
+  inset:0;
+  display:grid;
+  grid-template-columns:24% 1fr 24%;
+  gap:1.1%;
+  padding:1%;
+  background:radial-gradient(
+    ellipse at 50% 50%,
+    #201513 0%,#08090a 63%,#020202 100%
+  )
 }
-
-.console {
-  width: min(1500px, 100%);
-  aspect-ratio: 2.18 / 1;
-  min-height: 420px;
-  position: relative;
-  padding: 2.3% 2.7% 2.4%;
-  border: 12px ridge #49423b;
-  border-radius: 24px;
-  background:
-    repeating-linear-gradient(
-      117deg,
-      transparent 0 21px,
-      #d56d1a12 23px 26px,
-      transparent 28px 55px
-    ),
-    radial-gradient(
-      ellipse at 12% 15%,
-      #a54c1e85,
-      transparent 25%
-    ),
-    radial-gradient(
-      ellipse at 94% 80%,
-      #ac4d1480,
-      transparent 24%
-    ),
-    linear-gradient(
-      130deg,
-      #342c25,
-      #0c0c0d 34%,
-      #24201d 65%,
-      #0d0b0b
-    );
+.side{
+  display:grid;
+  grid-template-rows:minmax(0,1fr) 24%;
+  gap:3%;
+  min-height:0
+}
+.center{
+  display:grid;
+  grid-template-rows:43% minmax(0,1fr);
+  gap:3%;
+  min-height:0
+}
+.instrument{
+  min-height:0;
+  position:relative;
+  border:3px solid #3b3330;
+  border-radius:5px;
+  background:linear-gradient(
+    135deg,#1c1c1a,#070809 55%,#171310
+  );
   box-shadow:
-    inset 0 0 0 3px #120e0c,
-    inset 0 0 35px #000,
-    0 10px 40px #000;
+    inset 0 0 0 1px #796253,
+    inset 0 0 25px #000,
+    0 0 9px #000;
+  overflow:hidden
 }
-
-.console:before {
-  content: "";
-  position: absolute;
-  inset: 5px;
-  pointer-events: none;
-  border: 2px solid #7e5237;
-  border-radius: 13px;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0 6px,
-      #f1aa3e06 7px 8px
-    ),
-    radial-gradient(
-      circle at 25% 35%,
-      #db79300b,
-      transparent 40%
-    );
-  mix-blend-mode: screen;
+.instrument:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:repeating-linear-gradient(
+    115deg,
+    transparent 0 29px,
+    #d8b8a407 30px 31px,
+    transparent 32px 64px
+  )
 }
-
-.bolt {
-  position: absolute;
-  z-index: 4;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background:
-    radial-gradient(
-      circle at 30% 25%,
-      #b3a18a,
-      #40352b 42%,
-      #0a0908 73%
-    );
-  border: 2px solid #15100e;
-  box-shadow: 0 1px 3px #000;
-}
-
-.bolt:after {
-  content: "";
-  position: absolute;
-  left: 3px;
-  right: 3px;
-  top: 6px;
-  height: 2px;
-  background: #100e0d;
-  transform: rotate(-30deg);
-}
-
-.b1 { top: 1%; left: 1%; }
-.b2 { top: 1%; right: 1%; }
-.b3 { bottom: 1%; left: 1%; }
-.b4 { bottom: 1%; right: 1%; }
-
-.top {
-  height: 13%;
-  display: flex;
-  align-items: center;
-  gap: 2%;
-  margin-bottom: 1.2%;
-}
-
-.hazard {
-  flex: 1;
-  height: 55%;
-  border: 3px ridge #53402b;
-  background:
-    repeating-linear-gradient(
-      130deg,
-      #bc8318 0 17px,
-      #1b1713 17px 34px
-    );
-  opacity: .85;
-  box-shadow: inset 0 0 10px #000;
-}
-
-.onair {
-  min-width: 25%;
-  text-align: center;
-  letter-spacing: .11em;
-  font-size: clamp(19px, 3.4vw, 52px);
-  line-height: 1.15;
-  padding: .4% 3%;
-  border: 5px ridge #6c6155;
-  background: linear-gradient(#4e0f0d, #1d0808);
-  color: #e5d5c2;
-  text-shadow: 2px 3px 1px #390b09;
-  box-shadow: inset 0 0 10px #000;
-  transform: skew(-3deg);
-}
-
-.onair.off {
-  color: #9a958e;
-  background: linear-gradient(#2b2b2b, #101010);
-}
-
-.panel {
-  height: 74%;
-  display: grid;
-  grid-template-columns: 25% 1fr 25%;
-  gap: 1.5%;
-}
-
-.side {
-  display: flex;
-  flex-direction: column;
-  gap: 3%;
-  min-width: 0;
-}
-
-.meter {
-  flex: 1;
-  min-height: 0;
-  position: relative;
-  overflow: hidden;
-  border: 7px ridge #625449;
-  border-radius: 15px;
-  background:
-    linear-gradient(
-      165deg,
-      #e0c28a,
-      #9e804b 60%,
-      #5d452a
-    );
+.vu{
+  display:flex;
+  flex-direction:column;
+  padding:3% 3% 2%;
+  background:linear-gradient(
+    150deg,#ad9164,#b69b6e 38%,#67533c 100%
+  );
   box-shadow:
-    inset 0 0 22px #302013,
-    0 3px 9px #000;
+    inset 0 0 0 2px #211b18,
+    inset 0 0 28px #20140b
 }
-
-.meter:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(
-      130deg,
-      transparent 0 31px,
-      #2c1c101c 32px 34px,
-      transparent 35px 60px
-    ),
-    radial-gradient(
-      circle at 20% 40%,
-      #4b28122b,
-      transparent 55%
-    );
-  pointer-events: none;
+.vu-label{
+  font-size:clamp(11px,1.6vw,29px);
+  text-align:center;
+  letter-spacing:.13em;
+  color:#2c211b;
+  text-shadow:0 1px #d4b88a
 }
-
-.scale {
-  position: absolute;
-  left: 5%;
-  top: 8%;
-  width: 90%;
-  height: 69%;
-  overflow: visible;
+.gauge{
+  position:relative;
+  flex:1;
+  min-height:0
 }
-
-.scale path {
-  fill: none;
-  stroke: #1b1511;
-  stroke-width: 2.5;
+.gauge svg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:visible
 }
-
-.scale .tick {
-  stroke: #241912;
-  stroke-width: 2;
+.arc{
+  fill:none;
+  stroke:#261a13;
+  stroke-width:2.8
 }
-
-.scale text {
-  fill: #251b15;
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  font-weight: bold;
+.tick{
+  stroke:#241911;
+  stroke-width:2.4
 }
-
-.scale .danger { fill: #b10d0d; }
-
-.needle {
-  position: absolute;
-  left: 50%;
-  bottom: 11%;
-  width: 3px;
-  height: 61%;
-  background: linear-gradient(#ff4840, #a90808);
-  transform-origin: 50% 100%;
-  transform: rotate(-38deg);
-  box-shadow: 0 0 4px #ef1515;
-  z-index: 2;
-  transition: transform .14s ease-out;
+.scale-text{
+  fill:#281b15;
+  font:700 13px Arial,sans-serif
 }
-
-.pivot {
-  position: absolute;
-  bottom: 8%;
-  left: calc(50% - 9px);
-  width: 18px;
-  height: 18px;
-  border: 4px solid #382e24;
-  background: #aaa091;
-  border-radius: 50%;
-  z-index: 3;
+.danger{fill:#b91610}
+.needle{
+  stroke:#e41b18;
+  stroke-width:3.6;
+  stroke-linecap:round;
+  filter:drop-shadow(0 0 2px #f32018);
+  transform-origin:150px 157px;
+  transform:rotate(-42deg);
+  transition:transform .15s ease-out
 }
-
-.vu-mark {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 23%;
-  text-align: center;
-  font-size: clamp(18px, 2.4vw, 39px);
-  color: #281b12;
-  text-shadow: 1px 1px #e0c39b;
+.hub{
+  fill:#b9ae9d;
+  stroke:#392a24;
+  stroke-width:4
 }
-
-.peak {
-  height: 28%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  min-height: 0;
-  padding: 2% 5%;
-  border: 6px ridge #51463d;
-  border-radius: 8px;
-  background: linear-gradient(#201c1a, #090a09);
-  box-shadow: inset 0 0 15px #000;
+.vu-word{
+  fill:#271a13;
+  font:700 32px Georgia,serif;
+  text-anchor:middle
 }
-
-.peak-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: clamp(12px, 1.6vw, 25px);
-  letter-spacing: .08em;
-  color: #d6c9b7;
+.peak{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:13%;
+  padding:5% 6%;
+  background:linear-gradient(#1b1816,#080909)
 }
-
-.peak-light {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: #4b0d0d;
-  border: 1px solid #a41c1c;
+.peak-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:clamp(10px,1.55vw,26px);
+  letter-spacing:.08em
 }
-
-.peak-light.hot {
-  background: #ff2515;
-  box-shadow: 0 0 13px #ff1717;
+.lamp{
+  width:12px;
+  height:12px;
+  border:1px solid #aa2119;
+  border-radius:50%;
+  background:#430b09
 }
-
-.peak-bars {
-  display: flex;
-  gap: 2px;
-  height: 35%;
-  align-items: stretch;
+.lamp.hot{
+  background:#ff2517;
+  box-shadow:0 0 10px #ff2517
 }
-
-.segment {
-  flex: 1;
-  min-width: 0;
-  border: 1px solid #171c14;
-  background: #202521;
-  box-shadow: inset 0 0 2px #000;
+.peak-track{
+  height:35%;
+  display:flex;
+  gap:2px
 }
-
-.segment.active.green {
-  background: #00e34e;
-  box-shadow: 0 0 5px #00d84a;
+.segment{
+  flex:1;
+  min-width:0;
+  background:#20221f;
+  border:1px solid #151817
 }
-
-.segment.active.yellow {
-  background: #f7d11c;
-  box-shadow: 0 0 5px #e9c417;
+.segment.on.green{
+  background:#00d54c;
+  box-shadow:0 0 4px #00c742
 }
-
-.segment.active.red {
-  background: #f12019;
-  box-shadow: 0 0 5px #e11c12;
+.segment.on.yellow{
+  background:#efca18;
+  box-shadow:0 0 4px #efca18
 }
-
-.center {
-  display: flex;
-  flex-direction: column;
-  gap: 3%;
-  min-width: 0;
+.segment.on.red{
+  background:#f22b1b;
+  box-shadow:0 0 5px #f22b1b
 }
-
-.nameplate {
-  height: 40%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  border: 7px ridge #4c4138;
-  border-radius: 6px;
-  background:
-    radial-gradient(
-      ellipse at center,
-      #261312,
-      #0a0a0a 72%
-    );
-  box-shadow: inset 0 0 18px #000;
+.identity{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6%;
+  padding:2%;
+  background:radial-gradient(
+    ellipse,#2b1311,#080808 72%
+  )
 }
-
-.nameplate:before {
-  content: "Ⓐ";
-  position: absolute;
-  font: 900 clamp(85px, 16vw, 230px) Arial, sans-serif;
-  color: #85110f66;
-  transform: rotate(-13deg);
+.air{
+  font-size:clamp(14px,2.3vw,43px);
+  font-weight:900;
+  letter-spacing:.2em;
+  color:#ff352b;
+  text-shadow:
+    0 0 8px #c01c14,
+    0 0 20px #9d130f
 }
-
-.nameplate:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    repeating-linear-gradient(
-      170deg,
-      transparent 0 12px,
-      #c0a68b09 13px 15px,
-      transparent 16px 30px
-    );
+.air.off{
+  color:#99908b;
+  text-shadow:none
 }
-
-.djname {
-  z-index: 1;
-  max-width: 96%;
-  font-size: clamp(20px, 4vw, 67px);
-  letter-spacing: .035em;
-  line-height: 1.1;
-  color: #ddd4c7;
-  text-align: center;
-  text-shadow: 2px 3px 0 #4a302a;
-  overflow-wrap: anywhere;
-  font-style: italic;
+.dj{
+  max-width:100%;
+  font-size:clamp(18px,4vw,75px);
+  font-style:italic;
+  letter-spacing:.035em;
+  text-align:center;
+  line-height:1.05;
+  overflow-wrap:anywhere;
+  text-shadow:
+    2px 3px 0 #4d2924,
+    0 0 9px #7b3a2a
 }
-
-.status {
-  z-index: 1;
-  color: #ad241a;
-  letter-spacing: .24em;
-  font: 700 clamp(9px, 1.15vw, 18px) Arial, sans-serif;
-  margin-top: 1%;
+.sub{
+  font:700 clamp(8px,1vw,18px) Arial,sans-serif;
+  letter-spacing:.16em;
+  color:#bb4937;
+  text-align:center
 }
-
-.spectrum-panel {
-  height: 57%;
-  display: flex;
-  flex-direction: column;
-  gap: 3%;
-  padding: 2% 3% 2%;
-  border: 7px ridge #4c4138;
-  border-radius: 5px;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      #101110 0 14px,
-      #1b1c18 15px 16px
-    );
-  box-shadow: inset 0 0 25px #000;
+.spectrum-panel{
+  display:flex;
+  flex-direction:column;
+  padding:2% 3% 2%;
+  background:repeating-linear-gradient(
+    0deg,#0a0c0b 0 12px,#171715 13px 14px
+  )
 }
-
-.spectrum-title {
-  text-align: center;
-  font-size: clamp(10px, 1.2vw, 19px);
-  letter-spacing: .17em;
-  color: #b7a58a;
+.spectrum-label{
+  flex:none;
+  text-align:center;
+  color:#c8b49b;
+  font-size:clamp(10px,1.15vw,22px);
+  letter-spacing:.12em;
+  padding-bottom:2%
 }
-
-.spectrum {
-  flex: 1;
-  min-height: 0;
-  display: flex;
-  align-items: flex-end;
-  gap: 1.3%;
-  overflow: hidden;
+.spectrum{
+  display:flex;
+  align-items:flex-end;
+  gap:1.2%;
+  flex:1;
+  min-height:0
 }
-
-.bar {
-  flex: 1;
-  min-width: 0;
-  height: 15%;
+.bar{
+  flex:1;
+  min-width:0;
+  height:15%;
   background:
     repeating-linear-gradient(
       to top,
-      transparent 0 2px,
-      #070707 3px 5px
+      transparent 0 3px,
+      #050505 4px 6px
     ),
     linear-gradient(
       to top,
-      #09cc3b 0%,
-      #8ddd13 35%,
-      #f3d91a 60%,
-      #ff7a10 78%,
-      #ec1717 100%
+      #08d54c 0%,
+      #7bdf16 35%,
+      #f4d321 63%,
+      #ed6511 80%,
+      #ed211a 100%
     );
-  box-shadow: 0 0 3px #8a6a16;
-  transition: height .12s linear;
+  transition:height .13s linear
 }
-
-.footer {
-  height: 9%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2%;
-  margin-top: 1.1%;
-  color: #a08b6e;
-  font-size: clamp(8px, 1.15vw, 17px);
-  letter-spacing: .15em;
+@media(max-width:650px){
+  .display{padding:.5%;gap:.7%}
+  .instrument{border-width:2px}
+  .peak-track{gap:1px}
+  .lamp{width:7px;height:7px}
+  .vu-label{font-size:10px}
+  .peak-head{font-size:9px}
+  .spectrum-label{font-size:9px}
+  .sub{font-size:7px}
 }
-
-.footer .stripe {
-  width: 24%;
-  height: 55%;
-  border: 2px ridge #65543d;
-  background:
-    repeating-linear-gradient(
-      130deg,
-      #c18c1e 0 12px,
-      #171411 12px 24px
-    );
-}
-
-@media (max-width: 700px) {
-  body { padding: 3px; }
-
-  .console {
-    border-width: 6px;
-    border-radius: 10px;
-    padding: 3% 2%;
-    min-height: 270px;
-  }
-
-  .meter {
-    border-width: 3px;
-    border-radius: 6px;
-  }
-
-  .peak { border-width: 3px; }
-
-  .nameplate,
-  .spectrum-panel { border-width: 3px; }
-
-  .onair { border-width: 3px; }
-
-  .peak-light {
-    width: 9px;
-    height: 9px;
-  }
-
-  .peak-bars { gap: 1px; }
-  .needle { width: 2px; }
-
-  .pivot {
-    width: 10px;
-    height: 10px;
-    left: calc(50% - 5px);
-    border-width: 2px;
-  }
-
-  .scale text { font-size: 12px; }
-  .bolt { width: 9px; height: 9px; }
-
-  .bolt:after {
-    top: 2px;
-    left: 1px;
-    right: 1px;
-  }
-
-  .spectrum-title { font-size: 9px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .needle, .bar { transition: none; }
+@media(prefers-reduced-motion:reduce){
+  .bar,.needle{transition:none}
 }
 </style>
 </head>
-
 <body>
 
-<main class="console"
-      aria-label="AmbYonS DJ Pro industrial display">
+<main class="display" aria-label="DJ PRO display">
 
-  <span class="bolt b1"></span>
-  <span class="bolt b2"></span>
-  <span class="bolt b3"></span>
-  <span class="bolt b4"></span>
-
-  <header class="top">
-    <div class="hazard"></div>
-    <div id="onair" class="onair">ON AIR</div>
-    <div class="hazard"></div>
-  </header>
-
-  <section class="panel">
-
-    <!-- LEFT VU METER -->
-    <div class="side">
-
-      <div class="meter">
-        <svg class="scale"
-             viewBox="0 0 300 165"
+  <!-- LEFT VU + PEAK -->
+  <section class="side">
+    <div class="instrument vu">
+      <div class="vu-label">VU LEFT</div>
+      <div class="gauge">
+        <svg viewBox="0 0 300 175"
+             preserveAspectRatio="xMidYMid meet"
              aria-hidden="true">
-
-          <path d="M 20 137 Q 150 -64 280 137"/>
-
-          <g class="tick">
-            <path d="
-              M20 137l-10 4
-              M47 98l-10 -7
-              M80 64l-6 -10
-              M114 45l-3 -11
-              M150 39v-12
-              M186 45l3 -11
-              M220 64l6 -10
-              M253 98l10 -7
-              M280 137l10 4
-            "/>
-          </g>
-
-          <text x="4" y="160">-20</text>
-          <text x="31" y="82">-10</text>
-          <text x="91" y="35">-5</text>
-          <text x="147" y="18">0</text>
-          <text class="danger" x="211" y="35">+3</text>
-          <text class="danger" x="270" y="82">+6</text>
+          <path class="arc"
+                d="M18 135 Q150 -70 282 135"/>
+          <path class="tick"
+                d="M18 135l-9 4 M43 94l-9 -7
+                   M79 60l-6 -10 M114 41l-3 -11
+                   M150 35v-12 M186 41l3 -11
+                   M221 60l6 -10 M257 94l9 -7
+                   M282 135l9 4"/>
+          <text class="scale-text" x="5" y="159">-20</text>
+          <text class="scale-text" x="29" y="82">-10</text>
+          <text class="scale-text" x="86" y="34">-5</text>
+          <text class="scale-text" x="146" y="17">0</text>
+          <text class="scale-text danger" x="207" y="34">+3</text>
+          <text class="scale-text danger" x="265" y="82">+6</text>
+          <text class="vu-word" x="150" y="116">VU</text>
+          <line id="needleL" class="needle"
+                x1="150" y1="157" x2="150" y2="46"/>
+          <circle class="hub" cx="150" cy="157" r="7"/>
         </svg>
-
-        <div id="needleL" class="needle"></div>
-        <div class="pivot"></div>
-        <div class="vu-mark">VU</div>
       </div>
-
-      <div class="peak">
-        <div class="peak-head">
-          PEAK L
-          <span id="lightL" class="peak-light"></span>
-        </div>
-        <div id="peakL" class="peak-bars"></div>
-      </div>
-
     </div>
 
-    <!-- CENTER -->
-    <div class="center">
-
-      <div class="nameplate">
-        <div id="djName" class="djname">
-          DJ OFFLINE
-        </div>
-        <div id="status" class="status">
-          NO DJ ONLINE
-        </div>
+    <div class="instrument peak">
+      <div class="peak-head">
+        PEAK L
+        <span id="lampL" class="lamp"></span>
       </div>
-
-      <div class="spectrum-panel">
-        <div class="spectrum-title">
-          ACID · HARD TECHNO · SCHRANZ
-        </div>
-        <div id="spectrum"
-             class="spectrum"
-             aria-hidden="true"></div>
-      </div>
-
+      <div id="peakL" class="peak-track"></div>
     </div>
-
-    <!-- RIGHT VU METER -->
-    <div class="side">
-
-      <div class="meter">
-        <svg class="scale"
-             viewBox="0 0 300 165"
-             aria-hidden="true">
-
-          <path d="M 20 137 Q 150 -64 280 137"/>
-
-          <g class="tick">
-            <path d="
-              M20 137l-10 4
-              M47 98l-10 -7
-              M80 64l-6 -10
-              M114 45l-3 -11
-              M150 39v-12
-              M186 45l3 -11
-              M220 64l6 -10
-              M253 98l10 -7
-              M280 137l10 4
-            "/>
-          </g>
-
-          <text x="4" y="160">-20</text>
-          <text x="31" y="82">-10</text>
-          <text x="91" y="35">-5</text>
-          <text x="147" y="18">0</text>
-          <text class="danger" x="211" y="35">+3</text>
-          <text class="danger" x="270" y="82">+6</text>
-        </svg>
-
-        <div id="needleR" class="needle"></div>
-        <div class="pivot"></div>
-        <div class="vu-mark">VU</div>
-      </div>
-
-      <div class="peak">
-        <div class="peak-head">
-          PEAK R
-          <span id="lightR" class="peak-light"></span>
-        </div>
-        <div id="peakR" class="peak-bars"></div>
-      </div>
-
-    </div>
-
   </section>
 
-  <footer class="footer">
-    <span class="stripe"></span>
-    AMB YONS · UNDERGROUND BROADCAST
-    <span class="stripe"></span>
-  </footer>
+  <!-- CENTER: ON AIR / DJ / SPECTRUM -->
+  <section class="center">
+    <div class="instrument identity">
+      <div id="air" class="air off">OFF AIR</div>
+      <div id="dj" class="dj">DJ OFFLINE</div>
+      <div id="sub" class="sub">NO DJ ONLINE</div>
+    </div>
+
+    <div class="instrument spectrum-panel">
+      <div class="spectrum-label">
+        ACID · HARD TECHNO · SCHRANZ
+      </div>
+      <div id="spectrum"
+           class="spectrum"
+           aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- RIGHT VU + PEAK -->
+  <section class="side">
+    <div class="instrument vu">
+      <div class="vu-label">VU RIGHT</div>
+      <div class="gauge">
+        <svg viewBox="0 0 300 175"
+             preserveAspectRatio="xMidYMid meet"
+             aria-hidden="true">
+          <path class="arc"
+                d="M18 135 Q150 -70 282 135"/>
+          <path class="tick"
+                d="M18 135l-9 4 M43 94l-9 -7
+                   M79 60l-6 -10 M114 41l-3 -11
+                   M150 35v-12 M186 41l3 -11
+                   M221 60l6 -10 M257 94l9 -7
+                   M282 135l9 4"/>
+          <text class="scale-text" x="5" y="159">-20</text>
+          <text class="scale-text" x="29" y="82">-10</text>
+          <text class="scale-text" x="86" y="34">-5</text>
+          <text class="scale-text" x="146" y="17">0</text>
+          <text class="scale-text danger" x="207" y="34">+3</text>
+          <text class="scale-text danger" x="265" y="82">+6</text>
+          <text class="vu-word" x="150" y="116">VU</text>
+          <line id="needleR" class="needle"
+                x1="150" y1="157" x2="150" y2="46"/>
+          <circle class="hub" cx="150" cy="157" r="7"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="instrument peak">
+      <div class="peak-head">
+        PEAK R
+        <span id="lampR" class="lamp"></span>
+      </div>
+      <div id="peakR" class="peak-track"></div>
+    </div>
+  </section>
 
 </main>
 
 <script>
-(function () {
+(() => {
   'use strict';
 
-  // DJ name is supplied by the Second Life BOARD URL.
-  // Example: dj-pro.html?dj=DJ%20ZULAMAN
+  // DJ name comes from BOARD URL:
+  // dj-pro.html?dj=DJ%20ZULAMAN
 
-  const params = new URLSearchParams(location.search);
-  const dj = (params.get('dj') || '').trim().slice(0, 80);
-  const active = dj.length > 0;
+  const name = (
+    new URLSearchParams(location.search).get('dj') || ''
+  ).trim().slice(0, 80);
 
-  document.getElementById('djName').textContent =
-    active ? dj : 'DJ OFFLINE';
+  const active = name.length > 0;
 
-  document.getElementById('status').textContent =
+  document.getElementById('dj').textContent =
+    active ? name : 'DJ OFFLINE';
+
+  document.getElementById('air').textContent =
+    active ? 'ON AIR' : 'OFF AIR';
+
+  document.getElementById('air')
+    .classList.toggle('off', !active);
+
+  document.getElementById('sub').textContent =
     active
       ? 'LIVE UNDERGROUND TRANSMISSION'
       : 'NO DJ ONLINE';
 
-  document.getElementById('onair').textContent =
-    active ? 'ON AIR' : 'OFF AIR';
-
-  document.getElementById('onair')
-    .classList.toggle('off', !active);
-
   const count = 22;
 
-  function createSegments(id) {
+  function makePeak(id) {
     const root = document.getElementById(id);
 
-    for (let i = 0; i < count; i++) {
+    return Array.from({length: count}, (_, i) => {
       const el = document.createElement('span');
 
       el.className = 'segment ' +
         (i < 14 ? 'green' : i < 18 ? 'yellow' : 'red');
 
       root.appendChild(el);
-    }
-
-    return [...root.children];
+      return el;
+    });
   }
 
-  const l = createSegments('peakL');
-  const r = createSegments('peakR');
+  const peaks = [
+    makePeak('peakL'),
+    makePeak('peakR')
+  ];
 
   const spectrum = document.getElementById('spectrum');
-  const bars = [];
 
-  for (let i = 0; i < 28; i++) {
-    const b = document.createElement('div');
-    b.className = 'bar';
-
-    spectrum.appendChild(b);
-    bars.push(b);
-  }
+  const bars = Array.from({length: 28}, () => {
+    const el = document.createElement('div');
+    el.className = 'bar';
+    spectrum.appendChild(el);
+    return el;
+  });
 
   let tick = 0;
 
   function draw() {
-    tick += .21;
+    tick += .19;
 
-    // Decorative animation, not actual stream audio.
-    const base = active ? 1 : .48;
+    const values = [0, 0];
 
-    const vL = base * (.35 + .62 * Math.random());
-    const vR = base * (.35 + .62 * Math.random());
+    for (let c = 0; c < 2; c++) {
+      values[c] = active
+        ? .3 + Math.random() * .66
+        : 0;
 
-    document.getElementById('needleL').style.transform =
-      'rotate(' + (-46 + vL * 86) + 'deg)';
+      document.getElementById(
+        c ? 'needleR' : 'needleL'
+      ).style.transform =
+        'rotate(' + (-43 + values[c] * 85) + 'deg)';
 
-    document.getElementById('needleR').style.transform =
-      'rotate(' + (-46 + vR * 86) + 'deg)';
+      const n = Math.round(values[c] * count);
 
-    for (const [segments, v, light] of [
-      [l, vL, 'lightL'],
-      [r, vR, 'lightR']
-    ]) {
-      const n = Math.round(v * count);
-
-      segments.forEach((s, i) =>
-        s.classList.toggle('active', i < n)
+      peaks[c].forEach((el, i) =>
+        el.classList.toggle('on', i < n)
       );
 
-      document.getElementById(light)
-        .classList.toggle('hot', n >= 19);
+      document.getElementById(
+        c ? 'lampR' : 'lampL'
+      ).classList.toggle('hot', n >= 19);
     }
 
-    bars.forEach((b, i) => {
+    bars.forEach((el, i) => {
       const wave = (
         Math.sin(i * .43 + tick) +
-        Math.sin(i * .19 - tick * .67) +
+        Math.sin(i * .19 - tick * .66) +
         2
       ) / 4;
 
-      const h =
-        8 + base * (
-          18 +
-          68 * wave * Math.random() +
-          22 * wave
-        );
+      const h = active
+        ? 12 + 70 * wave *
+          (.35 + .65 * Math.random())
+        : 3;
 
-      b.style.height = Math.min(98, h) + '%';
+      el.style.height =
+        Math.min(96, h) + '%';
     });
   }
 
   draw();
   setInterval(draw, 170);
-
 })();
 </script>
 
