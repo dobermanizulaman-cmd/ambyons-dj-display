@@ -4,237 +4,284 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AmbYonS — Industrial DJ Display</title>
+<title>AmbYonS DJ DISPLAY</title>
 <style>
 *{box-sizing:border-box}
 html,body{
- margin:0;width:100%;height:100%;overflow:hidden;
- background:#000;color:#e9dfd2;
- font-family:Impact,'Arial Narrow',Arial,sans-serif
-}
-:root{
- --rust:#8e4220;
- --steel:#51453c;
- --red:#e52218
+ margin:0;width:100%;height:100%;
+ overflow:hidden;background:#050404;
+ font-family:Impact,"Arial Narrow",Arial,sans-serif;
+ color:#e4d8c8
 }
 .screen{
- position:absolute;inset:0;display:grid;
- grid-template-columns:25% minmax(0,1fr) 25%;
- gap:1.2%;padding:1.2%;
- background:radial-gradient(ellipse at 50% 50%,
- #211715 0%,#090909 65%,#020202 100%)
+ position:absolute;inset:0;
+ display:grid;
+ grid-template-columns:27% 46% 27%;
+ padding:1.2%;gap:0;
+ background:
+ repeating-linear-gradient(115deg,
+ transparent 0 37px,#ad68400b 38px 40px,
+ transparent 41px 73px),
+ radial-gradient(ellipse at center,
+ #382019 0%,#120e0c 54%,#030303 100%)
 }
 .side{
  display:grid;
- grid-template-rows:minmax(0,1fr) 23%;
- gap:3%;min-height:0
+ grid-template-rows:67% 33%;
+ min-height:0;padding:1.5%;gap:3%
 }
-.middle{
+.center{
  display:grid;
- grid-template-rows:19% 31% minmax(0,1fr);
- gap:2%;min-height:0;min-width:0
+ grid-template-rows:22% 27% 51%;
+ min-width:0;min-height:0;
+ padding:1.5%;gap:1%
 }
-.metal{
- position:relative;min-height:0;overflow:hidden;
- border:4px ridge #655449;
- box-shadow:inset 0 0 0 2px #130f0c,
- 0 0 0 2px #130c0a,0 5px 12px #000;
+.rust{
+ position:relative;
+ border:5px ridge #74513b;
  border-radius:8px;
- background:repeating-linear-gradient(
- 125deg,#1b1715 0 14px,#251b17 16px,#120f0d 28px)
+ box-shadow:
+ inset 0 0 0 2px #21140d,
+ inset 0 0 25px #050303,
+ 0 0 0 2px #170c09,
+ 0 4px 13px #000;
+ background:
+ repeating-linear-gradient(132deg,
+ #35231a 0 9px,#51301e 10px 12px,
+ #201713 13px 28px,#6c3820 29px 30px);
+ overflow:hidden
 }
-.metal:after{
+.rust:after{
  content:"";position:absolute;inset:0;
- pointer-events:none;opacity:.25;
- background:repeating-linear-gradient(
- 104deg,transparent 0 22px,
- #bb693b22 23px 24px,transparent 25px 47px)
+ pointer-events:none;z-index:5;
+ background:
+ radial-gradient(circle at 12% 15%,#a866332e,transparent 20%),
+ radial-gradient(circle at 90% 88%,#c37a3b25,transparent 22%),
+ repeating-linear-gradient(25deg,
+ transparent 0 28px,#07040416 29px 31px,
+ transparent 32px 57px)
 }
 .bolt{
- position:absolute;width:13px;height:13px;
- border-radius:50%;
- background:radial-gradient(circle at 35% 25%,
- #a4947d,#493b30 55%,#100d0a 78%);
- border:1px solid #15110d;z-index:4;
- box-shadow:0 1px 2px #000
+ position:absolute;z-index:8;
+ width:13px;height:13px;border-radius:50%;
+ background:radial-gradient(circle at 30% 25%,
+ #bca58a,#594535 52%,#110c09 78%);
+ border:1px solid #090706;
+ box-shadow:0 1px 3px #000
 }
-.tl{top:6px;left:6px}
-.tr{top:6px;right:6px}
-.bl{bottom:6px;left:6px}
-.br{bottom:6px;right:6px}
-
+.tl{top:5px;left:5px}
+.tr{top:5px;right:5px}
+.bl{bottom:5px;left:5px}
+.br{bottom:5px;right:5px}
 .vu{
- padding:5% 5% 4%;display:flex;
- flex-direction:column;
- background:linear-gradient(145deg,#281c17,#100d0c)
+ display:flex;flex-direction:column;
+ padding:5%;min-height:0
 }
-.vu-window{
- position:relative;flex:1;min-height:0;
- border:3px solid #27140b;
- border-radius:42% 42% 12px 12px / 16% 16% 12px 12px;
- overflow:hidden;
- background:radial-gradient(ellipse at 50% 78%,
- #e3b96b 0%,#b88943 48%,#50341c 92%);
- box-shadow:inset 0 0 18px #1b0e08,
- inset 0 0 0 3px #9a6c3d
+.vu-title{
+ text-align:center;font-size:clamp(12px,1.8vw,28px);
+ letter-spacing:.1em;
+ text-shadow:2px 2px #130a07;
+ margin-bottom:3%
 }
-.vu-window:before{
- content:"";position:absolute;inset:0;z-index:1;
- pointer-events:none;
- background:repeating-linear-gradient(
- 145deg,transparent 0 26px,
- #30160816 27px 28px,transparent 29px 59px),
- radial-gradient(circle at 25% 75%,#1e100d4d,transparent 48%)
+.glass{
+ flex:1;min-height:0;position:relative;
+ border:4px solid #21130d;
+ border-radius:48% 48% 9px 9px / 17% 17% 9px 9px;
+ background:
+ repeating-linear-gradient(133deg,
+ transparent 0 37px,#3e28101a 38px 39px,
+ transparent 40px 72px),
+ radial-gradient(ellipse at 50% 70%,
+ #e4c27e,#b38a50 65%,#614329);
+ box-shadow:
+ inset 0 0 25px #402414,
+ inset 0 0 0 2px #b18750;
+ overflow:hidden
 }
-.vu svg{
+.glass:after{
+ content:"";position:absolute;inset:0;
+ pointer-events:none;z-index:3;
+ background:
+ linear-gradient(135deg,
+ transparent 0 32%,#e4d5a525 32.2%,
+ transparent 32.6%),
+ linear-gradient(47deg,
+ transparent 0 63%,#25140850 63.2%,
+ transparent 63.5%),
+ radial-gradient(circle at 80% 25%,
+ #fff4c01c,transparent 35%)
+}
+svg{
  width:100%;height:100%;
- position:absolute;inset:0;overflow:visible
+ position:absolute;inset:0
 }
-.scale{stroke:#21140e;stroke-width:2.6;fill:none}
-.scale-red{stroke:#bb1b10;stroke-width:4;fill:none}
-.tick{stroke:#24130c;stroke-width:2.8}
-.tick-red{stroke:#d01910;stroke-width:3}
-.numbers{font:700 15px Arial,sans-serif;fill:#1c110d}
-.numbers.red{fill:#b50e0b}
-.vu-text{
- font:900 38px Impact,Arial,sans-serif;
- fill:#20140d;text-anchor:middle
+.arc{
+ fill:none;stroke:#301c11;stroke-width:3
+}
+.tick{
+ stroke:#26150c;stroke-width:3
+}
+.num{
+ fill:#28160c;font:bold 16px Arial,sans-serif
+}
+.rednum{fill:#b51c12}
+.vutext{
+ fill:#2c1b11;
+ font:bold 42px Georgia,serif;
+ text-anchor:middle
 }
 .needle{
- stroke:#ff2c1c;stroke-width:4;stroke-linecap:round;
- filter:drop-shadow(0 0 3px #f42b17);
- transform-origin:150px 172px;
- transform:rotate(-42deg);
- transition:transform .16s ease-out
+ stroke:#e52017;stroke-width:4;
+ stroke-linecap:round;
+ transform-origin:150px 173px;
+ transform:rotate(-43deg);
+ filter:drop-shadow(0 0 3px #b61912);
+ transition:transform .14s linear
 }
-.pivot{
- fill:#332820;stroke:#b9a18a;stroke-width:4
+.hub{
+ fill:#433027;stroke:#ad9075;stroke-width:4
 }
-
 .peak{
- padding:7% 6% 6%;display:flex;
- flex-direction:column;
- justify-content:space-around;gap:7%;
- background:linear-gradient(155deg,#251916,#090909 75%)
+ display:flex;flex-direction:column;
+ justify-content:center;
+ padding:8%;gap:17%;
+ min-height:0
 }
-.peak-top{
- display:flex;justify-content:space-between;
- align-items:center;gap:5px;
- font-size:clamp(12px,2vw,34px);
- letter-spacing:.045em;text-shadow:1px 2px #000
+.peak-label{
+ display:flex;align-items:center;
+ justify-content:space-between;
+ font-size:clamp(12px,2vw,31px);
+ letter-spacing:.08em
 }
 .lamp{
- width:clamp(11px,2.1vw,28px);
- height:clamp(11px,2.1vw,28px);
- flex:none;border-radius:50%;
- background:#490d09;border:2px solid #6d3a2b;
- box-shadow:inset 0 0 5px #100;
- transition:background .12s
+ width:18px;height:18px;
+ border-radius:50%;
+ border:2px solid #6b3327;
+ background:#3a0907
 }
-.lamp.lit{
- background:#ff2618;
- box-shadow:0 0 12px #e32617,0 0 24px #a91810
+.lamp.on{
+ background:#ff2818;
+ box-shadow:0 0 13px #f22216
 }
 .leds{
- display:flex;gap:1.1%;
- height:38%;min-height:7px
+ display:flex;gap:2px;
+ width:100%;height:30%
 }
 .led{
- flex:1;min-width:0;background:#151917;
- border:1px solid #0a0a0a
+ flex:1;min-width:0;
+ background:#141814;
+ border:1px solid #0a0b0a
 }
-.led.on.g{
- background:#04d632;box-shadow:0 0 5px #00c63d
+.led.on.green{
+ background:#12d33c;
+ box-shadow:0 0 5px #0bd83a
 }
-.led.on.y{
- background:#ffe51c;box-shadow:0 0 5px #ffd81b
+.led.on.yellow{
+ background:#f6d91b;
+ box-shadow:0 0 5px #f6d91b
 }
-.led.on.r{
- background:#fa2d14;box-shadow:0 0 6px #fa2414
+.led.on.red{
+ background:#f12a16;
+ box-shadow:0 0 6px #f12a16
 }
-
-.air-outer{
+.air{
  display:flex;align-items:center;
- justify-content:center;min-height:0
+ justify-content:center;
+ position:relative;
+ margin:1% 9%;
+ border:5px ridge #6b3c2d;
+ border-radius:6px;
+ background:
+ repeating-linear-gradient(135deg,
+ transparent 0 22px,#ff9b4d12 23px 24px,
+ transparent 25px 48px),
+ linear-gradient(135deg,
+ #3a0a08,#a21b11 45%,#3a0b08);
+ box-shadow:inset 0 0 20px #200504,
+ 0 0 16px #1c0504
 }
-.air-plaque{
- width:72%;height:87%;
- display:flex;align-items:center;justify-content:center;
- border:4px ridge #705144;
- clip-path:polygon(5% 0,95% 0,100% 30%,
- 100% 70%,95% 100%,5% 100%,0 70%,0 30%);
- background:linear-gradient(
- 130deg,#6c150d,#a01c12 40%,#310b0a 100%);
- box-shadow:inset 0 0 18px #170504
+.air span{
+ color:#f0e5d8;
+ font-size:clamp(20px,4.5vw,80px);
+ letter-spacing:.1em;
+ text-shadow:2px 3px #380805,
+ 0 0 12px #ed3c2a
 }
-.air-text{
- font-size:clamp(18px,4.5vw,78px);
- letter-spacing:.09em;color:#f0e4d6;
- text-shadow:2px 3px #4a100b,0 0 12px #ff4d32
+.air.off{
+ background:linear-gradient(#292321,#100e0d)
 }
-.air-text.off{
- color:#a79c92;text-shadow:2px 3px #1c1311
+.air.off span{
+ color:#9a8c83;text-shadow:2px 3px #080707
 }
 .identity{
- min-height:0;display:flex;
- align-items:center;justify-content:center;
- position:relative;overflow:hidden;
- background:radial-gradient(ellipse at center,
- #301411 0%,#0c0b0b 70%);
- border-top:2px solid #7d271c;
- border-bottom:2px solid #7d271c
+ position:relative;
+ display:flex;align-items:center;
+ justify-content:center;
+ min-width:0;overflow:hidden;
+ border-top:2px solid #72241b;
+ border-bottom:2px solid #72241b;
+ background:
+ repeating-linear-gradient(115deg,
+ transparent 0 28px,#9a41200d 29px 30px,
+ transparent 31px 55px),
+ radial-gradient(ellipse,#321915,#090707)
 }
 .identity:before{
  content:"";position:absolute;
- width:34%;aspect-ratio:1;
- border:13px solid #9e160f;opacity:.5;
- transform:rotate(30deg);
- clip-path:polygon(50% 0,100% 25%,100% 75%,
- 50% 100%,0 75%,0 25%)
+ width:30%;aspect-ratio:1;
+ border:12px solid #8c1811;
+ opacity:.42;transform:rotate(30deg)
 }
-.djname{
- position:relative;z-index:1;width:100%;
- padding:0 3%;text-align:center;
- font-size:clamp(22px,5vw,90px);
- font-style:italic;letter-spacing:.02em;
- line-height:1.05;overflow-wrap:anywhere;
- color:#e6dcd1;
- text-shadow:3px 4px #3c211c,0 0 14px #8b3322
+.dj{
+ position:relative;z-index:2;
+ width:100%;padding:0 2%;
+ text-align:center;
+ font-size:clamp(19px,5vw,92px);
+ font-style:italic;
+ line-height:1.05;
+ overflow-wrap:anywhere;
+ color:#e4dcd0;
+ text-shadow:
+ 2px 2px #432a22,
+ 4px 4px #160d0a,
+ 0 0 12px #a0442c
 }
-.spectrum-wrap{
- min-height:0;position:relative;
- display:flex;flex-direction:column;
- justify-content:flex-end;
- padding:2% 1.5% 1.5%;
- background:linear-gradient(180deg,#100e0e,#080909)
+.spectrum-area{
+ display:flex;align-items:flex-end;
+ min-height:0;padding:2% 1%;
+ background:
+ repeating-linear-gradient(0deg,
+ #0b0c0a 0 9px,#1a1511 10px 11px),
+ linear-gradient(#21110c,#050505)
 }
 .spectrum{
  display:flex;align-items:flex-end;
- gap:.65%;width:100%;height:100%;min-height:0
+ gap:.7%;width:100%;height:100%;
+ min-height:0
 }
 .bar{
- flex:1;min-width:0;height:5%;
- background:repeating-linear-gradient(
- to top,transparent 0 5px,#050606 5px 8px),
- linear-gradient(to top,#0bd82b 0%,
- #20df18 34%,#f7df17 53%,
- #ff9914 72%,#ff1e13 100%);
- filter:drop-shadow(0 0 2px #1b701a);
- transition:height .15s linear
+ flex:1;min-width:0;height:3%;
+ background:
+ repeating-linear-gradient(to top,
+ transparent 0 5px,#070707 6px 9px),
+ linear-gradient(to top,
+ #0bdd36 0%,#2cdb17 34%,
+ #e8d818 55%,#f39115 73%,
+ #f12113 100%);
+ filter:drop-shadow(0 0 2px #a34217);
+ transition:height .13s linear
 }
 @media(max-width:650px){
- .screen{padding:.6%;gap:.6%}
- .metal{border-width:2px;border-radius:4px}
- .bolt{width:6px;height:6px}
+ .screen{padding:.5%}
+ .rust{border-width:2px}
+ .bolt{width:7px;height:7px}
  .vu{padding:3%}
- .vu-window{border-width:2px}
+ .glass{border-width:2px}
+ .air{border-width:2px}
+ .lamp{width:9px;height:9px}
  .peak{padding:4%}
- .peak-top{font-size:10px}
- .air-plaque{border-width:2px}
+ .peak-label{font-size:10px}
  .identity:before{border-width:5px}
-}
-@media(prefers-reduced-motion:reduce){
- .needle,.bar{transition:none}
 }
 </style>
 </head>
@@ -242,201 +289,207 @@ html,body{
 
 <main class="screen">
 
- <section class="side">
-  <div class="metal vu">
-   <i class="bolt tl"></i><i class="bolt tr"></i>
-   <i class="bolt bl"></i><i class="bolt br"></i>
-   <div class="vu-window">
-    <svg viewBox="0 0 300 200"
-         preserveAspectRatio="xMidYMid meet"
-         aria-label="Left analog VU meter">
-     <path class="scale" d="M20 140 Q150 -43 280 140"/>
-     <path class="scale-red" d="M150 14 Q223 18 280 140"/>
-     <g class="tick">
-      <path d="M20 140l-11 6 M42 96l-11 -8
-       M74 57l-7 -11 M111 30l-4 -12
-       M150 20v-13 M189 30l4 -12
-       M226 57l7 -11 M258 96l11 -8
-       M280 140l11 6"/>
-     </g>
-     <g class="numbers">
-      <text x="4" y="165">-20</text>
-      <text x="24" y="84">-10</text>
-      <text x="69" y="42">-5</text>
-      <text x="106" y="17">-3</text>
-      <text x="143" y="10">0</text>
-      <text class="numbers red" x="187" y="17">+3</text>
-      <text class="numbers red" x="250" y="84">+6</text>
-     </g>
-     <text class="vu-text" x="150" y="119">VU</text>
-     <line id="needleL" class="needle"
-           x1="150" y1="172" x2="150" y2="34"/>
-     <circle class="pivot" cx="150" cy="172" r="8"/>
-    </svg>
-   </div>
+<section class="side">
+ <div class="rust vu">
+  <i class="bolt tl"></i>
+  <i class="bolt tr"></i>
+  <i class="bolt bl"></i>
+  <i class="bolt br"></i>
+  <div class="vu-title">VU LEFT</div>
+  <div class="glass">
+   <svg viewBox="0 0 300 200"
+        preserveAspectRatio="xMidYMid meet">
+    <path class="arc"
+     d="M18 145 Q150 -48 282 145"/>
+    <g class="tick">
+     <path d="M18 145l-10 6 M43 100l-10 -8
+     M78 61l-7 -12 M113 34l-4 -12
+     M150 23v-13 M187 34l4 -12
+     M222 61l7 -12 M257 100l10 -8
+     M282 145l10 6"/>
+    </g>
+    <g class="num">
+     <text x="5" y="170">-20</text>
+     <text x="24" y="88">-10</text>
+     <text x="74" y="43">-5</text>
+     <text x="144" y="16">0</text>
+     <text class="rednum" x="190" y="32">+3</text>
+     <text class="rednum" x="260" y="89">+6</text>
+    </g>
+    <text class="vutext" x="150" y="125">VU</text>
+    <line id="needleL" class="needle"
+     x1="150" y1="173" x2="150" y2="38"/>
+    <circle class="hub" cx="150" cy="173" r="8"/>
+   </svg>
   </div>
+ </div>
 
-  <div class="metal peak">
-   <i class="bolt tl"></i><i class="bolt tr"></i>
-   <div class="peak-top">
-    PEAK L <span id="lampL" class="lamp"></span>
-   </div>
-   <div id="peakL" class="leds"></div>
+ <div class="rust peak">
+  <i class="bolt tl"></i>
+  <i class="bolt tr"></i>
+  <div class="peak-label">
+   PEAK L <span class="lamp" id="lampL"></span>
   </div>
- </section>
+  <div class="leds" id="peakL"></div>
+ </div>
+</section>
 
- <section class="middle">
-  <div class="air-outer">
-   <div class="air-plaque">
-    <span id="air" class="air-text off">OFF AIR</span>
-   </div>
-  </div>
+<section class="center">
+ <div class="air" id="airBox">
+  <span id="airText">OFF AIR</span>
+ </div>
 
-  <div class="identity">
-   <div id="dj" class="djname">DJ OFFLINE</div>
-  </div>
+ <div class="identity">
+  <div class="dj" id="djName">DJ OFFLINE</div>
+ </div>
 
-  <div class="spectrum-wrap">
-   <div id="spectrum" class="spectrum"
-        aria-label="Animated decorative spectrum"></div>
-  </div>
- </section>
+ <div class="spectrum-area">
+  <div class="spectrum" id="spectrum"></div>
+ </div>
+</section>
 
- <section class="side">
-  <div class="metal vu">
-   <i class="bolt tl"></i><i class="bolt tr"></i>
-   <i class="bolt bl"></i><i class="bolt br"></i>
-   <div class="vu-window">
-    <svg viewBox="0 0 300 200"
-         preserveAspectRatio="xMidYMid meet"
-         aria-label="Right analog VU meter">
-     <path class="scale" d="M20 140 Q150 -43 280 140"/>
-     <path class="scale-red" d="M150 14 Q223 18 280 140"/>
-     <g class="tick">
-      <path d="M20 140l-11 6 M42 96l-11 -8
-       M74 57l-7 -11 M111 30l-4 -12
-       M150 20v-13 M189 30l4 -12
-       M226 57l7 -11 M258 96l11 -8
-       M280 140l11 6"/>
-     </g>
-     <g class="numbers">
-      <text x="4" y="165">-20</text>
-      <text x="24" y="84">-10</text>
-      <text x="69" y="42">-5</text>
-      <text x="106" y="17">-3</text>
-      <text x="143" y="10">0</text>
-      <text class="numbers red" x="187" y="17">+3</text>
-      <text class="numbers red" x="250" y="84">+6</text>
-     </g>
-     <text class="vu-text" x="150" y="119">VU</text>
-     <line id="needleR" class="needle"
-           x1="150" y1="172" x2="150" y2="34"/>
-     <circle class="pivot" cx="150" cy="172" r="8"/>
-    </svg>
-   </div>
+<section class="side">
+ <div class="rust vu">
+  <i class="bolt tl"></i>
+  <i class="bolt tr"></i>
+  <i class="bolt bl"></i>
+  <i class="bolt br"></i>
+  <div class="vu-title">VU RIGHT</div>
+  <div class="glass">
+   <svg viewBox="0 0 300 200"
+        preserveAspectRatio="xMidYMid meet">
+    <path class="arc"
+     d="M18 145 Q150 -48 282 145"/>
+    <g class="tick">
+     <path d="M18 145l-10 6 M43 100l-10 -8
+     M78 61l-7 -12 M113 34l-4 -12
+     M150 23v-13 M187 34l4 -12
+     M222 61l7 -12 M257 100l10 -8
+     M282 145l10 6"/>
+    </g>
+    <g class="num">
+     <text x="5" y="170">-20</text>
+     <text x="24" y="88">-10</text>
+     <text x="74" y="43">-5</text>
+     <text x="144" y="16">0</text>
+     <text class="rednum" x="190" y="32">+3</text>
+     <text class="rednum" x="260" y="89">+6</text>
+    </g>
+    <text class="vutext" x="150" y="125">VU</text>
+    <line id="needleR" class="needle"
+     x1="150" y1="173" x2="150" y2="38"/>
+    <circle class="hub" cx="150" cy="173" r="8"/>
+   </svg>
   </div>
+ </div>
 
-  <div class="metal peak">
-   <i class="bolt tl"></i><i class="bolt tr"></i>
-   <div class="peak-top">
-    PEAK R <span id="lampR" class="lamp"></span>
-   </div>
-   <div id="peakR" class="leds"></div>
+ <div class="rust peak">
+  <i class="bolt tl"></i>
+  <i class="bolt tr"></i>
+  <div class="peak-label">
+   PEAK R <span class="lamp" id="lampR"></span>
   </div>
- </section>
+  <div class="leds" id="peakR"></div>
+ </div>
+</section>
 
 </main>
 
 <script>
 (function(){
- 'use strict';
+ "use strict";
 
- var params=new URLSearchParams(window.location.search);
- var name=(params.get('dj')||'').trim().slice(0,80);
- var active=!!name;
+ const params=new URLSearchParams(location.search);
+ const dj=(params.get("dj")||"").trim().slice(0,80);
+ const active=dj.length>0;
 
- document.getElementById('air').textContent=
-  active?'ON AIR':'OFF AIR';
+ document.getElementById("djName").textContent=
+  active?dj:"DJ OFFLINE";
 
- document.getElementById('air').className=
-  'air-text'+(active?'':' off');
+ document.getElementById("airText").textContent=
+  active?"ON AIR":"OFF AIR";
 
- document.getElementById('dj').textContent=
-  active?name:'DJ OFFLINE';
+ document.getElementById("airBox")
+  .classList.toggle("off",!active);
 
- function createLeds(id){
-  var p=document.getElementById(id),a=[];
-  for(var i=0;i<18;i++){
-   var s=document.createElement('span');
-   s.className='led '+(i<10?'g':i<14?'y':'r');
-   p.appendChild(s);
-   a.push(s);
+ function makePeak(id){
+  const root=document.getElementById(id);
+  const result=[];
+
+  for(let i=0;i<20;i++){
+   const el=document.createElement("span");
+   el.className="led "+
+    (i<12?"green":i<16?"yellow":"red");
+   root.appendChild(el);
+   result.push(el);
   }
-  return a;
+  return result;
  }
 
- var leds=[
-  createLeds('peakL'),
-  createLeds('peakR')
+ const peaks=[
+  makePeak("peakL"),
+  makePeak("peakR")
  ];
 
- var root=document.getElementById('spectrum'),bars=[];
+ const root=document.getElementById("spectrum");
+ const bars=[];
 
- for(var j=0;j<35;j++){
-  var b=document.createElement('div');
-  b.className='bar';
-  root.appendChild(b);
-  bars.push(b);
+ for(let i=0;i<38;i++){
+  const bar=document.createElement("div");
+  bar.className="bar";
+  root.appendChild(bar);
+  bars.push(bar);
  }
 
- var phase=0;
+ let phase=0;
 
- function update(){
-  phase+=.17;
+ function animate(){
+  phase+=.18;
 
-  for(var c=0;c<2;c++){
-   var level=active?.28+Math.random()*.70:0;
+  for(let c=0;c<2;c++){
+   const level=active
+    ?0.27+Math.random()*0.7
+    :0;
 
    document.getElementById(
-    c?'needleR':'needleL'
+    c?"needleR":"needleL"
    ).style.transform=
-    'rotate('+(-42+level*84)+'deg)';
+    "rotate("+(-43+level*86)+"deg)";
 
-   var lit=Math.round(level*18);
+   const lit=Math.round(level*20);
 
-   leds[c].forEach(function(e,i){
-    e.classList.toggle('on',i<lit);
+   peaks[c].forEach((el,i)=>{
+    el.classList.toggle("on",i<lit);
    });
 
    document.getElementById(
-    c?'lampR':'lampL'
-   ).classList.toggle('lit',lit>=15);
+    c?"lampR":"lampL"
+   ).classList.toggle("on",lit>=17);
   }
 
-  bars.forEach(function(b,i){
-   var distance=
-    Math.abs(i-(bars.length-1)/2)/
-    ((bars.length-1)/2);
+  bars.forEach((bar,i)=>{
+   const center=
+    1-Math.abs(i-18.5)/18.5;
 
-   var center=1-.63*distance;
+   const wave=
+    0.56+
+    0.22*Math.sin(phase+i*0.43)+
+    0.22*Math.sin(phase*0.73-i*0.35);
 
-   var motion=
-    .55+
-    .23*Math.sin(phase+i*.48)+
-    .22*Math.sin(phase*.7-i*.39);
-
-   var h=active
-    ?Math.max(8,Math.min(97,
-      center*motion*120+Math.random()*14))
+   const height=active
+    ?Math.max(5,Math.min(96,
+      (0.35+center*0.65)*wave*120+
+      Math.random()*13))
     :3;
 
-   b.style.height=h+'%';
+   bar.style.height=height+"%";
   });
  }
 
- update();
- setInterval(update,170);
+ animate();
+ setInterval(animate,170);
 })();
 </script>
+
 </body>
 </html>
