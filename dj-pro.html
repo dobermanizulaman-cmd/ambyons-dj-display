@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,621 +6,674 @@
 <title>AmbYonS DJ DISPLAY</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #000;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #display {
-    position: relative;
-    width: min(100vw, 300vh);
-    aspect-ratio: 3 / 1;
-    flex: none;
-    overflow: hidden;
-    background: #080606 url("./display-bg.png")
-        center / 100% 100% no-repeat;
-    font-family: Impact, "Arial Black", Arial, sans-serif;
+  position: relative;
+  width: min(100vw, 300vh);
+  aspect-ratio: 3 / 1;
+  flex: none;
+  overflow: hidden;
+  background: #080606 url("./display-bg.png") center / 100% 100% no-repeat;
+  font-family: Impact, "Arial Black", Arial, sans-serif;
 }
 
-/* ON AIR - NEPROMENJENO */
+/* ON AIR / OFF AIR */
+
 #air {
-    position: absolute;
-    left: 35%;
-    top: 8%;
-    width: 30%;
-    height: 16%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    font-weight: 900;
-    letter-spacing: .03em;
-    color: #c7c2b7;
-    background-image:
-        repeating-linear-gradient(
-            107deg,
-            transparent 0 17px,
-            rgba(43,29,22,.28) 17.5px,
-            transparent 18.5px
-        ),
-        linear-gradient(
-            180deg,
-            #eee9df 0%,
-            #a7a49e 18%,
-            #d4d0c6 34%,
-            #777570 49%,
-            #c5bfb3 63%,
-            #8b7664 82%,
-            #d0c5b4 100%
-        );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: .35px #6b5545;
-    filter:
-        drop-shadow(0 0 5px #a51d13)
-        drop-shadow(0 0 10px #7a160f);
+  position: absolute;
+  left: 35%;
+  top: 8%;
+  width: 30%;
+  height: 16%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-weight: 900;
+  letter-spacing: .03em;
+
+  color: #c5b7a1;
+  background-image:
+    repeating-linear-gradient(
+      105deg,
+      transparent 0px,
+      transparent 12px,
+      rgba(63, 40, 27, .18) 13px,
+      transparent 14px
+    ),
+    linear-gradient(
+      180deg,
+      #e5dfd2 0%,
+      #a99f90 22%,
+      #d1c7b6 43%,
+      #817365 60%,
+      #c5a88d 78%,
+      #9e8b78 100%
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: .35px #594436;
+
+  filter: drop-shadow(1px 2px 1px #160d09);
 }
 
 #air.off {
-    filter: drop-shadow(1px 2px 2px #100808);
+  opacity: .65;
 }
 
-/* DJ IME - NEPROMENJENO */
+/* DJ NAME */
+
 #dj-name {
-    position: absolute;
-    left: 30%;
-    top: 37%;
-    width: 40%;
-    height: 14%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    white-space: nowrap;
-    font-weight: 900;
-    font-style: italic;
-    line-height: 1;
-    color: #c4bdb1;
-    background-image:
-        repeating-linear-gradient(
-            113deg,
-            transparent 0 13px,
-            rgba(37,28,23,.36) 13.5px,
-            transparent 14.5px,
-            transparent 31px
-        ),
-        repeating-linear-gradient(
-            173deg,
-            transparent 0 23px,
-            rgba(94,53,32,.22) 23.5px,
-            transparent 25px
-        ),
-        linear-gradient(
-            180deg,
-            #eee9df 0%,
-            #b9b5ad 13%,
-            #e0dacf 26%,
-            #8c8982 39%,
-            #d1cbc0 52%,
-            #aaa093 65%,
-            #8b6047 78%,
-            #c6bbae 90%,
-            #77716b 100%
-        );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: .45px #57483c;
-    filter: drop-shadow(2px 3px 1px #120c09);
+  position: absolute;
+  left: 30%;
+  top: 37%;
+  width: 40%;
+  height: 14%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 900;
+  font-style: italic;
+  line-height: 1;
 }
 
-/* VU - NEPROMENJENO */
+#dj-name-text {
+  display: inline-block;
+
+  color: #c6bcab;
+
+  background-image:
+    repeating-linear-gradient(
+      108deg,
+      transparent 0px,
+      transparent 16px,
+      rgba(91, 53, 32, .16) 17px,
+      transparent 18px
+    ),
+    linear-gradient(
+      180deg,
+      #eee7d9 0%,
+      #a8a092 16%,
+      #d9d0c0 32%,
+      #8f8477 48%,
+      #c8b8a3 65%,
+      #9b7960 82%,
+      #c9bca8 100%
+    );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: .4px #624a3a;
+
+  filter: drop-shadow(2px 3px 1px #120b08);
+}
+
+/* VU NEEDLES — NEPROMENJENO */
+
 #vu-overlay {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .vu-needle-shadow {
-    stroke: rgba(0,0,0,.65);
-    stroke-width: 3.4;
-    stroke-linecap: round;
+  stroke: rgba(0, 0, 0, .65);
+  stroke-width: 3.4;
+  stroke-linecap: round;
 }
 
 .vu-needle-metal {
-    stroke: #69261e;
-    stroke-width: 2.2;
-    stroke-linecap: round;
+  stroke: #69261e;
+  stroke-width: 2.2;
+  stroke-linecap: round;
 }
 
 .vu-needle-highlight {
-    stroke: #c16b54;
-    stroke-width: .65;
-    stroke-linecap: round;
+  stroke: #c16b54;
+  stroke-width: .65;
+  stroke-linecap: round;
 }
 
 .vu-pivot-outer {
-    fill: #201a18;
-    stroke: #9b8271;
-    stroke-width: 1.5;
+  fill: #201a18;
+  stroke: #9b8271;
+  stroke-width: 1.5;
 }
 
 .vu-pivot-inner {
-    fill: #77665a;
-    stroke: #302722;
-    stroke-width: .7;
+  fill: #77665a;
+  stroke: #302722;
+  stroke-width: .7;
 }
 
-/* PEAK - NEPROMENJENO */
+/* PEAK — NEPROMENJENO */
+
 .peak-meter {
-    position: absolute;
-    top: 81.2%;
-    height: 9.2%;
-    display: flex;
-    align-items: stretch;
-    gap: 0;
-    padding: 0;
-    overflow: hidden;
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
+  position: absolute;
+  top: 81.2%;
+  height: 9.2%;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 #peak-left {
-    left: 3.55%;
-    width: 19.55%;
+  left: 3.55%;
+  width: 19.55%;
 }
 
 #peak-right {
-    left: 76.5%;
-    width: 20.05%;
+  left: 76.5%;
+  width: 20.05%;
 }
 
 .peak-segment {
-    flex: 1 1 0;
-    min-width: 0;
-    height: 100%;
-    margin-right: 2px;
-    border-left: 1px solid rgba(0,0,0,.85);
-    border-right: 1px solid rgba(0,0,0,.85);
-    background: linear-gradient(
-        to bottom,
-        #080d09 0%,
-        #111913 25%,
-        #111913 70%,
-        #060906 100%
-    );
-    box-shadow:
-        inset 0 2px 4px rgba(0,0,0,.6),
-        inset 0 -2px 4px rgba(0,0,0,.6);
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  margin-right: 2px;
+  border-left: 1px solid rgba(0, 0, 0, .85);
+  border-right: 1px solid rgba(0, 0, 0, .85);
+  background: linear-gradient(
+    to bottom,
+    #080d09 0%,
+    #111913 25%,
+    #111913 70%,
+    #060906 100%
+  );
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, .6),
+    inset 0 -2px 4px rgba(0, 0, 0, .6);
 }
 
 .peak-segment:last-child {
-    margin-right: 0;
+  margin-right: 0;
 }
 
 .peak-segment.active.green {
-    background: linear-gradient(
-        to bottom,
-        #18361a 0%,
-        #2b632b 20%,
-        #438c39 48%,
-        #28672a 75%,
-        #112b15 100%
-    );
+  background: linear-gradient(
+    to bottom,
+    #18361a 0%,
+    #2b632b 20%,
+    #438c39 48%,
+    #28672a 75%,
+    #112b15 100%
+  );
 }
 
 .peak-segment.active.yellow {
-    background: linear-gradient(
-        to bottom,
-        #46371b 0%,
-        #8d7428 20%,
-        #c0a337 48%,
-        #8b7127 75%,
-        #362b17 100%
-    );
+  background: linear-gradient(
+    to bottom,
+    #46371b 0%,
+    #8d7428 20%,
+    #c0a337 48%,
+    #8b7127 75%,
+    #362b17 100%
+  );
 }
 
 .peak-segment.active.red {
-    background: linear-gradient(
-        to bottom,
-        #431c17 0%,
-        #8d3024 20%,
-        #b94330 48%,
-        #842a20 75%,
-        #351612 100%
-    );
+  background: linear-gradient(
+    to bottom,
+    #431c17 0%,
+    #8d3024 20%,
+    #b94330 48%,
+    #842a20 75%,
+    #351612 100%
+  );
 }
 
 .peak-meter::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background:
-        radial-gradient(
-            ellipse 22% 75% at 6% 15%,
-            rgba(161,142,107,.23),
-            transparent 90%
-        ),
-        radial-gradient(
-            ellipse 18% 80% at 95% 85%,
-            rgba(119,100,72,.22),
-            transparent 90%
-        ),
-        radial-gradient(
-            ellipse 28% 85% at 40% 50%,
-            rgba(30,24,17,.18),
-            transparent 100%
-        ),
-        repeating-linear-gradient(
-            108deg,
-            transparent 0 23px,
-            rgba(160,145,112,.035) 24px,
-            transparent 25px,
-            transparent 41px
-        ),
-        linear-gradient(
-            to bottom,
-            rgba(0,0,0,.36),
-            rgba(80,65,45,.09) 25%,
-            transparent 50%,
-            rgba(30,23,17,.12) 75%,
-            rgba(0,0,0,.38)
-        );
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 22% 75% at 6% 15%,
+      rgba(161, 142, 107, .23),
+      transparent 90%
+    ),
+    radial-gradient(
+      ellipse 18% 80% at 95% 85%,
+      rgba(119, 100, 72, .22),
+      transparent 90%
+    ),
+    radial-gradient(
+      ellipse 28% 85% at 40% 50%,
+      rgba(30, 24, 17, .18),
+      transparent 100%
+    ),
+    repeating-linear-gradient(
+      108deg,
+      transparent 0 23px,
+      rgba(160, 145, 112, .035) 24px,
+      transparent 25px,
+      transparent 41px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, .36),
+      rgba(80, 65, 45, .09) 25%,
+      transparent 50%,
+      rgba(30, 23, 17, .12) 75%,
+      rgba(0, 0, 0, .38)
+    );
 }
 
 .peak-meter::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    pointer-events: none;
-    background:
-        radial-gradient(
-            ellipse 18% 50% at 0% 0%,
-            rgba(166,143,106,.15),
-            transparent
-        ),
-        radial-gradient(
-            ellipse 18% 50% at 100% 100%,
-            rgba(166,143,106,.15),
-            transparent
-        );
-    box-shadow:
-        inset 0 0 3px rgba(166,143,106,.2),
-        inset 0 0 6px rgba(0,0,0,.45);
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 18% 50% at 0% 0%,
+      rgba(166, 143, 106, .15),
+      transparent
+    ),
+    radial-gradient(
+      ellipse 18% 50% at 100% 100%,
+      rgba(166, 143, 106, .15),
+      transparent
+    );
+  box-shadow:
+    inset 0 0 3px rgba(166, 143, 106, .2),
+    inset 0 0 6px rgba(0, 0, 0, .45);
 }
 
-/* SPECTRUM - NEPROMENJENI STUBICI */
+/* ========================================
+   SPECTRUM — SITNA LED MREŽA KAO NA SLICI
+   ======================================== */
+
 #spectrum {
-    position: absolute;
-    left: 28.5%;
-    top: 67%;
-    width: 43%;
-    height: 27.5%;
-    display: flex;
-    align-items: flex-end;
-    gap: .45%;
-    overflow: hidden;
-    background: #070908;
-    padding: .2%;
+  position: absolute;
+  left: 28.5%;
+  top: 67%;
+  width: 43%;
+  height: 27.5%;
+
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+
+  padding: 2px;
+  overflow: hidden;
+
+  background: #050705;
 }
 
-.spectrum-bar {
-    flex: 1;
-    min-width: 0;
-    height: 3%;
-    background:
-        repeating-linear-gradient(
-            to top,
-            transparent 0 5px,
-            #080808 5px 8px
-        ),
-        linear-gradient(
-            to top,
-            #0ce238 0%,
-            #28e91d 33%,
-            #f4e11d 55%,
-            #ff9916 75%,
-            #f52416 100%
-        );
-    transition: height .14s linear;
+/* Svaka vertikalna kolona */
+
+.spectrum-column {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
 }
 
-/* STAKLO PREKO SPEKTRA */
-#spectrum::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background:
-        radial-gradient(
-            ellipse 34% 65% at 8% 8%,
-            rgba(75,66,51,.24),
-            transparent 95%
-        ),
-        radial-gradient(
-            ellipse 31% 57% at 93% 82%,
-            rgba(80,65,48,.20),
-            transparent 95%
-        ),
-        linear-gradient(
-            to bottom,
-            rgba(14,13,10,.19),
-            transparent 26%,
-            transparent 75%,
-            rgba(15,13,10,.17)
-        );
-    box-shadow: inset 0 0 8px rgba(0,0,0,.45);
+/* Svaka pojedinačna LED kockica */
+
+.spectrum-led {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+
+  background: #0c100c;
+  opacity: .55;
 }
 
-/*
-  TEKSTURA PREKO SPEKTRA
-  UGRADJENA DIREKTNO U HTML
-*/
-#spectrum::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 535 137' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.055 .16' numOctaves='4' seed='23' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 .38 0 0 0 0 .34 0 0 0 0 .27 0 0 0 .40 -.15'/%3E%3C/filter%3E%3C/filter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.5 .7' numOctaves='3' seed='8'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 .7 0 0 0 0 .63 0 0 0 0 .51 0 0 0 1.7 -.82'/%3E%3C/filter%3E%3C/filter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.09 .15' numOctaves='3' seed='14' result='t'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='t' scale='3' xChannelSelector='R' yChannelSelector='G'/%3E%3C/filter%3E%3CradialGradient id='s'%3E%3Cstop stop-color='%23a79b7f' stop-opacity='.19'/%3E%3Cstop offset='.6' stop-color='%237b715c' stop-opacity='.07'/%3E%3Cstop offset='1' stop-color='%23000000' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='535' height='137' filter='url(%23d)' opacity='.48'/%3E%3Crect width='535' height='137' filter='url(%23n)' opacity='.27'/%3E%3Cellipse cx='55' cy='20' rx='130' ry='65' fill='url(%23s)'/%3E%3Cellipse cx='475' cy='116' rx='135' ry='65' fill='url(%23s)'/%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round' filter='url(%23c)'%3E%3Cg stroke='%23100f0d' stroke-width='1.25' opacity='.65'%3E%3Cpath d='M0 0 L18 13 24 26 35 33 45 51 55 59'/%3E%3Cpath d='M24 26 L36 18 48 21 60 15'/%3E%3Cpath d='M35 33 L25 48 21 64'/%3E%3Cpath d='M535 0 L519 12 510 25 497 31 489 49 474 61'/%3E%3Cpath d='M510 25 L517 39 528 48'/%3E%3Cpath d='M497 31 L481 21 465 23'/%3E%3Cpath d='M0 137 L17 124 25 106 40 95'/%3E%3Cpath d='M25 106 L15 92 12 76'/%3E%3Cpath d='M535 137 L518 125 508 108 492 97'/%3E%3Cpath d='M508 108 L519 91 523 75'/%3E%3C/g%3E%3Cg stroke='%23c0b6a4' stroke-width='.45' opacity='.56'%3E%3Cpath d='M0 0 L18 13 24 26 35 33 45 51 55 59'/%3E%3Cpath d='M24 26 L36 18 48 21 60 15'/%3E%3Cpath d='M35 33 L25 48 21 64'/%3E%3Cpath d='M535 0 L519 12 510 25 497 31 489 49 474 61'/%3E%3Cpath d='M510 25 L517 39 528 48'/%3E%3Cpath d='M497 31 L481 21 465 23'/%3E%3Cpath d='M0 137 L17 124 25 106 40 95'/%3E%3Cpath d='M25 106 L15 92 12 76'/%3E%3Cpath d='M535 137 L518 125 508 108 492 97'/%3E%3Cpath d='M508 108 L519 91 523 75'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    background-position: center;
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+/* Ugašene kockice ostaju vidljive kao tamna mreža */
+
+.spectrum-led.off {
+  background: #0d120e;
+  opacity: .48;
 }
+
+/* Zelena zona */
+
+.spectrum-led.on.green {
+  background: #19e51d;
+  opacity: 1;
+}
+
+/* Prelaz ka žutoj */
+
+.spectrum-led.on.lime {
+  background: #9eea12;
+  opacity: 1;
+}
+
+/* Žuta zona */
+
+.spectrum-led.on.yellow {
+  background: #f1e316;
+  opacity: 1;
+}
+
+/* Narandžasta zona */
+
+.spectrum-led.on.orange {
+  background: #ff9810;
+  opacity: 1;
+}
+
+/* Crveni vrhovi */
+
+.spectrum-led.on.red {
+  background: #ed2916;
+  opacity: 1;
+}
+
 </style>
 </head>
 
 <body>
+
 <div id="display">
-    <div id="air" class="off">OFF AIR</div>
-    <div id="dj-name">DJ OFFLINE</div>
 
-    <svg id="vu-overlay"
-         viewBox="0 0 1000 333.333"
-         preserveAspectRatio="none"
-         aria-hidden="true">
+  <div id="air" class="off">OFF AIR</div>
 
-        <g id="vu-left">
-            <line class="vu-needle-shadow"
-                  x1="151.2" y1="174"
-                  x2="151.2" y2="90"/>
-            <line class="vu-needle-metal"
-                  x1="150" y1="174"
-                  x2="150" y2="90"/>
-            <line class="vu-needle-highlight"
-                  x1="149.4" y1="171"
-                  x2="149.4" y2="94"/>
-            <circle class="vu-pivot-outer"
-                    cx="150" cy="174" r="5"/>
-            <circle class="vu-pivot-inner"
-                    cx="150" cy="174" r="2.4"/>
-        </g>
+  <div id="dj-name">
+    <span id="dj-name-text">DJ OFFLINE</span>
+  </div>
 
-        <g id="vu-right">
-            <line class="vu-needle-shadow"
-                  x1="851.2" y1="174"
-                  x2="851.2" y2="90"/>
-            <line class="vu-needle-metal"
-                  x1="850" y1="174"
-                  x2="850" y2="90"/>
-            <line class="vu-needle-highlight"
-                  x1="849.4" y1="171"
-                  x2="849.4" y2="94"/>
-            <circle class="vu-pivot-outer"
-                    cx="850" cy="174" r="5"/>
-            <circle class="vu-pivot-inner"
-                    cx="850" cy="174" r="2.4"/>
-        </g>
-    </svg>
+  <svg
+    id="vu-overlay"
+    viewBox="0 0 1000 333.333"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
 
-    <div id="peak-left" class="peak-meter"></div>
-    <div id="peak-right" class="peak-meter"></div>
-    <div id="spectrum"></div>
+    <g id="vu-left">
+      <line class="vu-needle-shadow"
+            x1="151.2" y1="174"
+            x2="151.2" y2="90"/>
+
+      <line class="vu-needle-metal"
+            x1="150" y1="174"
+            x2="150" y2="90"/>
+
+      <line class="vu-needle-highlight"
+            x1="149.4" y1="171"
+            x2="149.4" y2="94"/>
+
+      <circle class="vu-pivot-outer"
+              cx="150" cy="174" r="5"/>
+
+      <circle class="vu-pivot-inner"
+              cx="150" cy="174" r="2.4"/>
+    </g>
+
+    <g id="vu-right">
+      <line class="vu-needle-shadow"
+            x1="851.2" y1="174"
+            x2="851.2" y2="90"/>
+
+      <line class="vu-needle-metal"
+            x1="850" y1="174"
+            x2="850" y2="90"/>
+
+      <line class="vu-needle-highlight"
+            x1="849.4" y1="171"
+            x2="849.4" y2="94"/>
+
+      <circle class="vu-pivot-outer"
+              cx="850" cy="174" r="5"/>
+
+      <circle class="vu-pivot-inner"
+              cx="850" cy="174" r="2.4"/>
+    </g>
+
+  </svg>
+
+  <div id="peak-left" class="peak-meter"></div>
+  <div id="peak-right" class="peak-meter"></div>
+
+  <div id="spectrum"></div>
+
 </div>
 
 <script>
 (function () {
-    "use strict";
+  "use strict";
 
-    const params = new URLSearchParams(
-        window.location.search
+  const params = new URLSearchParams(window.location.search);
+  const djName = (params.get("dj") || "").trim().slice(0, 80);
+  const isOnAir = djName.length > 0;
+
+  const display = document.getElementById("display");
+  const djContainer = document.getElementById("dj-name");
+  const djElement = document.getElementById("dj-name-text");
+  const airElement = document.getElementById("air");
+
+  djElement.textContent = isOnAir ? djName : "DJ OFFLINE";
+  airElement.textContent = isOnAir ? "ON AIR" : "OFF AIR";
+  airElement.classList.toggle("off", !isOnAir);
+
+  function fitText(element, container, ratio) {
+    let size = display.clientWidth * ratio;
+
+    element.style.fontSize = size + "px";
+
+    while (
+      element.scrollWidth > container.clientWidth &&
+      size > 10
+    ) {
+      size -= 1;
+      element.style.fontSize = size + "px";
+    }
+  }
+
+  function resizeText() {
+    fitText(airElement, airElement, .046);
+    fitText(djElement, djContainer, .051);
+  }
+
+  window.addEventListener("resize", resizeText);
+  resizeText();
+
+  /* PEAK */
+
+  function createPeakMeter(elementId) {
+    const container = document.getElementById(elementId);
+    const segments = [];
+
+    for (let i = 0; i < 17; i++) {
+      const segment = document.createElement("span");
+
+      let color = "green";
+
+      if (i >= 10 && i < 14) {
+        color = "yellow";
+      }
+
+      if (i >= 14) {
+        color = "red";
+      }
+
+      segment.className = "peak-segment " + color;
+      container.appendChild(segment);
+      segments.push(segment);
+    }
+
+    return segments;
+  }
+
+  const peakLeft = createPeakMeter("peak-left");
+  const peakRight = createPeakMeter("peak-right");
+
+  /* SPECTRUM — LED KOCKICE */
+
+  const spectrum = document.getElementById("spectrum");
+
+  const spectrumColumns = [];
+  const spectrumCount = 36;
+  const ledRows = 22;
+
+  for (let i = 0; i < spectrumCount; i++) {
+    const column = document.createElement("div");
+    column.className = "spectrum-column";
+
+    const leds = [];
+
+    for (let j = 0; j < ledRows; j++) {
+      const led = document.createElement("div");
+
+      let color = "green";
+
+      if (j >= 9 && j < 12) {
+        color = "lime";
+      } else if (j >= 12 && j < 16) {
+        color = "yellow";
+      } else if (j >= 16 && j < 19) {
+        color = "orange";
+      } else if (j >= 19) {
+        color = "red";
+      }
+
+      led.className = "spectrum-led off";
+      led.dataset.color = color;
+
+      column.appendChild(led);
+      leds.push(led);
+    }
+
+    spectrum.appendChild(column);
+    spectrumColumns.push(leds);
+  }
+
+  /* VU */
+
+  const vuLeft = document.getElementById("vu-left");
+  const vuRight = document.getElementById("vu-right");
+
+  let leftLevel = 0;
+  let rightLevel = 0;
+  let phase = 0;
+
+  function updateLevel(current) {
+    if (!isOnAir) {
+      return 0;
+    }
+
+    const target = .25 + Math.random() * .70;
+
+    return current * .35 + target * .65;
+  }
+
+  function updatePeak(segments, level) {
+    const activeCount = Math.round(level * segments.length);
+
+    segments.forEach(function (segment, index) {
+      segment.classList.toggle(
+        "active",
+        index < activeCount
+      );
+    });
+  }
+
+  /* ANIMACIJA */
+
+  function animate() {
+    phase += .20;
+
+    leftLevel = updateLevel(leftLevel);
+    rightLevel = updateLevel(rightLevel);
+
+    const leftAngle = -45 + leftLevel * 90;
+    const rightAngle = -45 + rightLevel * 90;
+
+    vuLeft.setAttribute(
+      "transform",
+      "rotate(" + leftAngle + " 150 174)"
     );
 
-    const djName = (
-        params.get("dj") || ""
-    ).trim().slice(0, 80);
-
-    const isOnAir = djName.length > 0;
-
-    const display =
-        document.getElementById("display");
-
-    const djElement =
-        document.getElementById("dj-name");
-
-    const airElement =
-        document.getElementById("air");
-
-    djElement.textContent = isOnAir
-        ? djName
-        : "DJ OFFLINE";
-
-    airElement.textContent = isOnAir
-        ? "ON AIR"
-        : "OFF AIR";
-
-    airElement.classList.toggle(
-        "off",
-        !isOnAir
+    vuRight.setAttribute(
+      "transform",
+      "rotate(" + rightAngle + " 850 174)"
     );
 
-    function fitText(element, ratio) {
-        let size = display.clientWidth * ratio;
-        element.style.fontSize = size + "px";
+    updatePeak(peakLeft, leftLevel);
+    updatePeak(peakRight, rightLevel);
 
-        while (
-            element.scrollWidth > element.clientWidth &&
-            size > 10
-        ) {
-            size -= 1;
-            element.style.fontSize = size + "px";
+    spectrumColumns.forEach(function (leds, index) {
+      let activeRows = 0;
+
+      if (isOnAir) {
+        const middle = (spectrumCount - 1) / 2;
+        const distance = Math.abs(index - middle) / middle;
+        const centerShape = 1 - distance * .62;
+
+        const wave =
+          .56 +
+          .22 * Math.sin(phase + index * .43) +
+          .17 * Math.sin(phase * .71 - index * .35);
+
+        const variation = Math.random() * 15;
+
+        const height = Math.max(
+          5,
+          Math.min(
+            97,
+            centerShape * wave * 115 + variation
+          )
+        );
+
+        activeRows = Math.round(height / 100 * ledRows);
+      }
+
+      leds.forEach(function (led, row) {
+        if (row < activeRows) {
+          led.className =
+            "spectrum-led on " + led.dataset.color;
+        } else {
+          led.className = "spectrum-led off";
         }
-    }
+      });
+    });
+  }
 
-    function resizeText() {
-        fitText(airElement, .046);
-        fitText(djElement, .051);
-    }
+  animate();
+  setInterval(animate, 170);
 
-    window.addEventListener("resize", resizeText);
-    resizeText();
-
-    function createPeakMeter(elementId) {
-        const container =
-            document.getElementById(elementId);
-
-        const segments = [];
-
-        for (let i = 0; i < 17; i++) {
-            const segment = document.createElement("span");
-
-            let color = "green";
-
-            if (i >= 10 && i < 14) {
-                color = "yellow";
-            }
-
-            if (i >= 14) {
-                color = "red";
-            }
-
-            segment.className = "peak-segment " + color;
-            container.appendChild(segment);
-            segments.push(segment);
-        }
-
-        return segments;
-    }
-
-    const peakLeft = createPeakMeter("peak-left");
-    const peakRight = createPeakMeter("peak-right");
-
-    const spectrum = document.getElementById("spectrum");
-    const spectrumBars = [];
-    const spectrumCount = 36;
-
-    for (let i = 0; i < spectrumCount; i++) {
-        const bar = document.createElement("div");
-        bar.className = "spectrum-bar";
-        spectrum.appendChild(bar);
-        spectrumBars.push(bar);
-    }
-
-    const vuLeft = document.getElementById("vu-left");
-    const vuRight = document.getElementById("vu-right");
-
-    let leftLevel = 0;
-    let rightLevel = 0;
-    let phase = 0;
-
-    function updateLevel(current) {
-        if (!isOnAir) return 0;
-
-        const target = .25 + Math.random() * .70;
-
-        return current * .35 + target * .65;
-    }
-
-    function updatePeak(segments, level) {
-        const activeCount = Math.round(
-            level * segments.length
-        );
-
-        segments.forEach(function (segment, index) {
-            segment.classList.toggle(
-                "active",
-                index < activeCount
-            );
-        });
-    }
-
-    function animate() {
-        phase += .20;
-
-        leftLevel = updateLevel(leftLevel);
-        rightLevel = updateLevel(rightLevel);
-
-        const leftAngle = -45 + leftLevel * 90;
-        const rightAngle = -45 + rightLevel * 90;
-
-        vuLeft.setAttribute(
-            "transform",
-            "rotate(" + leftAngle + " 150 174)"
-        );
-
-        vuRight.setAttribute(
-            "transform",
-            "rotate(" + rightAngle + " 850 174)"
-        );
-
-        updatePeak(peakLeft, leftLevel);
-        updatePeak(peakRight, rightLevel);
-
-        spectrumBars.forEach(function (bar, index) {
-            if (!isOnAir) {
-                bar.style.height = "3%";
-                return;
-            }
-
-            const middle = (spectrumCount - 1) / 2;
-            const distance =
-                Math.abs(index - middle) / middle;
-            const centerShape = 1 - distance * .62;
-
-            const wave =
-                .56 +
-                .22 * Math.sin(phase + index * .43) +
-                .17 * Math.sin(
-                    phase * .71 - index * .35
-                );
-
-            const variation = Math.random() * 15;
-
-            const height = Math.max(
-                5,
-                Math.min(
-                    97,
-                    centerShape * wave * 115 + variation
-                )
-            );
-
-            bar.style.height = height + "%";
-        });
-    }
-
-    animate();
-    setInterval(animate, 170);
 })();
 </script>
+
 </body>
 </html>
