@@ -5,153 +5,143 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AmbYonS DJ DISPLAY</title>
-
 <style>
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#000;
 }
 
-html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #000;
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#display {
-    position: relative;
-    width: min(100vw, 300vh);
-    aspect-ratio: 3 / 1;
-    flex: none;
-    overflow: hidden;
-    background: #080606 url("./display-bg.png")
-        center / 100% 100% no-repeat;
-    font-family: Impact, "Arial Black", Arial, sans-serif;
+#display{
+    position:relative;
+    width:min(100vw,300vh);
+    aspect-ratio:3/1;
+    flex:none;
+    overflow:hidden;
+    background:#080606 url("./display-bg.png")
+        center/100% 100% no-repeat;
+    font-family:Impact,"Arial Black",Arial,sans-serif;
 }
 
 /* ON AIR / OFF AIR */
 
-#air {
-    position: absolute;
-    left: 35%;
-    top: 8%;
-    width: 30%;
-    height: 16%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    color: #fff1e8;
-    font-weight: 900;
-    letter-spacing: .03em;
+#air{
+    position:absolute;
+    left:35%;
+    top:8%;
+    width:30%;
+    height:16%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    white-space:nowrap;
+    color:#fff1e8;
+    font-weight:900;
+    letter-spacing:.03em;
     text-shadow:
         0 0 8px #ff2515,
         0 0 18px #b90000,
         2px 3px 2px #290000;
 }
 
-#air.off {
-    color: #9b8c86;
-    text-shadow: 2px 3px 3px #100808;
+#air.off{
+    color:#9b8c86;
+    text-shadow:2px 3px 3px #100808;
 }
 
 /* DJ IME */
 
-#dj-name {
-    position: absolute;
-    left: 30%;
-    top: 37%;
-    width: 40%;
-    height: 14%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    white-space: nowrap;
-    color: #eee7df;
-    font-weight: 900;
-    font-style: italic;
-    line-height: 1;
+#dj-name{
+    position:absolute;
+    left:30%;
+    top:37%;
+    width:40%;
+    height:14%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    white-space:nowrap;
+    color:#eee7df;
+    font-weight:900;
+    font-style:italic;
+    line-height:1;
     text-shadow:
         2px 2px 0 #503028,
         4px 4px 0 #100b09;
 }
 
-/* VU KAZALJKE */
+/* VU */
 
-#vu-overlay {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+#vu-overlay{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
 }
 
-.needle {
-    stroke: #ff3020;
-    stroke-width: 4;
-    stroke-linecap: round;
-    filter: drop-shadow(0 0 3px #ff2515);
+.needle{
+    stroke:#ff3020;
+    stroke-width:4;
+    stroke-linecap:round;
+    filter:drop-shadow(0 0 3px #ff2515);
 }
 
-.pivot {
-    fill: #34231c;
-    stroke: #a58a75;
-    stroke-width: 2;
+.pivot{
+    fill:#34231c;
+    stroke:#a58a75;
+    stroke-width:2;
 }
 
-/*
- PEAK METRI
- Pozicije prema crnim otvorima na slici.
-*/
+/* PEAK - KORIGOVANO PREMA POSLEDNJOJ SLICI */
 
-.peak-meter {
-    position: absolute;
-    top: 81.2%;
-    height: 9.8%;
-    display: flex;
-    align-items: stretch;
-    gap: .24%;
-    padding: .14%;
-    overflow: hidden;
-    background: #080b09;
-    border: 0;
-    border-radius: 1px;
+.peak-meter{
+    position:absolute;
+    top:80.8%;
+    height:10.3%;
+    display:flex;
+    align-items:stretch;
+    gap:.24%;
+    padding:.14%;
+    overflow:hidden;
+    background:#080b09;
+    border:0;
+    border-radius:1px;
     box-shadow:
         inset 0 3px 6px rgba(0,0,0,.85),
         inset 0 -3px 5px rgba(0,0,0,.8);
 }
 
-/* LEVI PEAK */
-
-#peak-left {
-    left: 3.55%;
-    width: 19.6%;
+#peak-left{
+    left:3.15%;
+    width:20.3%;
 }
 
-/* DESNI PEAK */
-
-#peak-right {
-    left: 76.49%;
-    width: 20.06%;
+#peak-right{
+    left:75.95%;
+    width:21%;
 }
 
 /* LED SEGMENTI */
 
-.peak-segment {
-    flex: 1;
-    min-width: 0;
-    height: 100%;
-    border-left: 1px solid #080a07;
-    border-right: 1px solid #080a07;
-    background: linear-gradient(
+.peak-segment{
+    flex:1;
+    min-width:0;
+    height:100%;
+    border-left:1px solid #080a07;
+    border-right:1px solid #080a07;
+    background:linear-gradient(
         to bottom,
         #070b08,
         #101711 30%,
@@ -163,8 +153,8 @@ body {
         inset 0 -3px 4px rgba(0,0,0,.5);
 }
 
-.peak-segment.active.green {
-    background: linear-gradient(
+.peak-segment.active.green{
+    background:linear-gradient(
         to bottom,
         #21471f 0%,
         #397f30 22%,
@@ -174,8 +164,8 @@ body {
     );
 }
 
-.peak-segment.active.yellow {
-    background: linear-gradient(
+.peak-segment.active.yellow{
+    background:linear-gradient(
         to bottom,
         #54431d 0%,
         #a58a2d 22%,
@@ -185,8 +175,8 @@ body {
     );
 }
 
-.peak-segment.active.red {
-    background: linear-gradient(
+.peak-segment.active.red{
+    background:linear-gradient(
         to bottom,
         #53241c 0%,
         #9d3928 22%,
@@ -198,12 +188,12 @@ body {
 
 /* ZAMAZANO STAKLO */
 
-.peak-meter::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
+.peak-meter::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:2;
+    pointer-events:none;
     background:
         radial-gradient(
             ellipse 20% 65% at 4% 8%,
@@ -242,14 +232,12 @@ body {
         );
 }
 
-/* OSTECENE IVICE STAKLA */
-
-.peak-meter::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    pointer-events: none;
+.peak-meter::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:3;
+    pointer-events:none;
     background:
         radial-gradient(
             circle at 0% 0%,
@@ -280,24 +268,24 @@ body {
 
 /* SPECTRUM */
 
-#spectrum {
-    position: absolute;
-    left: 28.5%;
-    top: 67%;
-    width: 43%;
-    height: 27.5%;
-    display: flex;
-    align-items: flex-end;
-    gap: .45%;
-    overflow: hidden;
-    background: #070908;
-    padding: .2%;
+#spectrum{
+    position:absolute;
+    left:28.5%;
+    top:67%;
+    width:43%;
+    height:27.5%;
+    display:flex;
+    align-items:flex-end;
+    gap:.45%;
+    overflow:hidden;
+    background:#070908;
+    padding:.2%;
 }
 
-.spectrum-bar {
-    flex: 1;
-    min-width: 0;
-    height: 3%;
+.spectrum-bar{
+    flex:1;
+    min-width:0;
+    height:3%;
     background:
         repeating-linear-gradient(
             to top,
@@ -312,15 +300,13 @@ body {
             #ff9916 75%,
             #f52416 100%
         );
-    transition: height .14s linear;
+    transition:height .14s linear;
 }
 </style>
 </head>
-
 <body>
 
 <div id="display">
-
     <div id="air" class="off">OFF AIR</div>
     <div id="dj-name">DJ OFFLINE</div>
 
@@ -328,7 +314,6 @@ body {
          viewBox="0 0 1000 333.333"
          preserveAspectRatio="none"
          aria-hidden="true">
-
         <g id="vu-left">
             <line class="needle"
                   x1="150" y1="174"
@@ -336,7 +321,6 @@ body {
             <circle class="pivot"
                     cx="150" cy="174" r="5"></circle>
         </g>
-
         <g id="vu-right">
             <line class="needle"
                   x1="850" y1="174"
@@ -348,13 +332,11 @@ body {
 
     <div id="peak-left" class="peak-meter"></div>
     <div id="peak-right" class="peak-meter"></div>
-
     <div id="spectrum"></div>
-
 </div>
 
 <script>
-(function () {
+(function(){
     "use strict";
 
     const params = new URLSearchParams(
@@ -363,7 +345,7 @@ body {
 
     const djName = (
         params.get("dj") || ""
-    ).trim().slice(0, 80);
+    ).trim().slice(0,80);
 
     const isOnAir = djName.length > 0;
 
@@ -372,47 +354,44 @@ body {
     const airElement = document.getElementById("air");
 
     djElement.textContent = isOnAir
-        ? djName
-        : "DJ OFFLINE";
+        ? djName : "DJ OFFLINE";
 
     airElement.textContent = isOnAir
-        ? "ON AIR"
-        : "OFF AIR";
+        ? "ON AIR" : "OFF AIR";
 
-    airElement.classList.toggle("off", !isOnAir);
+    airElement.classList.toggle("off",!isOnAir);
 
-    function fitText(element, ratio) {
+    function fitText(element,ratio){
         let size = display.clientWidth * ratio;
-
         element.style.fontSize = size + "px";
 
-        while (
+        while(
             element.scrollWidth > element.clientWidth &&
             size > 10
-        ) {
+        ){
             size -= 1;
             element.style.fontSize = size + "px";
         }
     }
 
-    function resizeText() {
-        fitText(airElement, .046);
-        fitText(djElement, .051);
+    function resizeText(){
+        fitText(airElement,.046);
+        fitText(djElement,.051);
     }
 
-    window.addEventListener("resize", resizeText);
+    window.addEventListener("resize",resizeText);
     resizeText();
 
-    function createPeakMeter(elementId) {
+    function createPeakMeter(elementId){
         const container = document.getElementById(elementId);
         const segments = [];
 
-        for (let i = 0; i < 18; i++) {
+        for(let i=0;i<18;i++){
             const segment = document.createElement("span");
             let color = "green";
 
-            if (i >= 10 && i < 14) color = "yellow";
-            if (i >= 14) color = "red";
+            if(i>=10 && i<14) color = "yellow";
+            if(i>=14) color = "red";
 
             segment.className = "peak-segment " + color;
             container.appendChild(segment);
@@ -429,7 +408,7 @@ body {
     const spectrumBars = [];
     const spectrumCount = 36;
 
-    for (let i = 0; i < spectrumCount; i++) {
+    for(let i=0;i<spectrumCount;i++){
         const bar = document.createElement("div");
         bar.className = "spectrum-bar";
         spectrum.appendChild(bar);
@@ -443,19 +422,19 @@ body {
     let rightLevel = 0;
     let phase = 0;
 
-    function updateLevel(current) {
-        if (!isOnAir) return 0;
+    function updateLevel(current){
+        if(!isOnAir) return 0;
 
         const target = .25 + Math.random() * .70;
         return current * .35 + target * .65;
     }
 
-    function updatePeak(segments, level) {
+    function updatePeak(segments,level){
         const activeCount = Math.round(
             level * segments.length
         );
 
-        segments.forEach(function (segment, index) {
+        segments.forEach(function(segment,index){
             segment.classList.toggle(
                 "active",
                 index < activeCount
@@ -463,7 +442,7 @@ body {
         });
     }
 
-    function animate() {
+    function animate(){
         phase += .20;
 
         leftLevel = updateLevel(leftLevel);
@@ -482,31 +461,31 @@ body {
             "rotate(" + rightAngle + " 850 174)"
         );
 
-        updatePeak(peakLeft, leftLevel);
-        updatePeak(peakRight, rightLevel);
+        updatePeak(peakLeft,leftLevel);
+        updatePeak(peakRight,rightLevel);
 
-        spectrumBars.forEach(function (bar, index) {
-            if (!isOnAir) {
+        spectrumBars.forEach(function(bar,index){
+            if(!isOnAir){
                 bar.style.height = "3%";
                 return;
             }
 
-            const middle = (spectrumCount - 1) / 2;
-            const distance = Math.abs(index - middle) / middle;
-            const centerShape = 1 - distance * .62;
+            const middle = (spectrumCount-1)/2;
+            const distance = Math.abs(index-middle)/middle;
+            const centerShape = 1-distance*.62;
 
             const wave =
                 .56 +
-                .22 * Math.sin(phase + index * .43) +
-                .17 * Math.sin(phase * .71 - index * .35);
+                .22*Math.sin(phase+index*.43) +
+                .17*Math.sin(phase*.71-index*.35);
 
-            const variation = Math.random() * 15;
+            const variation = Math.random()*15;
 
             const height = Math.max(
                 5,
                 Math.min(
                     97,
-                    centerShape * wave * 115 + variation
+                    centerShape*wave*115+variation
                 )
             );
 
@@ -515,9 +494,8 @@ body {
     }
 
     animate();
-    setInterval(animate, 170);
+    setInterval(animate,170);
 })();
 </script>
-
 </body>
 </html>
