@@ -5,12 +5,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AmbYonS DJ DISPLAY</title>
-
 <style>
 * {
     box-sizing: border-box;
 }
-
 html, body {
     margin: 0;
     width: 100%;
@@ -18,13 +16,11 @@ html, body {
     overflow: hidden;
     background: #000;
 }
-
 body {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 #display {
     position: relative;
     width: min(100vw, 300vh);
@@ -36,8 +32,7 @@ body {
     font-family: Impact, "Arial Black", Arial, sans-serif;
 }
 
-/* ON AIR / OFF AIR - BEZ IZMENA */
-
+/* ON AIR - NEPROMENJENO */
 #air {
     position: absolute;
     left: 35%;
@@ -50,14 +45,12 @@ body {
     white-space: nowrap;
     font-weight: 900;
     letter-spacing: .03em;
-
     color: #c7c2b7;
-
     background-image:
         repeating-linear-gradient(
             107deg,
             transparent 0 17px,
-            rgba(43, 29, 22, .28) 17.5px,
+            rgba(43,29,22,.28) 17.5px,
             transparent 18.5px
         ),
         linear-gradient(
@@ -70,23 +63,19 @@ body {
             #8b7664 82%,
             #d0c5b4 100%
         );
-
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: .35px #6b5545;
-
     filter:
         drop-shadow(0 0 5px #a51d13)
         drop-shadow(0 0 10px #7a160f);
 }
-
 #air.off {
     filter: drop-shadow(1px 2px 2px #100808);
 }
 
-/* DJ IME - BEZ IZMENA */
-
+/* DJ IME - NEPROMENJENO */
 #dj-name {
     position: absolute;
     left: 30%;
@@ -101,21 +90,19 @@ body {
     font-weight: 900;
     font-style: italic;
     line-height: 1;
-
     color: #c4bdb1;
-
     background-image:
         repeating-linear-gradient(
             113deg,
             transparent 0 13px,
-            rgba(37, 28, 23, .36) 13.5px,
+            rgba(37,28,23,.36) 13.5px,
             transparent 14.5px,
             transparent 31px
         ),
         repeating-linear-gradient(
             173deg,
             transparent 0 23px,
-            rgba(94, 53, 32, .22) 23.5px,
+            rgba(94,53,32,.22) 23.5px,
             transparent 25px
         ),
         linear-gradient(
@@ -130,17 +117,14 @@ body {
             #c6bbae 90%,
             #77716b 100%
         );
-
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: .45px #57483c;
-
     filter: drop-shadow(2px 3px 1px #120c09);
 }
 
-/* VU KAZALJKE - BEZ IZMENA */
-
+/* VU - NEPROMENJENO */
 #vu-overlay {
     position: absolute;
     inset: 0;
@@ -148,39 +132,33 @@ body {
     height: 100%;
     pointer-events: none;
 }
-
 .vu-needle-shadow {
-    stroke: rgba(0, 0, 0, .65);
+    stroke: rgba(0,0,0,.65);
     stroke-width: 3.4;
     stroke-linecap: round;
 }
-
 .vu-needle-metal {
     stroke: #69261e;
     stroke-width: 2.2;
     stroke-linecap: round;
 }
-
 .vu-needle-highlight {
     stroke: #c16b54;
     stroke-width: .65;
     stroke-linecap: round;
 }
-
 .vu-pivot-outer {
     fill: #201a18;
     stroke: #9b8271;
     stroke-width: 1.5;
 }
-
 .vu-pivot-inner {
     fill: #77665a;
     stroke: #302722;
     stroke-width: .7;
 }
 
-/* PEAK - 17 SEGMENATA - BEZ IZMENA */
-
+/* PEAK - NEPROMENJENO */
 .peak-meter {
     position: absolute;
     top: 81.2%;
@@ -195,17 +173,14 @@ body {
     border-radius: 0;
     box-shadow: none;
 }
-
 #peak-left {
     left: 3.55%;
     width: 19.55%;
 }
-
 #peak-right {
     left: 76.5%;
     width: 20.05%;
 }
-
 .peak-segment {
     flex: 1 1 0;
     min-width: 0;
@@ -213,7 +188,6 @@ body {
     margin-right: 2px;
     border-left: 1px solid rgba(0,0,0,.85);
     border-right: 1px solid rgba(0,0,0,.85);
-
     background: linear-gradient(
         to bottom,
         #080d09 0%,
@@ -221,16 +195,13 @@ body {
         #111913 70%,
         #060906 100%
     );
-
     box-shadow:
         inset 0 2px 4px rgba(0,0,0,.6),
         inset 0 -2px 4px rgba(0,0,0,.6);
 }
-
 .peak-segment:last-child {
     margin-right: 0;
 }
-
 .peak-segment.active.green {
     background: linear-gradient(
         to bottom,
@@ -241,7 +212,6 @@ body {
         #112b15 100%
     );
 }
-
 .peak-segment.active.yellow {
     background: linear-gradient(
         to bottom,
@@ -252,7 +222,6 @@ body {
         #362b17 100%
     );
 }
-
 .peak-segment.active.red {
     background: linear-gradient(
         to bottom,
@@ -263,16 +232,12 @@ body {
         #351612 100%
     );
 }
-
-/* ZAMAZANO PEAK STAKLO - BEZ IZMENA */
-
 .peak-meter::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 2;
     pointer-events: none;
-
     background:
         radial-gradient(
             ellipse 22% 75% at 6% 15%,
@@ -305,14 +270,12 @@ body {
             rgba(0,0,0,.38)
         );
 }
-
 .peak-meter::after {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 3;
     pointer-events: none;
-
     background:
         radial-gradient(
             ellipse 18% 50% at 0% 0%,
@@ -324,14 +287,12 @@ body {
             rgba(166,143,106,.15),
             transparent
         );
-
     box-shadow:
         inset 0 0 3px rgba(166,143,106,.2),
         inset 0 0 6px rgba(0,0,0,.45);
 }
 
-/* SPECTRUM - ISTA POZICIJA I ANIMACIJA */
-
+/* SPECTRUM - ISTA POZICIJA I ISTI STUBICI */
 #spectrum {
     position: absolute;
     left: 28.5%;
@@ -345,12 +306,10 @@ body {
     background: #070908;
     padding: .2%;
 }
-
 .spectrum-bar {
     flex: 1;
     min-width: 0;
     height: 3%;
-
     background:
         repeating-linear-gradient(
             to top,
@@ -365,137 +324,129 @@ body {
             #ff9916 75%,
             #f52416 100%
         );
-
     transition: height .14s linear;
 }
 
-/* JEDINA NOVA IZMENA:
-   ZAMAZANO I IZGREBANO STAKLO PREKO SPECTRUM-A */
-
+/* ISPRAVLJENO STAKLO SPEKTRA:
+   BEZ PRAVILNE MREZE I BEZ PUKOTINA */
 #spectrum::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 2;
     pointer-events: none;
-
     background:
         radial-gradient(
-            ellipse 28% 55% at 13% 19%,
-            rgba(143, 129, 105, .19),
-            transparent 95%
+            ellipse 17% 42% at 8% 18%,
+            rgba(146,125,92,.20) 0%,
+            rgba(108,91,69,.09) 52%,
+            transparent 100%
         ),
         radial-gradient(
-            ellipse 34% 65% at 83% 78%,
-            rgba(109, 91, 72, .20),
-            transparent 95%
+            ellipse 26% 37% at 76% 88%,
+            rgba(126,106,77,.17) 0%,
+            rgba(79,67,51,.07) 58%,
+            transparent 100%
         ),
         radial-gradient(
-            ellipse 22% 45% at 48% 35%,
-            rgba(164, 149, 123, .12),
-            transparent 95%
+            ellipse 11% 67% at 93% 33%,
+            rgba(117,102,80,.11),
+            transparent 100%
         ),
-        repeating-linear-gradient(
-            106deg,
-            transparent 0 21px,
-            rgba(201, 190, 167, .075) 21.4px,
-            transparent 22.2px,
-            transparent 47px
-        ),
-        repeating-linear-gradient(
-            172deg,
-            transparent 0 36px,
-            rgba(174, 159, 132, .06) 36.5px,
-            transparent 37.5px,
-            transparent 69px
+        radial-gradient(
+            ellipse 22% 18% at 34% 8%,
+            rgba(165,145,110,.12),
+            transparent 100%
         ),
         linear-gradient(
             to bottom,
-            rgba(73, 61, 47, .22),
-            transparent 28%,
-            rgba(47, 39, 31, .09) 61%,
-            rgba(16, 13, 10, .32)
+            rgba(37,30,22,.20) 0%,
+            transparent 24%,
+            transparent 76%,
+            rgba(30,24,18,.22) 100%
         );
+    box-shadow:
+        inset 0 0 9px rgba(103,79,52,.25),
+        inset 0 0 3px rgba(0,0,0,.40);
 }
 
+/* SAMO NEKOLIKO TANKIH OGREBOTINA */
 #spectrum::after {
     content: "";
     position: absolute;
     inset: 0;
     z-index: 3;
     pointer-events: none;
-
     background:
-        radial-gradient(
-            ellipse 42% 9% at 30% 12%,
-            rgba(198, 185, 157, .09),
-            transparent
+        linear-gradient(
+            168deg,
+            transparent 0%,
+            transparent 45.9%,
+            rgba(196,179,148,.12) 46%,
+            transparent 46.13%,
+            transparent 100%
+        ),
+        linear-gradient(
+            23deg,
+            transparent 0%,
+            transparent 69.9%,
+            rgba(181,161,127,.10) 70%,
+            transparent 70.12%,
+            transparent 100%
         ),
         radial-gradient(
-            ellipse 35% 8% at 71% 82%,
-            rgba(198, 185, 157, .07),
-            transparent
+            ellipse 29% 11% at 25% 9%,
+            rgba(193,177,146,.07),
+            transparent 100%
         );
-
-    box-shadow:
-        inset 0 0 5px rgba(139, 119, 89, .22),
-        inset 0 0 12px rgba(0, 0, 0, .38);
 }
 </style>
 </head>
 
 <body>
-
 <div id="display">
-
     <div id="air" class="off">OFF AIR</div>
     <div id="dj-name">DJ OFFLINE</div>
 
-    <svg
-        id="vu-overlay"
-        viewBox="0 0 1000 333.333"
-        preserveAspectRatio="none"
-        aria-hidden="true">
-
+    <svg id="vu-overlay"
+         viewBox="0 0 1000 333.333"
+         preserveAspectRatio="none"
+         aria-hidden="true">
         <g id="vu-left">
             <line class="vu-needle-shadow"
-                x1="151.2" y1="174"
-                x2="151.2" y2="90"/>
+                  x1="151.2" y1="174"
+                  x2="151.2" y2="90"/>
             <line class="vu-needle-metal"
-                x1="150" y1="174"
-                x2="150" y2="90"/>
+                  x1="150" y1="174"
+                  x2="150" y2="90"/>
             <line class="vu-needle-highlight"
-                x1="149.4" y1="171"
-                x2="149.4" y2="94"/>
+                  x1="149.4" y1="171"
+                  x2="149.4" y2="94"/>
             <circle class="vu-pivot-outer"
-                cx="150" cy="174" r="5"/>
+                    cx="150" cy="174" r="5"/>
             <circle class="vu-pivot-inner"
-                cx="150" cy="174" r="2.4"/>
+                    cx="150" cy="174" r="2.4"/>
         </g>
-
         <g id="vu-right">
             <line class="vu-needle-shadow"
-                x1="851.2" y1="174"
-                x2="851.2" y2="90"/>
+                  x1="851.2" y1="174"
+                  x2="851.2" y2="90"/>
             <line class="vu-needle-metal"
-                x1="850" y1="174"
-                x2="850" y2="90"/>
+                  x1="850" y1="174"
+                  x2="850" y2="90"/>
             <line class="vu-needle-highlight"
-                x1="849.4" y1="171"
-                x2="849.4" y2="94"/>
+                  x1="849.4" y1="171"
+                  x2="849.4" y2="94"/>
             <circle class="vu-pivot-outer"
-                cx="850" cy="174" r="5"/>
+                    cx="850" cy="174" r="5"/>
             <circle class="vu-pivot-inner"
-                cx="850" cy="174" r="2.4"/>
+                    cx="850" cy="174" r="2.4"/>
         </g>
-
     </svg>
 
     <div id="peak-left" class="peak-meter"></div>
     <div id="peak-right" class="peak-meter"></div>
-
     <div id="spectrum"></div>
-
 </div>
 
 <script>
@@ -505,42 +456,29 @@ body {
     const params = new URLSearchParams(
         window.location.search
     );
-
     const djName = (
         params.get("dj") || ""
     ).trim().slice(0, 80);
-
     const isOnAir = djName.length > 0;
 
     const display =
         document.getElementById("display");
-
     const djElement =
         document.getElementById("dj-name");
-
     const airElement =
         document.getElementById("air");
 
     djElement.textContent = isOnAir
         ? djName
         : "DJ OFFLINE";
-
     airElement.textContent = isOnAir
         ? "ON AIR"
         : "OFF AIR";
-
-    airElement.classList.toggle(
-        "off",
-        !isOnAir
-    );
-
-    /* TEKST */
+    airElement.classList.toggle("off", !isOnAir);
 
     function fitText(element, ratio) {
         let size = display.clientWidth * ratio;
-
         element.style.fontSize = size + "px";
-
         while (
             element.scrollWidth > element.clientWidth &&
             size > 10
@@ -554,99 +492,57 @@ body {
         fitText(airElement, .046);
         fitText(djElement, .051);
     }
-
-    window.addEventListener(
-        "resize",
-        resizeText
-    );
-
+    window.addEventListener("resize", resizeText);
     resizeText();
-
-    /* PEAK - 17 SEGMENATA */
 
     function createPeakMeter(elementId) {
         const container =
             document.getElementById(elementId);
-
         const segments = [];
 
         for (let i = 0; i < 17; i++) {
-            const segment =
-                document.createElement("span");
-
+            const segment = document.createElement("span");
             let color = "green";
-
-            if (i >= 10 && i < 14) {
-                color = "yellow";
-            }
-
-            if (i >= 14) {
-                color = "red";
-            }
-
-            segment.className =
-                "peak-segment " + color;
-
+            if (i >= 10 && i < 14) color = "yellow";
+            if (i >= 14) color = "red";
+            segment.className = "peak-segment " + color;
             container.appendChild(segment);
             segments.push(segment);
         }
-
         return segments;
     }
 
-    const peakLeft =
-        createPeakMeter("peak-left");
+    const peakLeft = createPeakMeter("peak-left");
+    const peakRight = createPeakMeter("peak-right");
 
-    const peakRight =
-        createPeakMeter("peak-right");
-
-    /* SPECTRUM */
-
-    const spectrum =
-        document.getElementById("spectrum");
-
+    const spectrum = document.getElementById("spectrum");
     const spectrumBars = [];
     const spectrumCount = 36;
 
     for (let i = 0; i < spectrumCount; i++) {
-        const bar =
-            document.createElement("div");
-
+        const bar = document.createElement("div");
         bar.className = "spectrum-bar";
-
         spectrum.appendChild(bar);
         spectrumBars.push(bar);
     }
 
-    /* VU */
-
-    const vuLeft =
-        document.getElementById("vu-left");
-
-    const vuRight =
-        document.getElementById("vu-right");
+    const vuLeft = document.getElementById("vu-left");
+    const vuRight = document.getElementById("vu-right");
 
     let leftLevel = 0;
     let rightLevel = 0;
     let phase = 0;
 
     function updateLevel(current) {
-        if (!isOnAir) {
-            return 0;
-        }
-
-        const target =
-            .25 + Math.random() * .70;
-
-        return current * .35 +
-               target * .65;
+        if (!isOnAir) return 0;
+        const target = .25 + Math.random() * .70;
+        return current * .35 + target * .65;
     }
 
     function updatePeak(segments, level) {
         const activeCount = Math.round(
             level * segments.length
         );
-
         segments.forEach(function (segment, index) {
             segment.classList.toggle(
                 "active",
@@ -655,25 +551,18 @@ body {
         });
     }
 
-    /* ANIMACIJA */
-
     function animate() {
         phase += .20;
-
         leftLevel = updateLevel(leftLevel);
         rightLevel = updateLevel(rightLevel);
 
-        const leftAngle =
-            -45 + leftLevel * 90;
-
-        const rightAngle =
-            -45 + rightLevel * 90;
+        const leftAngle = -45 + leftLevel * 90;
+        const rightAngle = -45 + rightLevel * 90;
 
         vuLeft.setAttribute(
             "transform",
             "rotate(" + leftAngle + " 150 174)"
         );
-
         vuRight.setAttribute(
             "transform",
             "rotate(" + rightAngle + " 850 174)"
@@ -687,26 +576,15 @@ body {
                 bar.style.height = "3%";
                 return;
             }
-
-            const middle =
-                (spectrumCount - 1) / 2;
-
+            const middle = (spectrumCount - 1) / 2;
             const distance =
                 Math.abs(index - middle) / middle;
-
-            const centerShape =
-                1 - distance * .62;
-
+            const centerShape = 1 - distance * .62;
             const wave =
                 .56 +
                 .22 * Math.sin(phase + index * .43) +
-                .17 * Math.sin(
-                    phase * .71 - index * .35
-                );
-
-            const variation =
-                Math.random() * 15;
-
+                .17 * Math.sin(phase * .71 - index * .35);
+            const variation = Math.random() * 15;
             const height = Math.max(
                 5,
                 Math.min(
@@ -714,16 +592,13 @@ body {
                     centerShape * wave * 115 + variation
                 )
             );
-
             bar.style.height = height + "%";
         });
     }
 
     animate();
     setInterval(animate, 170);
-
 })();
 </script>
-
 </body>
 </html>
